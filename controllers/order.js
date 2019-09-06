@@ -45,7 +45,7 @@ module.exports.getAll = async function ( req, res ) {
 
 module.exports.create = async function ( req, res ) {
   try {
-    const lastOrder await Order.findOne( {
+    const lastOrder = await Order.findOne( {
       user: req.user.id
     } ).sort( {
       date: -1

@@ -45,7 +45,7 @@ module.exports.create = async function ( req, res ) {
     imageSrc: req.file ? req.file.path : ''
   } )
   try {
-    await.category.save( )
+    await category.save( )
     res.status( 201 ).json( category )
   } catch ( e ) {
     errorHandler( res, e )
