@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
+import { AuthService } from '../shared/services/auth.service';
 
 @Component({
   selector: 'app-login-page',
@@ -10,17 +11,24 @@ export class LoginPageComponent implements OnInit {
 
   form: FormGroup
 
-  constructor() { }
+  constructor(private auth: AuthService) { }
 
   ngOnInit() {
-    this.form = new FormGroup(control: {
-      email: new FormControl(formState: null, validatorOr: [Validators.required, Validators.email]),
-      password: new FormControl(formState: null, validatorOrOpts: [Validators.required, Validators.minLength(minLength: 6)])
+    this.form = new FormGroup({
+      email: new FormControl(null, [Validators.required, Validators.email]),
+      password: new FormControl(null, [Validators.required, Validators.minLength(6)])
     })
   }
 
+
   onSubmit() {
 
+    this.auth.login(this.form.value).subscribe(
+      () => console.log('login seccess'),
+      error => {
+        console.warn(error)
+      }
+    )
   }
 
 }
