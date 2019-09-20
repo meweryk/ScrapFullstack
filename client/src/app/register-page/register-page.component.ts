@@ -45,7 +45,7 @@ export class RegisterPageComponent implements OnInit, OnDestroy {
         })
       },
       error => {
-        console.warn(error)
+        MaterialService.toast(error.error.message)
         this.form.enable()
       }
     )
