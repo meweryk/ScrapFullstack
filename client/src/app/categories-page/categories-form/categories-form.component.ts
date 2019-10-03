@@ -47,7 +47,7 @@ export class CategoriesFormComponent implements OnInit {
         )
       )
       .subscribe(
-        (category: Category) => {
+        category => {
           if (category) {
             this.category = category
             this.form.patchValue({
@@ -74,7 +74,7 @@ export class CategoriesFormComponent implements OnInit {
     const reader = new FileReader()
 
     reader.onload = () => {
-      this.imagePreview = reader.result
+      this.imagePreview = 'reader.result'
     }
 
     reader.readAsDataURL(file)
