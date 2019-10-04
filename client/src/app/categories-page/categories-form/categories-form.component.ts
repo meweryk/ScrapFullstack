@@ -47,7 +47,7 @@ export class CategoriesFormComponent implements OnInit {
         )
       )
       .subscribe(
-        category => {
+        (category: Category) => {
           if (category) {
             this.category = category
             this.form.patchValue({
@@ -67,6 +67,19 @@ export class CategoriesFormComponent implements OnInit {
     this.innputRef.nativeElement.click()
   }
 
+  deleteCategory() {
+    const desision = window.confirm(`Вы уверены, что хотите удалить категорию "${this.category.name}"`)
+
+    if (desision) {
+      this.categoriesService.delete(this.category._id)
+        .subscribe(
+          response => MaterialService.toast(response.message),
+          error => MaterialService.toast(error.error.message),
+          () => this.router.navigate(['/categories'])
+        )
+    }
+  }
+
   onFileUpload(event: any) {
     const file = event.target.files[0]
     this.image = file
@@ -74,7 +87,7 @@ export class CategoriesFormComponent implements OnInit {
     const reader = new FileReader()
 
     reader.onload = () => {
-      this.imagePreview = 'reader.result'
+      this.imagePreview = reader.result as string
     }
 
     reader.readAsDataURL(file)
@@ -86,18 +99,24 @@ export class CategoriesFormComponent implements OnInit {
     this.form.disable()
 
     if (this.isNew) {
+      //create
       obs$ = this.categoriesService.create(this.form.value.name, this.image)
     } else {
+      //update
       obs$ = this.categoriesService.update(this.category._id, this.form.value.name, this.image)
     }
 
     obs$.subscribe(
-      category => {
+      (category: Category) => {
         this.category = category
-        MaterialService.toast('Изменения сохранены')
+        MaterialService.toast('Изменения сохранены.')
         this.form.enable()
       },
-      error => {
+      (error: {
+        error: {
+          message: string;
+        };
+      }) => {
         MaterialService.toast(error.error.message)
         this.form.enable()
       }
