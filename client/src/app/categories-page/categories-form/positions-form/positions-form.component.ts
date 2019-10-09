@@ -3,6 +3,7 @@ import { PositionsService } from 'src/app/shared/services/positions.service';
 import { Position } from 'src/app/shared/interfaces';
 import { MaterialService, MaterialInstance } from 'src/app/shared/classes/material.service';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
+import { findIndex } from 'rxjs/operators';
 
 @Component({
   selector: 'app-positions-form',
@@ -15,6 +16,7 @@ export class PositionsFormComponent implements OnInit, AfterViewInit, OnDestroy 
 
   positions: Position[] = []
   loading = false
+  positionId = null
   modal: MaterialInstance
   form: FormGroup
 
@@ -41,14 +43,36 @@ export class PositionsFormComponent implements OnInit, AfterViewInit, OnDestroy 
   }
 
   onSelectPosition(position: Position) {
+    this.positionId = position._id
+    this.form.patchValue({
+      name: position.name,
+      cost: position.cost
+    })
     this.modal.open()
+    MaterialService.updateTextInputs()
   }
 
   onAddPosition() {
+    this.positionId = null
+    this.form.reset({ name: null, cost: 1 })
     this.modal.open()
+    MaterialService.updateTextInputs()
   }
-  onDeletePosition(position: Position) {
 
+  onDeletePosition(event: Event, position: Position) {
+    event.stopPropagation()
+    const decision = window.confirm(`Удалить позицию "${position.name}"?`)
+
+    if (decision) {
+      this.positionsService.delete(position).subscribe(
+        response => {
+          const idx = this.positions.findIndex(p => p._id === position._id)
+          this.positions.splice(idx, 1)
+          MaterialService.toast(response.message)
+        },
+        error => MaterialService.toast(error.error.message)
+      )
+    }
   }
 
   onCancel() {
@@ -63,18 +87,34 @@ export class PositionsFormComponent implements OnInit, AfterViewInit, OnDestroy 
       cost: this.form.value.cost,
       category: this.categoryId
     }
-    this.positionsService.create(newPosition).subscribe(
-      position => {
-        MaterialService.toast('Позиция создана')
-        this.positions.push(position)
-      },
-      error => MaterialService.toast(error.error.message),
-      () => {
-        this.modal.close()
-        this.form.reset({ name: '', cost: 1 })
-        this.form.enable()
-      }
-    )
+
+    const completed = () => {
+      this.modal.close()
+      this.form.reset({ name: '', cost: 1 })
+      this.form.enable()
+    }
+
+    if (this.positionId) {
+      newPosition._id = this.positionId
+      this.positionsService.update(newPosition).subscribe(
+        position => {
+          const idx = this.positions.findIndex(p => p._id === position._id)
+          this.positions[idx] = position
+          MaterialService.toast('Изменения сохранены')
+        },
+        error => MaterialService.toast(error.error.message),
+        completed
+      )
+    } else {
+      this.positionsService.create(newPosition).subscribe(
+        position => {
+          MaterialService.toast('Позиция создана')
+          this.positions.push(position)
+        },
+        error => MaterialService.toast(error.error.message),
+        completed
+      )
+    }
   }
 
 }
