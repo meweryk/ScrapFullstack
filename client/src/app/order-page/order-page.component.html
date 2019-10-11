@@ -40,8 +40,9 @@
         </div>
     </div>
     <div class="modal-footer">
-        <button (click)="cencel()" class="modal-action waves-effect waves-black btn-flat">Отмена</button>
+        <button (click)="cencel()" class="modal-action waves-effect waves-black btn-flat"
+            [disabled]="pending">Отмена</button>
         <button (click)="submit()" class="modal-action btn waves-effect"
-            [disabled]="order.list.length === 0">Подтвердить</button>
+            [disabled]="order.list.length === 0 || pending">Подтвердить</button>
     </div>
 </div>
