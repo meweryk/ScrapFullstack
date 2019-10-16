@@ -1,3 +1,8 @@
+node_modules
+config/keys.dev.js
+
+
+
 # Logs
 logs
 *.log
@@ -40,9 +45,6 @@ build/Release
 # Dependency directories
 node_modules/
 jspm_packages/
-
-# Keys files
-config/keys.dev.js
 
 # Angular cache directory
 

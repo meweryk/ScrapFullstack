@@ -35,7 +35,7 @@ app.use('/api/order', orderRoutes)
 app.use('/api/position', positionRoutes)
 
 //добавляется после production build (npm run build)
-if (process.env.NODE === 'production') {
+if (process.env.NODE_ENV === 'production') {
   app.use(express.static('client/dist/client'))
 
   app.get('*', (req, res) => {
