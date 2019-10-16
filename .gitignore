@@ -41,6 +41,11 @@ build/Release
 node_modules/
 jspm_packages/
 
+# Keys files
+config/keys.dev.js
+
+# Angular cache directory
+
 # TypeScript v1 declaration files
 typings/
 
@@ -86,3 +91,5 @@ typings/
 
 # DynamoDB Local files
 .dynamodb/
+
+
