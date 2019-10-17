@@ -4,5 +4,6 @@ config/keys.dev.js
 npm-debug.log
 .DS_Store
 /*.env
+.vscode
 
 
