@@ -19,6 +19,7 @@ export class OrderPageComponent implements OnInit, OnDestroy, AfterViewInit {
   modal: MaterialInstance
   oSub: Subscription
   pending = false
+  allPosition: any
 
   constructor(private router: Router,
     private order: OrderService,
@@ -31,6 +32,8 @@ export class OrderPageComponent implements OnInit, OnDestroy, AfterViewInit {
         this.isRoot = this.router.url === '/order'
       }
     })
+    this.allPosition = this.order
+
   }
 
   ngOnDestroy() {
