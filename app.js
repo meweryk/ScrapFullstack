@@ -12,10 +12,7 @@ const keys = require('./config/keys')
 const app = express()
 
 mongoose.connect(keys.mongoURI, {
-  reconnectTries: 100,
-  reconnectInterval: 500,
   //useNewUrlParser: true
-  autoReconnect: true
 })
   .then(() => console.log('MongoDB connected.'))
   .catch(error => console.log(error))
