@@ -1,5 +1,23 @@
+<div class="navbar-fixed">
+    <nav>
+        <div class="nav-wrapper grey darken-1">
+            <a routerLink="/" class="brand-logo">Newborn</a>
+            <ul id="nav-mobile" class="right hide-on-med-and-down">
+                <li>
+                    <a href="#"><i class="material-icons left disabled">person</i>User</a>
+                </li>
+                <li>
+                    <a href="#" class="waves-effect waves-orange" (click)="logout($event)">
+                        <i class="material-icons">exit_to_app</i>
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </nav>
+</div>
+
 <!--SIDEBAR-->
-<ul class="sidenav sidenav-fixed a-sidenav cyan lighten-2">
+<ul class="sidenav sidenav-fixed a-sidenav z-depth-3">
     <h4>Newborn</h4>
     <li class="bold" routerLinkActive="active" *ngFor="let link of links">
         <a [routerLink]="[link.url]" class="waves-effect waves-orange">
@@ -7,7 +25,7 @@
         </a>
     </li>
 
-    <li class="bold last"><a href="#" class="waves-effect waves-orange" (click)="logout($event)">Выйти</a></li>
+    <!--<li class="bold last"><a href="#" class="waves-effect waves-orange" (click)="logout($event)">Выйти</a></li>-->
 </ul>
 
 <main class="content">
