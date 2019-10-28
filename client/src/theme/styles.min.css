@@ -20,11 +20,6 @@ body {
   width: 100%
 }
 
-main,
-footer {
-  margin-left: 250px
-}
-
 .content {
   padding: 0 20px
 }

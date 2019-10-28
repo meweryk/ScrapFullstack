@@ -1,4 +1,5 @@
-import { Component, AfterViewInit, ElementRef, ViewChild } from '@angular/core';
+import { Component, AfterViewInit, ElementRef, ViewChild, ChangeDetectorRef, OnDestroy } from '@angular/core';
+import { MediaMatcher } from '@angular/cdk/layout'
 import { AuthService } from '../../services/auth.service';
 import { Router } from '@angular/router';
 import { MaterialService } from '../../classes/material.service';
@@ -8,9 +9,10 @@ import { MaterialService } from '../../classes/material.service';
   templateUrl: './site-layout.component.html',
   styleUrls: ['./site-layout.component.css']
 })
-export class SiteLayoutComponent implements AfterViewInit {
+export class SiteLayoutComponent implements AfterViewInit, OnDestroy {
 
   @ViewChild('floating', { static: false }) floatingRef: ElementRef
+  mobileQuery: MediaQueryList
 
   links = [
     { url: '/overview', name: 'Обзор' },
@@ -20,7 +22,16 @@ export class SiteLayoutComponent implements AfterViewInit {
     { url: '/categories', name: 'Ассортимент' }
   ]
 
-  constructor(private auth: AuthService, private router: Router) { }
+  private _mobileQueryListener: () => void
+
+  constructor(private auth: AuthService,
+    private router: Router,
+    changeDetectorRef: ChangeDetectorRef,
+    media: MediaMatcher) {
+    this.mobileQuery = media.matchMedia('(max-width: 600px)')
+    this._mobileQueryListener = () => changeDetectorRef.detectChanges()
+    this.mobileQuery.addListener(this._mobileQueryListener)
+  }
 
   ngAfterViewInit() {
     MaterialService.initializeFloatingButton(this.floatingRef)
@@ -30,6 +41,10 @@ export class SiteLayoutComponent implements AfterViewInit {
     event.preventDefault() //убрали перезагрузку страницы
     this.auth.logout()
     this.router.navigate(['/login'])
+  }
+
+  ngOnDestroy(): void {
+    this.mobileQuery.removeListener(this._mobileQueryListener)
   }
 
 }

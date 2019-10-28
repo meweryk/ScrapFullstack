@@ -1,2 +1,11 @@
 @import "~materialize-css/dist/css/materialize.min.css";
 @import "./theme/styles.min.css";
+
+html,
+body {
+  height: 100%;
+}
+
+body {
+  font-family: Roboto, "Helvetica Neue", sans-serif;
+}

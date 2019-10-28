@@ -1,10 +1,41 @@
-<div class="navbar-fixed">
+<div class="example-container" [class.example-is-mobile]="mobileQuery.matches">
+    <mat-toolbar class="example-toolbar nav-wrapper grey darken-1">
+            <button mat-icon-button (click)="snav.toggle()" ><mat-icon>menu</mat-icon></button>
+        <h4 class="brand-logo">Newborn</h4>        
+    </mat-toolbar>
+    
+    <mat-sidenav-container class="example-sidenav-container" [style.marginTop.px]="mobileQuery.matches ? 56 : 0">
+        <mat-sidenav class="sidenav a-sidenav z-depth-3" #snav [mode]="mobileQuery.matches ? 'over' : 'side'" [fixedInViewport]="mobileQuery.matches" fixedTopGap="56" role="navigation">
+            <mat-nav-list >
+                    <ul class="">
+                            <li class="bold" routerLinkActive="active" *ngFor="let link of links">
+                                <a [routerLink]="[link.url]" class="waves-effect waves-orange">
+                                    {{link.name}}
+                                </a>
+                            </li>
+                            <!--<li class="bold last"><a href="#" class="waves-effect waves-orange" (click)="logout($event)">Выйти</a></li>-->
+                    </ul>
+            </mat-nav-list>
+        </mat-sidenav>
+          
+        <mat-sidenav-content role="main">
+            <main class="content">
+                <router-outlet></router-outlet>
+            </main>
+        </mat-sidenav-content>
+    </mat-sidenav-container>
+</div>
+      
+<a id="menu" class="waves-effect waves-light btn btn-floating"><i class="material-icons">info</i></a>
+      
+<!--<div class="navbar-fixed">
     <nav>
-        <div class="nav-wrapper grey darken-1">
-            <a routerLink="/" class="brand-logo">Newborn</a>
-            <ul id="nav-mobile" class="right hide-on-med-and-down">
+        <div >
+            <a href="#" data-target="slide-out" class="sidenav-trigger"><i class="material-icons">menu</i></a>
+            <a class="brand-logo">Newborn</a>
+            <ul class="right">
                 <li>
-                    <a href="#"><i class="material-icons left disabled">person</i>User</a>
+                    <a class="disabled"><i class="material-icons left ">person</i>User</a>
                 </li>
                 <li>
                     <a href="#" class="waves-effect waves-orange" (click)="logout($event)">
@@ -14,23 +45,24 @@
             </ul>
         </div>
     </nav>
-</div>
+</div>-->
+
+
+
 
 <!--SIDEBAR-->
-<ul class="sidenav sidenav-fixed a-sidenav z-depth-3">
+<!--<ul class="sidenav sidenav-fixed a-sidenav z-depth-3 show-on-large">
     <h4>Newborn</h4>
     <li class="bold" routerLinkActive="active" *ngFor="let link of links">
         <a [routerLink]="[link.url]" class="waves-effect waves-orange">
             {{link.name}}
         </a>
     </li>
+    <li><a class="sidenav-close" href="#!">Clicking this will close Sidenav</a></li>
+    <li class="bold last"><a href="#" class="waves-effect waves-orange" (click)="logout($event)">Выйти</a></li>-->
+<!--</ul>-->
 
-    <!--<li class="bold last"><a href="#" class="waves-effect waves-orange" (click)="logout($event)">Выйти</a></li>-->
-</ul>
 
-<main class="content">
-    <router-outlet></router-outlet>
-</main>
 
 <!--Floating button-->
 <div class="fixed-action-btn" #floating>
@@ -51,4 +83,3 @@
     </ul>
 </div>
 
-<a id="menu" class="waves-effect waves-light btn btn-floating"><i class="material-icons">info</i></a>
