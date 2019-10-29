@@ -1,8 +1,7 @@
-import { Component, AfterViewInit, ElementRef, ViewChild, ChangeDetectorRef, OnDestroy } from '@angular/core';
-import { MediaMatcher } from '@angular/cdk/layout'
+import { Component, AfterViewInit, ElementRef, ViewChild, OnDestroy } from '@angular/core';
 import { AuthService } from '../../services/auth.service';
 import { Router } from '@angular/router';
-import { MaterialService } from '../../classes/material.service';
+import { MaterialService, MaterialInstance } from '../../classes/material.service';
 
 @Component({
   selector: 'app-site-layout',
@@ -12,7 +11,8 @@ import { MaterialService } from '../../classes/material.service';
 export class SiteLayoutComponent implements AfterViewInit, OnDestroy {
 
   @ViewChild('floating', { static: false }) floatingRef: ElementRef
-  mobileQuery: MediaQueryList
+  @ViewChild('sidenav', { static: false }) sidenavRef: ElementRef
+  sidenav: MaterialInstance
 
   links = [
     { url: '/overview', name: 'Обзор' },
@@ -22,19 +22,13 @@ export class SiteLayoutComponent implements AfterViewInit, OnDestroy {
     { url: '/categories', name: 'Ассортимент' }
   ]
 
-  private _mobileQueryListener: () => void
-
   constructor(private auth: AuthService,
-    private router: Router,
-    changeDetectorRef: ChangeDetectorRef,
-    media: MediaMatcher) {
-    this.mobileQuery = media.matchMedia('(max-width: 600px)')
-    this._mobileQueryListener = () => changeDetectorRef.detectChanges()
-    this.mobileQuery.addListener(this._mobileQueryListener)
+    private router: Router) {
   }
 
-  ngAfterViewInit() {
+  ngAfterViewInit(): void {
     MaterialService.initializeFloatingButton(this.floatingRef)
+    this.sidenav = MaterialService.initSidenav(this.sidenavRef)
   }
 
   logout(event: Event) {
@@ -43,8 +37,13 @@ export class SiteLayoutComponent implements AfterViewInit, OnDestroy {
     this.router.navigate(['/login'])
   }
 
-  ngOnDestroy(): void {
-    this.mobileQuery.removeListener(this._mobileQueryListener)
+  ngOnDestroy() {
+    this.sidenav.destroy()
   }
+
+  openSidenav() {
+    this.sidenav.open()
+  }
+
 
 }
