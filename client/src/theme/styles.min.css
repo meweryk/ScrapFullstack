@@ -3,7 +3,7 @@ body {
 }
 
 .a-sidenav {
-  transform: translateX(0) !important;
+  transform: translateX(1) !important;
   width: 250px !important;
   background-color: #b2ebf2
 }
@@ -18,6 +18,19 @@ body {
   position: absolute;
   bottom: 62px;
   width: 100%
+}
+
+main,
+footer {
+  margin-left: 250px
+}
+
+@media only screen and (max-width : 992px) {
+
+  main,
+  footer {
+    margin-left: 0;
+  }
 }
 
 .content {
