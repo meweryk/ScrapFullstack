@@ -44,4 +44,8 @@ export class MaterialService {
     static initTapTarget(ref: ElementRef): MaterialInstance {
         return M.TapTarget.init(ref.nativeElement)
     }
+
+    static initSidenav(ref: ElementRef): MaterialInstance {
+        return M.Sidenav.init(ref.nativeElement)
+    }
 }
