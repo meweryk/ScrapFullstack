@@ -1,11 +1,21 @@
-<!--SIDEBAR BTN OPEN-->
-<a data-target="mobil" class="sidenav-trigger show-on-large" (click)="openSidenav()">
-    <i class="material-icons">menu</i>
-</a>
+<div class="">
+    <a id="menu" class="waves-effect waves-light btn btn-floating"><i class="material-icons">info</i></a>
+</div>
 
 <!--SIDEBAR-->
+<div class="navbar-fixed">
+    <nav>
+        <div class="nav-wrapper grey darken-1">
+            <a href="#sidenav" data-target="mobil" class="sidenav-trigger show-on-large " (click)="openSidenav()">
+                <i class="large material-icons">menu</i>
+            </a>
+        </div>
+    </nav>
+</div>
+
+<!--SIDENAV-->
 <ul class="sidenav a-sidenav sidenav-fixed z-depth-3" id="mobile" #sidenav>
-    <h4>Newborn</h4>
+    <h4>MW</h4>
 
     <li class="bold" routerLinkActive="active" *ngFor="let link of links">
         <a [routerLink]="[link.url]" class="waves-effect waves-orange">
@@ -38,5 +48,3 @@
         </li>
     </ul>
 </div>
-
-<a id="menu" class="waves-effect waves-light btn btn-floating"><i class="material-icons">info</i></a>
