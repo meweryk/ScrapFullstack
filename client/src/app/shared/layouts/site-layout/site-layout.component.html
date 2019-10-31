@@ -5,8 +5,8 @@
 <!--SIDEBAR-->
 <div class="navbar-fixed">
     <nav>
-        <div class="nav-wrapper grey darken-1">
-            <a data-target="mobil" class="sidenav-trigger show-on-large " (click)="openSidenav()">
+        <div class="nav-wrapper deep-orange lighten-3 z-depth-2">
+            <a data-target="mobil" class="sidenav-trigger show-on-large pointer" (click)="openSidenav()">
                 <i class="large material-icons">menu</i>
             </a>
             <ul id="nav-mobile" class="left">
@@ -23,7 +23,20 @@
 
 <!--SIDENAV-->
 <ul class="sidenav a-sidenav sidenav-fixed z-depth-3" id="mobil" #sidenav>
-    <h4>MW</h4>
+
+    <li>
+        <div class="card">
+            <div class="card-image">
+                <img src="/uploads/plant_dss.jpg">
+                <span class="card-title">login</span>
+            </div>
+
+        </div>
+    </li>
+    <h4 class="valign-wrapper"><img class="circle" src="/uploads/logo-dneprospecstal.jpg"> DSS</h4>
+
+    <div class="divider pure-text"></div>
+
 
     <li class="bold" routerLinkActive="active" *ngFor="let link of links">
         <a [routerLink]="[link.url]" class="waves-effect waves-orange">

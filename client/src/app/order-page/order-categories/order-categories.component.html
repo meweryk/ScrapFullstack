@@ -6,14 +6,13 @@
                 <img [src]="category.imageSrc" class="responsive-img order-img">
             </div>
             <div class="card-content center p10">
-                <h5 class="m0">{{category.name}}</h5>
+                <h5 class="truncate m0">{{category.name}}</h5>
             </div>
         </div>
     </div>
     <ng-template #empty>
         <div class="center">Категорий пока нет.</div>
     </ng-template>
-
 </div>
 
 <ng-template #loader>

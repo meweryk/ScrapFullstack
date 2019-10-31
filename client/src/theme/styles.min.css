@@ -1,17 +1,17 @@
 body {
-  background-color: #ffe082;
+  background-color: #fff3e0;
 }
 
 .a-sidenav {
   transform: translateX(1) !important;
   width: 250px !important;
-  background-color: #b2ebf2
+  background-color: #b39ddb
 }
 
 .a-sidenav h4 {
   padding: 0 30px;
   opacity: .8;
-  font-size: 2rem
+  font-size: 1.5rem
 }
 
 .a-sidenav .bold.last {
