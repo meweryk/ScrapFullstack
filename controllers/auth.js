@@ -5,8 +5,8 @@ const keys = require('../config/keys')
 const errorHandler = require('../utils/errorHandler')
 
 
-module.exports.login = async function(req, res) {
-  const candidate = await User.findOne({email: req.body.email})
+module.exports.login = async function (req, res) {
+  const candidate = await User.findOne({ email: req.body.email })
 
   if (candidate) {
     // Проверка пароля, пользователь существует
@@ -16,7 +16,7 @@ module.exports.login = async function(req, res) {
       const token = jwt.sign({
         email: candidate.email,
         userId: candidate._id
-      }, keys.jwt, {expiresIn: 60 * 60})
+      }, keys.jwt, { expiresIn: 60 * 60 })
 
       res.status(200).json({
         token: `Bearer ${token}`
@@ -36,9 +36,9 @@ module.exports.login = async function(req, res) {
 }
 
 
-module.exports.register = async function(req, res) {
+module.exports.register = async function (req, res) {
   // email password
-  const candidate = await User.findOne({email: req.body.email})
+  const candidate = await User.findOne({ email: req.body.email })
 
   if (candidate) {
     // Пользователь существует, нужно отправить ошибку
@@ -51,15 +51,30 @@ module.exports.register = async function(req, res) {
     const password = req.body.password
     const user = new User({
       email: req.body.email,
-      password: bcrypt.hashSync(password, salt)
+      password: bcrypt.hashSync(password, salt),
+      nicname: req.body.nicname,
+      shop: req.body.shop
     })
 
     try {
       await user.save()
       res.status(201).json(user)
-    } catch(e) {
+    } catch (e) {
       errorHandler(res, e)
     }
 
+  }
+}
+
+module.exports.getUser = async function (req, res) {
+  try {
+    const user = await User.findById(req.user.id)
+    res.status(200).json({
+      nicname: user.nicname,
+      shop: user.shop
+    })
+    console.log(user)
+  } catch (e) {
+    errorHandler(res, e)
   }
 }

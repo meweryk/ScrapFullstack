@@ -46,4 +46,7 @@ export class AuthService {
         localStorage.clear()
     }
 
+    getById(): Observable<User> {
+        return this.http.get<User>('/api/auth')
+    }
 }

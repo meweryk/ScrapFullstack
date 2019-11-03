@@ -1,18 +1,24 @@
-import { Component, AfterViewInit, ElementRef, ViewChild, OnDestroy } from '@angular/core';
+import { Component, AfterViewInit, ElementRef, ViewChild, OnDestroy, OnInit } from '@angular/core';
 import { AuthService } from '../../services/auth.service';
 import { Router } from '@angular/router';
 import { MaterialService, MaterialInstance } from '../../classes/material.service';
+import { Observable, Subscription } from 'rxjs';
+import { User } from '../../interfaces';
 
 @Component({
   selector: 'app-site-layout',
   templateUrl: './site-layout.component.html',
   styleUrls: ['./site-layout.component.css']
 })
-export class SiteLayoutComponent implements AfterViewInit, OnDestroy {
+export class SiteLayoutComponent implements OnInit, AfterViewInit, OnDestroy {
 
   @ViewChild('floating', { static: false }) floatingRef: ElementRef
   @ViewChild('sidenav', { static: false }) sidenavRef: ElementRef
   sidenav: MaterialInstance
+  aSub: Subscription
+  nicname: string
+  shop: string
+
 
   links = [
     { url: '/overview', name: 'Обзор' },
@@ -25,6 +31,14 @@ export class SiteLayoutComponent implements AfterViewInit, OnDestroy {
   constructor(private auth: AuthService,
     private router: Router) {
   }
+
+  ngOnInit() {
+    this.aSub = this.auth.getById().subscribe((data: User) => {
+      this.nicname = data.nicname
+      this.shop = data.shop
+    })
+  }
+
 
   ngAfterViewInit(): void {
     MaterialService.initializeFloatingButton(this.floatingRef)

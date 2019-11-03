@@ -10,7 +10,9 @@ const userSchema = new Schema({
   password: {
     type: String,
     required: true
-  }
+  },
+  nicname: String,
+  shop: String
 })
 
 module.exports = mongoose.model('users', userSchema)

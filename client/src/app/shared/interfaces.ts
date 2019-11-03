@@ -1,6 +1,8 @@
 export interface User {
     email: string
     password: string
+    nicname: string
+    shop: string
 }
 
 export interface Message {
