@@ -1,0 +1,77 @@
+<div class="page-title">
+    <h4>Материалы</h4>
+    <button class="waves-effect waves-light btn grey darken-1" routerLink="/materials/new">
+        Добавить материал
+    </button>
+</div>
+
+<div class="row">
+    <div class="col s12">
+        <ul class="collapsible" #collapsible>
+            <li *ngFor="let groupSteel of materialList['arrGroupSteel']">
+                <div class="collapsible-header">
+                    <div>
+                        <i class="material-icons">filter_drama</i>{{groupSteel}}
+                    </div>
+
+                </div>
+                <div class="collapsible-body">
+                    <div>
+                        <table class="highlight">
+
+                            <thead>
+                                <tr>
+                                    <th>Группа<br>отходов</th>
+                                    <th>Ni%</th>
+                                    <th>Cr%</th>
+                                    <th>Mo%</th>
+                                    <th>Cu%</th>
+                                    <th>Mn%</th>
+                                    <th>W%</th>
+                                    <th>V%</th>
+                                    <th>Co%</th>
+                                    <th>Si%</th>
+                                    <th>Ti%</th>
+                                    <th>Al%</th>
+                                    <th>Nb%</th>
+                                    <th>Fe%</th>
+                                    <th>S%</th>
+                                    <th>P%</th>
+                                    <th>C%</th>
+                                    <th>Марки сталей</th>
+                                </tr>
+                            </thead>
+
+
+                            <tbody *ngFor="let material of materialList['materials']">
+                                <tr *ngIf="material.groupSteel === groupSteel">
+                                    <td>{{material.vid}}</td>
+                                    <td>{{material.ni}}</td>
+                                    <td>{{material.cr}}</td>
+                                    <td>{{material.mo}}</td>
+                                    <td>{{material.cu}}</td>
+                                    <td>{{material.mn}}</td>
+                                    <td>{{material.w}}</td>
+                                    <td>{{material.v}}</td>
+                                    <td>{{material.co}}</td>
+                                    <td>{{material.si}}</td>
+                                    <td>{{material.ti}}</td>
+                                    <td>{{material.al}}</td>
+                                    <td>{{material.nb}}</td>
+                                    <td>{{material.fe}}</td>
+                                    <td>{{material.p}}</td>
+                                    <td>{{material.s}}</td>
+                                    <td>{{material.c}}</td>
+                                    <td>{{material.markSteel}}</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </li>
+        </ul>
+    </div>
+</div>
+
+
+<app-loader *ngIf="!loading"></app-loader>

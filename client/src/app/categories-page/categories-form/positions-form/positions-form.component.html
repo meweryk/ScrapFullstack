@@ -12,7 +12,9 @@
                 <a *ngFor="let position of positions" class="collection-item collection-item-icon"
                     (click)="onSelectPosition(position)">
                     <span>
-                        {{position.name}} <strong>{{position.cost}} руб.</strong>
+                        {{position.name}} <strong>{{position.stock}} {{position.rank}}</strong>
+                        <strong>{{position.cost}}
+                            грн.</strong>
                     </span>
                     <span>
                         <i class="material-icons" (click)="onDeletePosition($event, position)">delete</i>
@@ -34,22 +36,42 @@
     <div class="modal" #modal>
         <div class="modal-content">
             <h4 class="mb1">Добавить позицию</h4>
-            <div class="input-field">
-                <input formControlName="name" id="pos-name" type="text"
-                    [ngClass]="{'invalid': form.get('name').invalid && form.get('name').touched}">
-                <label for="pos-name">Название</label>
-                <span *ngIf="form.get('name').invalid && form.get('name').touched" class="helper-text red-text">
-                    Позиция не должна быть пустой.
-                </span>
+            <div class="row">
+                <div class="input-field col s12 m4">
+                    <input formControlName="name" id="pos-name" type="text"
+                        [ngClass]="{'invalid': form.get('name').invalid && form.get('name').touched}">
+                    <label for="pos-name">Название</label>
+                    <span *ngIf="form.get('name').invalid && form.get('name').touched" class="helper-text red-text">
+                        Позиция не должна быть пустой.
+                    </span>
+                </div>
+                <div class="input-field col s9 m3">
+                    <input formControlName="stock" id="pos-stock" type="number" min="0"
+                        [ngClass]="{'invalid': form.get('stock').invalid && form.get('stock').touched}">
+                    <label for="pos-stock">Запас-количество</label>
+                    <span *ngIf="form.get('stock').invalid && form.get('stock').touched" class="helper-text red-text">
+                        Введите корректный запас. Минимальное значение 0.
+                    </span>
+                </div>
+                <div class="input-field col s3 m2">
+                    <select formControlName="rank" #select
+                        [ngClass]="{'invalid': form.get('rank').invalid && form.get('rank').touched}">
+                        <option value="" disabled selected>Выбор</option>
+                        <option value="т">тонн</option>
+                        <option value="шт">штук</option>
+                    </select>
+                    <label>Мера</label>
+                </div>
+                <div class="input-field col s12 m3">
+                    <input formControlName="cost" id="pos-cost" type="number" min="1"
+                        [ngClass]="{'invalid': form.get('cost').invalid && form.get('cost').touched}">
+                    <label for="pos-cost">Цена</label>
+                    <span *ngIf="form.get('cost').invalid && form.get('cost').touched" class="helper-text red-text">
+                        Введите корректную цену. Минимальное значение 1.
+                    </span>
+                </div>
             </div>
-            <div class="input-field">
-                <input formControlName="cost" id="pos-cost" type="number" min="1"
-                    [ngClass]="{'invalid': form.get('cost').invalid && form.get('cost').touched}">
-                <label for="pos-cost">Цена</label>
-                <span *ngIf="form.get('cost').invalid && form.get('cost').touched" class="helper-text red-text">
-                    ВВедите корректную цену. Минимальное значение 1.
-                </span>
-            </div>
+
         </div>
         <div class="modal-footer">
             <button type="button" (click)="onCancel()" class="modal-action waves-effect waves-black btn-flat"

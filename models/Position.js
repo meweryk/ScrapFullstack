@@ -6,6 +6,12 @@ const positionSchema = new Schema({
     type: String,
     required: true
   },
+  stock: {
+    type: Number
+  },
+  rank: {
+    type: String
+  },
   cost: {
     type: Number,
     required: true

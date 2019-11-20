@@ -13,6 +13,8 @@ import { OrderCategoriesComponent } from './order-page/order-categories/order-ca
 import { OrderPositionsComponent } from './order-page/order-positions/order-positions.component';
 import { CategoriesPageComponent } from './categories-page/categories-page.component';
 import { CategoriesFormComponent } from './categories-page/categories-form/categories-form.component';
+import { DeliveriesPageComponent } from './deliveries-page/deliveries-page.component';
+import { MaterialsPageComponent } from './materials-page/materials-page.component';
 
 
 const routes: Routes = [
@@ -36,7 +38,10 @@ const routes: Routes = [
       },
       { path: 'categories', component: CategoriesPageComponent },
       { path: 'categories/new', component: CategoriesFormComponent },
-      { path: 'categories/:id', component: CategoriesFormComponent }
+      { path: 'categories/:id', component: CategoriesFormComponent },
+      { path: 'deliveries', component: DeliveriesPageComponent },
+      { path: 'materials', component: MaterialsPageComponent }
+
     ]
   }
 ];

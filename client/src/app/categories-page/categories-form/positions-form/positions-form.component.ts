@@ -13,11 +13,13 @@ import { findIndex } from 'rxjs/operators';
 export class PositionsFormComponent implements OnInit, AfterViewInit, OnDestroy {
   @Input('categoryId') categoryId: string
   @ViewChild('modal', { static: false }) modalRef: ElementRef
+  @ViewChild('select', { static: false }) selectRef: ElementRef
 
   positions: Position[] = []
   loading = false
   positionId = null
   modal: MaterialInstance
+  select: MaterialInstance
   form: FormGroup
 
   constructor(private positionsService: PositionsService) { }
@@ -25,7 +27,9 @@ export class PositionsFormComponent implements OnInit, AfterViewInit, OnDestroy 
   ngOnInit() {
     this.form = new FormGroup({
       name: new FormControl(null, Validators.required),
-      cost: new FormControl(null, [Validators.required, Validators.min(1)])
+      cost: new FormControl(null, [Validators.required, Validators.min(1)]),
+      stock: new FormControl(null, [Validators.required, Validators.min(0)]),
+      rank: new FormControl(null, Validators.required),
     })
     this.loading = true
     this.positionsService.fetch(this.categoryId).subscribe(positions => {
@@ -36,17 +40,21 @@ export class PositionsFormComponent implements OnInit, AfterViewInit, OnDestroy 
 
   ngOnDestroy() {
     this.modal.destroy()
+    this.select.destroy()
   }
 
   ngAfterViewInit() {
     this.modal = MaterialService.initModal(this.modalRef)
+    this.select = MaterialService.initFormSelect(this.selectRef)
   }
 
   onSelectPosition(position: Position) {
     this.positionId = position._id
     this.form.patchValue({
       name: position.name,
-      cost: position.cost
+      cost: position.cost,
+      stock: position.stock,
+      rank: position.rank
     })
     this.modal.open()
     MaterialService.updateTextInputs()
@@ -54,7 +62,7 @@ export class PositionsFormComponent implements OnInit, AfterViewInit, OnDestroy 
 
   onAddPosition() {
     this.positionId = null
-    this.form.reset({ name: null, cost: 1 })
+    this.form.reset({ name: null, cost: 1, stock: 0, rank: 'т' })
     this.modal.open()
     MaterialService.updateTextInputs()
   }
@@ -85,12 +93,14 @@ export class PositionsFormComponent implements OnInit, AfterViewInit, OnDestroy 
     const newPosition: Position = {
       name: this.form.value.name,
       cost: this.form.value.cost,
+      stock: this.form.value.stock,
+      rank: this.form.value.rank,
       category: this.categoryId
     }
 
     const completed = () => {
       this.modal.close()
-      this.form.reset({ name: '', cost: 1 })
+      this.form.reset({ name: '', cost: 1, stock: 0, rank: 'т' })
       this.form.enable()
     }
 

@@ -16,6 +16,37 @@ export interface Category {
     _id?: string
 }
 
+export interface MaterialList {
+    materials: Material[]
+    arrClassSteel: string[]
+    arrGroupSteel: string[]
+}
+
+export interface Material {
+    vid: string
+    ni?: number
+    cr?: number
+    mo?: number
+    cu?: number
+    mn?: number
+    w?: number
+    v?: number
+    co?: number
+    si?: string
+    ti?: number
+    al?: string
+    nb?: string
+    fe?: number
+    s?: number
+    p?: number
+    c?: number
+    classSteel?: string
+    groupSteel?: string
+    markSteel?: string
+    user?: string
+    _id?: string
+}
+
 export interface Position {
     name: string
     cost: number
@@ -23,6 +54,8 @@ export interface Position {
     category: string
     _id?: string
     quantity?: number
+    stock?: number
+    rank?: string
 }
 
 export interface Order {
