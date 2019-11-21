@@ -40,7 +40,7 @@ export interface Material {
     s?: number
     p?: number
     c?: number
-    classSteel?: string
+    classSteel: string
     groupSteel?: string
     markSteel?: string
     user?: string

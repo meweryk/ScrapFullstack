@@ -24,7 +24,7 @@ import { OrderPositionsComponent } from './order-page/order-positions/order-posi
 import { HistoryListComponent } from './history-page/history-list/history-list.component';
 import { HistoryFilterComponent } from './history-page/history-filter/history-filter.component';
 import { DeliveriesPageComponent } from './deliveries-page/deliveries-page.component';
-import { MaterialsPageComponent } from './materials-page/materials-page.component';
+import { MaterialsPageComponent } from './materials-page/materials-page.component'
 
 
 
