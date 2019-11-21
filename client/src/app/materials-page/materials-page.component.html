@@ -16,8 +16,8 @@
 
                 </div>
                 <div class="collapsible-body">
-                    <div>
-                        <table class="highlight">
+                    <div class="table-container">
+                        <table>
 
                             <thead>
                                 <tr>
@@ -45,7 +45,7 @@
 
                             <tbody *ngFor="let material of materialList['materials']">
                                 <tr *ngIf="material.groupSteel === groupSteel">
-                                    <td>{{material.vid}}</td>
+                                    <th>{{material.vid}}</th>
                                     <td>{{material.ni}}</td>
                                     <td>{{material.cr}}</td>
                                     <td>{{material.mo}}</td>
@@ -72,6 +72,4 @@
         </ul>
     </div>
 </div>
-
-
 <app-loader *ngIf="!loading"></app-loader>

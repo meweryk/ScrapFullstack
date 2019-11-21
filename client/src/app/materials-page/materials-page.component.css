@@ -1,0 +1,51 @@
+div.table-container {
+  max-height: 400px;
+  overflow: scroll;
+  margin: -24px;
+}
+
+div.collapsible-header {
+  background: #d7ccc8;
+}
+
+div.collapsible-body {
+  background: #efebe9;
+}
+
+thead th {
+  position: -webkit-sticky;
+  /* for Safari */
+  position: sticky;
+  top: 0;
+}
+
+tbody th {
+  position: -webkit-sticky;
+  /* for Safari */
+  position: sticky;
+  left: 0;
+}
+
+thead th {
+  background: #757575;
+  color: #FFF;
+}
+
+tbody th {
+  background: #bdbdbd;
+  border-right: 1px solid #CCC;
+}
+
+tbody td {
+  background: #ffe0b2;
+  border: 1px solid #CCC;
+}
+
+table {
+  border-collapse: collapse;
+}
+
+td,
+th {
+  padding: 0.5em;
+}
