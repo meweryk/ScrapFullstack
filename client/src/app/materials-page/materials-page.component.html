@@ -10,9 +10,9 @@
         <ul class="collapsible" #collapsible>
             <li *ngFor="let groupSteel of materialList['arrGroupSteel']">
                 <div class="collapsible-header">
-                    <div>
-                        <i class="material-icons">filter_drama</i>{{groupSteel}}
-                    </div>
+                    <span>
+                        {{groupSteel}}
+                    </span>
 
                 </div>
                 <div class="collapsible-body">
@@ -35,8 +35,8 @@
                                     <th>Al%</th>
                                     <th>Nb%</th>
                                     <th>Fe%</th>
-                                    <th>S%</th>
                                     <th>P%</th>
+                                    <th>S%</th>
                                     <th>C%</th>
                                     <th>Марки сталей</th>
                                 </tr>
@@ -46,23 +46,26 @@
                             <tbody *ngFor="let material of materialList['materials']">
                                 <tr *ngIf="material.groupSteel === groupSteel">
                                     <th>{{material.vid}}</th>
-                                    <td>{{material.ni}}</td>
-                                    <td>{{material.cr}}</td>
-                                    <td>{{material.mo}}</td>
-                                    <td>{{material.cu}}</td>
-                                    <td>{{material.mn}}</td>
-                                    <td>{{material.w}}</td>
-                                    <td>{{material.v}}</td>
-                                    <td>{{material.co}}</td>
+                                    <td *ngIf="material.ni !== 0; else space">{{material.ni}}</td>
+                                    <td *ngIf="material.cr !== 0; else space">{{material.cr}}</td>
+                                    <td *ngIf="material.mo !== 0; else space">{{material.mo}}</td>
+                                    <td *ngIf="material.cu !== 0; else space">{{material.cu}}</td>
+                                    <td *ngIf="material.mn !== 0; else space">{{material.mn}}</td>
+                                    <td *ngIf="material.w !== 0; else space">{{material.w}}</td>
+                                    <td *ngIf="material.v !== 0; else space">{{material.v}}</td>
+                                    <td *ngIf="material.co !== 0; else space">{{material.co}}</td>
                                     <td>{{material.si}}</td>
-                                    <td>{{material.ti}}</td>
+                                    <td *ngIf="material.ti !== 0; else space">{{material.ti}}</td>
                                     <td>{{material.al}}</td>
                                     <td>{{material.nb}}</td>
-                                    <td>{{material.fe}}</td>
-                                    <td>{{material.p}}</td>
-                                    <td>{{material.s}}</td>
-                                    <td>{{material.c}}</td>
+                                    <td *ngIf="material.fe !== 0; else space">{{material.fe}}</td>
+                                    <td *ngIf="material.p !== 0; else space">{{material.p}}</td>
+                                    <td *ngIf="material.s !== 0; else space">{{material.s}}</td>
+                                    <td *ngIf="material.c !== 0; else space">{{material.c}}</td>
                                     <td>{{material.markSteel}}</td>
+                                    <ng-template #space>
+                                        <td> </td>
+                                    </ng-template>
                                 </tr>
                             </tbody>
                         </table>
