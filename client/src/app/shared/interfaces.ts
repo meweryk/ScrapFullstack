@@ -79,6 +79,12 @@ export interface Filter {
     order?: number
 }
 
+export interface FilterMaterial {
+    classSteel?: string
+    groupSteel?: string
+    vid?: string
+}
+
 export interface OverviewPage {
     orders: OverviewPageItem
     gain: OverviewPageItem

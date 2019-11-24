@@ -1,9 +1,16 @@
 <div class="page-title">
     <h5>Материалы</h5>
-    <button class="waves-effect waves-light btn grey darken-1" (click)="onAddMaterial()">
-        Добавить материал
+    <button class="waves-effect waves-light btn btn-small" (click)="onAddMaterial()" data-position="left" #tooltipAdd
+        data-tooltip="Добавить материал">
+        <i class="material-icons">add</i>
+    </button>
+    <button class="btn btn-small" (click)="isFilterVisible = !isFilterVisible" [ngClass]="{'active': isFilterVisible}"
+        data-position="left" data-tooltip="Открыть фильтр" #tooltip>
+        <i class="material-icons">filter_list</i>
     </button>
 </div>
+
+<app-materials-filter *ngIf="isFilterVisible" (onFilter)="applyFilter($event)"></app-materials-filter>
 
 <div class="row" *ngIf="!loading">
     <div class="col s12">
@@ -55,7 +62,7 @@
                         <td *ngIf="material.c !== 0; else space">{{material.c}}</td>
                         <td>{{material.markSteel}}</td>
                         <td>
-                            <a class="collection-item collection-item-icon" (click)="onSelectMaterial(material)">
+                            <a class="collection-item collection-item-icon">
                                 <span>
                                     <i class="material-icons" (click)="onDeleteMaterial($event, material)">delete</i>
                                 </span>
@@ -72,7 +79,7 @@
 </div>
 
 
-    <app-loader *ngIf="loading"></app-loader>
+<app-loader *ngIf="loading"></app-loader>
 
 
 

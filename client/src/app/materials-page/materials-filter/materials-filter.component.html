@@ -1,0 +1,23 @@
+<div class="filter js-filter-blokc ">
+    <div class="fr">
+        <div class="col material">
+            <div class="input-field inline material-vid-input">
+                <input type="text" id="vid" [(ngModel)]="vid">
+                <label for="number">Вид</label>
+            </div>
+        </div>
+        <div class="col ">
+            <div class="input-field">
+                <input type="text" id="classSteel">
+                <label for="classSteel">Класс материала</label>
+            </div>
+
+            <div class="input-field">
+                <input type="text" id="groupSteel">
+                <label for="groupSteel">Подкласс материала</label>
+            </div>
+        </div>
+    </div>
+
+    <button class="btn waves-effect wavers-light btn-small" (click)="submitFilter()">Применить фильтр</button>
+</div>

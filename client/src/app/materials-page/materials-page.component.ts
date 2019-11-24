@@ -1,6 +1,6 @@
 import { Component, OnInit, ElementRef, AfterViewInit, ViewChild, OnDestroy, HostListener } from '@angular/core';
 import { MaterialsService } from '../shared/services/materials.service';
-import { Material, MaterialList } from '../shared/interfaces';
+import { Material, MaterialList, FilterMaterial } from '../shared/interfaces';
 import { MaterialInstance, MaterialService } from '../shared/classes/material.service';
 import { FormGroup, FormControl, Validators } from '@angular/forms'
 
@@ -12,9 +12,14 @@ import { FormGroup, FormControl, Validators } from '@angular/forms'
 export class MaterialsPageComponent implements OnInit, AfterViewInit, OnDestroy {
 
   @ViewChild('modal', { static: false }) modalRef: ElementRef
+  @ViewChild('tooltip', { static: false }) tooltipRef: ElementRef
+  @ViewChild('tooltipAdd', { static: false }) tooltipAddRef: ElementRef
   loading = false
+  isFilterVisible = false
   height: number
   modal: MaterialInstance
+  tooltipAdd: MaterialInstance
+  tooltip: MaterialInstance
   form: FormGroup
   materialId = null
   materialList: MaterialList[] = []
@@ -54,8 +59,6 @@ export class MaterialsPageComponent implements OnInit, AfterViewInit, OnDestroy 
     this.materialsService.fetch().subscribe(materials => {
       this.loading = false
       this.materials = materials
-      this.materials.sort((a, b) => Intl.Collator().compare(a.vid, b.vid))
-
     })
   }
 
@@ -66,10 +69,17 @@ export class MaterialsPageComponent implements OnInit, AfterViewInit, OnDestroy 
 
   ngAfterViewInit() {
     this.modal = MaterialService.initModal(this.modalRef)
+    this.tooltipAdd = MaterialService.initTooltip(this.tooltipAddRef)
+    this.tooltip = MaterialService.initTooltip(this.tooltipRef)
   }
 
   ngOnDestroy() {
+    this.tooltipAdd.destroy()
+    this.tooltip.destroy()
+    this.modal.destroy()
   }
+
+  applyFilter(filter: FilterMaterial) { }
 
   onSelectMaterial(material: Material) {
     this.materialId = material._id
@@ -135,10 +145,7 @@ export class MaterialsPageComponent implements OnInit, AfterViewInit, OnDestroy 
       this.materialsService.delete(material).subscribe(
         response => {
           const idx = this.materials.findIndex(m => m._id === material._id)
-          console.log(idx, material._id)
           this.materials.splice(idx, 1)
-          console.log(this.materials[idx])
-          //this.materials.sort((a, b) => Intl.Collator().compare(a.vid, b.vid))
           MaterialService.toast(response.message)
         },
         error => MaterialService.toast(error.error.message)

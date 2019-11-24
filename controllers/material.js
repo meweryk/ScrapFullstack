@@ -2,8 +2,22 @@ const Material = require('../models/Material')
 const errorHandler = require('../utils/errorHandler')
 
 module.exports.getAll = async function (req, res) {
+    const query = {}
+
+    if (req.query.vid) {
+        query.vid = req.query.vid
+    }
+
+    if (req.query.classSteel) {
+        query.classSteel = req.query.classSteel
+    }
+
+    if (req.query.groupSteel) {
+        query.groupSteel = req.query.groupSteel
+    }
+
     try {
-        const materials = await Material.find()
+        const materials = await Material.find(query).sort({ vid: 1 })
         //const arrClassSteel = await Material.distinct('classSteel')
         //const arrGroupSteel = await Material.distinct(('groupSteel'))
         //const materialList = { materials, arrClassSteel, arrGroupSteel }
