@@ -39,7 +39,7 @@
 
 
     <li class="bold" routerLinkActive="active" *ngFor="let link of links">
-        <a [routerLink]="[link.url]" class="waves-effect waves-orange">
+        <a [routerLink]="[link.url]" class="waves-effect waves-orange" (click)="closeSidenav()">
             {{link.name}}
         </a>
     </li>

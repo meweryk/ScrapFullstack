@@ -45,10 +45,10 @@ const materialSchema = new Schema({
     fe: {
         type: Number
     },
-    s: {
+    p: {
         type: Number
     },
-    p: {
+    s: {
         type: Number
     },
     c: {
@@ -62,8 +62,11 @@ const materialSchema = new Schema({
     },
     markSteel: {
         type: String
+    },
+    user: {
+        ref: 'users',
+        type: Schema.Types.ObjectId
     }
-
 })
 
 module.exports = mongoose.model('materials', materialSchema)

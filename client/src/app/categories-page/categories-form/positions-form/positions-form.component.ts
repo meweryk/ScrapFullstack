@@ -3,7 +3,6 @@ import { PositionsService } from 'src/app/shared/services/positions.service';
 import { Position } from 'src/app/shared/interfaces';
 import { MaterialService, MaterialInstance } from 'src/app/shared/classes/material.service';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
-import { findIndex } from 'rxjs/operators';
 
 @Component({
   selector: 'app-positions-form',
@@ -62,7 +61,7 @@ export class PositionsFormComponent implements OnInit, AfterViewInit, OnDestroy 
 
   onAddPosition() {
     this.positionId = null
-    this.form.reset({ name: null, cost: 1, stock: 0, rank: 'т' })
+    this.form.reset({ name: null, cost: 1, stock: 0, rank: '' })
     this.modal.open()
     MaterialService.updateTextInputs()
   }
@@ -100,7 +99,6 @@ export class PositionsFormComponent implements OnInit, AfterViewInit, OnDestroy 
 
     const completed = () => {
       this.modal.close()
-      this.form.reset({ name: '', cost: 1, stock: 0, rank: 'т' })
       this.form.enable()
     }
 

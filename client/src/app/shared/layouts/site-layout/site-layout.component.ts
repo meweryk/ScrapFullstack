@@ -1,4 +1,4 @@
-import { Component, AfterViewInit, ElementRef, ViewChild, OnDestroy, OnInit } from '@angular/core';
+import { Component, AfterViewInit, ElementRef, ViewChild, OnDestroy, OnInit, HostListener } from '@angular/core';
 import { AuthService } from '../../services/auth.service';
 import { Router } from '@angular/router';
 import { MaterialService, MaterialInstance } from '../../classes/material.service';
@@ -14,6 +14,8 @@ export class SiteLayoutComponent implements OnInit, AfterViewInit, OnDestroy {
 
   @ViewChild('floating', { static: false }) floatingRef: ElementRef
   @ViewChild('sidenav', { static: false }) sidenavRef: ElementRef
+
+  width: any
   sidenav: MaterialInstance
   aSub: Subscription
   nicname: string
@@ -35,12 +37,18 @@ export class SiteLayoutComponent implements OnInit, AfterViewInit, OnDestroy {
   }
 
   ngOnInit() {
+    this.width = window.innerWidth
+
     this.aSub = this.auth.getById().subscribe((data: User) => {
       this.nicname = data.nicname
       this.shop = data.shop
     })
   }
 
+  @HostListener('window:resize', ['$event'])
+  onResize(event: any) {
+    this.width = event.target.innerWidth
+  }
 
   ngAfterViewInit(): void {
     MaterialService.initializeFloatingButton(this.floatingRef)
@@ -61,5 +69,9 @@ export class SiteLayoutComponent implements OnInit, AfterViewInit, OnDestroy {
     this.sidenav.open()
   }
 
-
+  closeSidenav() {
+    if (this.width < 992) {
+      this.sidenav.close()
+    }
+  }
 }

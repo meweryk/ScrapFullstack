@@ -46,9 +46,9 @@
                     </span>
                 </div>
                 <div class="input-field col s9 m3">
-                    <input formControlName="stock" id="pos-stock" type="number" min="0"
+                    <input formControlName="stock" id="pos-stock" type="number"
                         [ngClass]="{'invalid': form.get('stock').invalid && form.get('stock').touched}">
-                    <label for="pos-stock">Запас-количество</label>
+                    <label for="pos-stock">количество</label>
                     <span *ngIf="form.get('stock').invalid && form.get('stock').touched" class="helper-text red-text">
                         Введите корректный запас. Минимальное значение 0.
                     </span>
@@ -56,14 +56,13 @@
                 <div class="input-field col s3 m2">
                     <select formControlName="rank" #select
                         [ngClass]="{'invalid': form.get('rank').invalid && form.get('rank').touched}">
-                        <option value="" disabled selected>Выбор</option>
-                        <option value="т">тонн</option>
+                        <option value="т" selected>тонн</option>
                         <option value="шт">штук</option>
                     </select>
                     <label>Мера</label>
                 </div>
                 <div class="input-field col s12 m3">
-                    <input formControlName="cost" id="pos-cost" type="number" min="1"
+                    <input formControlName="cost" id="pos-cost" type="number"
                         [ngClass]="{'invalid': form.get('cost').invalid && form.get('cost').touched}">
                     <label for="pos-cost">Цена</label>
                     <span *ngIf="form.get('cost').invalid && form.get('cost').touched" class="helper-text red-text">
