@@ -1,21 +1,41 @@
-import { Component, OnInit, Output, EventEmitter } from '@angular/core';
+import { Component, OnInit, Output, EventEmitter, ViewChild, ElementRef, AfterViewInit, OnDestroy, Input } from '@angular/core';
 import { FilterMaterial } from 'src/app/shared/interfaces';
+import { MaterialInstance, MaterialService } from 'src/app/shared/classes/material.service';
 
 @Component({
   selector: 'app-materials-filter',
   templateUrl: './materials-filter.component.html',
   styleUrls: ['./materials-filter.component.css']
 })
-export class MaterialsFilterComponent implements OnInit {
+export class MaterialsFilterComponent implements OnInit, AfterViewInit, OnDestroy {
 
+  @Input() arrClassSteel: any[]
+  @Input() arrGroupSteel: any[]
   @Output() onFilter = new EventEmitter<FilterMaterial>()
+  @ViewChild('select1', { static: false }) select1Ref: ElementRef
+  @ViewChild('select2', { static: false }) select2Ref: ElementRef
+  select1: MaterialInstance
+  select2: MaterialInstance
+
+
   vid: string
   classSteel: string
-  classGroup: string
+  groupSteel: string
 
   constructor() { }
 
   ngOnInit() {
+
+  }
+
+  ngAfterViewInit() {
+    this.select1 = MaterialService.initFormSelect(this.select1Ref)
+    this.select2 = MaterialService.initFormSelect(this.select2Ref)
+  }
+
+  ngOnDestroy() {
+    this.select1.destroy()
+    this.select2.destroy()
   }
 
   submitFilter() {
@@ -23,6 +43,14 @@ export class MaterialsFilterComponent implements OnInit {
 
     if (this.vid) {
       filter.vid = this.vid
+    }
+
+    if (this.classSteel) {
+      filter.classSteel = this.classSteel
+    }
+
+    if (this.groupSteel) {
+      filter.groupSteel = this.groupSteel
     }
 
     this.onFilter.emit(filter)

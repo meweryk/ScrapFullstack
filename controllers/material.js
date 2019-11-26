@@ -18,10 +18,10 @@ module.exports.getAll = async function (req, res) {
 
     try {
         const materials = await Material.find(query).sort({ vid: 1 })
-        //const arrClassSteel = await Material.distinct('classSteel')
-        //const arrGroupSteel = await Material.distinct(('groupSteel'))
-        //const materialList = { materials, arrClassSteel, arrGroupSteel }
-        res.status(200).json(materials)
+        const arrClassSteel = await Material.distinct('classSteel')
+        const arrGroupSteel = await Material.distinct(('groupSteel'))
+        const materialList = { materials, arrClassSteel, arrGroupSteel }
+        res.status(200).json(materialList)
     } catch (e) {
         errorHandler(res, e)
     }

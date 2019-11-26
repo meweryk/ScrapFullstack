@@ -4,14 +4,6 @@ div.table-container {
   margin: -10px;
 }
 
-div.collapsible-header {
-  background: #d7ccc8;
-}
-
-div.collapsible-body {
-  background: #efebe9;
-}
-
 thead th {
   position: -webkit-sticky;
   /* for Safari */
@@ -27,13 +19,13 @@ tbody th {
 }
 
 thead th {
-  background: #757575;
+  background: #a1887f;
   color: #FFF;
 }
 
 tbody th {
-  background: #bdbdbd;
-  border-right: 1px solid #CCC;
+  background: #ffcc80;
+  border-right: 0px solid #CCC;
 }
 
 tbody td {

@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { Material, Message } from '../interfaces';
 import { Observable } from 'rxjs';
 
@@ -10,8 +10,12 @@ import { Observable } from 'rxjs';
 export class MaterialsService {
     constructor(private http: HttpClient) { }
 
-    fetch(): Observable<Material[]> {
-        return this.http.get<Material[]>('/api/materials')
+    fetch(params: any = {}): Observable<Material[]> {
+        return this.http.get<Material[]>('/api/materials', {
+            params: new HttpParams({
+                fromObject: params
+            })
+        })
     }
 
     create(material: Material): Observable<Material> {

@@ -3,6 +3,7 @@ import { MaterialsService } from '../shared/services/materials.service';
 import { Material, MaterialList, FilterMaterial } from '../shared/interfaces';
 import { MaterialInstance, MaterialService } from '../shared/classes/material.service';
 import { FormGroup, FormControl, Validators } from '@angular/forms'
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-materials-page',
@@ -16,6 +17,7 @@ export class MaterialsPageComponent implements OnInit, AfterViewInit, OnDestroy 
   @ViewChild('tooltipAdd', { static: false }) tooltipAddRef: ElementRef
   loading = false
   isFilterVisible = false
+  oSub: Subscription
   height: number
   modal: MaterialInstance
   tooltipAdd: MaterialInstance
@@ -23,7 +25,10 @@ export class MaterialsPageComponent implements OnInit, AfterViewInit, OnDestroy 
   form: FormGroup
   materialId = null
   materialList: MaterialList[] = []
+
   materials: Material[] = []
+  filter: FilterMaterial = {}
+
   arrClassSteel: any[]
   arrGroupSteel: any[]
 
@@ -56,10 +61,18 @@ export class MaterialsPageComponent implements OnInit, AfterViewInit, OnDestroy 
       c: new FormControl(null, [Validators.min(0), Validators.max(100)])
     })
 
-    this.materialsService.fetch().subscribe(materials => {
+    this.fetch()
+  }
+
+  private fetch() {
+    const params = Object.assign({}, this.filter)
+    this.oSub = this.materialsService.fetch(params).subscribe(materialList => {
+      this.materials = materialList['materials']
+      this.arrClassSteel = materialList['arrClassSteel']
+      this.arrGroupSteel = materialList['arrGroupSteel']
       this.loading = false
-      this.materials = materials
     })
+
   }
 
   @HostListener('window:resize', ['$event'])
@@ -77,9 +90,15 @@ export class MaterialsPageComponent implements OnInit, AfterViewInit, OnDestroy 
     this.tooltipAdd.destroy()
     this.tooltip.destroy()
     this.modal.destroy()
+    this.oSub.unsubscribe()
   }
 
-  applyFilter(filter: FilterMaterial) { }
+  applyFilter(filter: FilterMaterial) {
+    this.materials = []
+    this.filter = filter
+    this.loading = true
+    this.fetch()
+  }
 
   onSelectMaterial(material: Material) {
     this.materialId = material._id
@@ -155,6 +174,10 @@ export class MaterialsPageComponent implements OnInit, AfterViewInit, OnDestroy 
 
   onCancel() {
     this.modal.close()
+  }
+
+  isFiltered(): boolean {
+    return Object.keys(this.filter).length !== 0
   }
 
   onSubmit() {
