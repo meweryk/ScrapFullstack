@@ -1,5 +1,42 @@
 <div class="filter js-filter-blokc ">
-    <div class="fr row">
+    <div class="row">
+        <div class="col s12 m2">
+            <div class="input-field">
+                <input type="text" id="vid" [(ngModel)]="vid" style="font-size: 14px">
+                <label for="number">Вид</label>
+            </div>
+        </div>
+        <div class="col s12 m5">        
+            <div class="input-field">
+                <select #select1 [(ngModel)]="classSteel" >
+                    <option value="" selected><span style="font-size: 14px">Без фильтра</span></option>
+                    <option *ngFor="let cSt of arrClassSteel" [value]="cSt"><span style="font-size: 14px">{{cSt}}</span></option>
+                </select>
+                <label for="classSteel">Класс</label>
+            </div>
+        </div>
+        <div class="col s10 m4">
+            <div class="input-field">
+                <select #select2 [(ngModel)]="groupSteel" >
+                    <option value="" selected><span style="font-size: 14px">Без фильтра</span></option>
+                    <option *ngFor="let gSt of arrGroupSteel" [value]="gSt"><span style="font-size: 14px">{{gSt}}</span></option>
+                </select>
+                <label for="groupSteel">Группа</label>
+            </div>
+        </div>
+        <div class="col s2 m1">            
+            <a class="collection-item collection-item-icon" (click)="submitFilter()" data-position="left" data-tooltip="Применить" #tooltip>
+                <span>
+                    <i class="material-icons">done_outline</i>
+                </span>
+            </a>
+        </div>
+
+    </div>
+
+    
+    
+    <!--<div class="fr row">
         <div class="col">
             <div class="input-field inline material-vid-input">
                 <input type="text" id="vid" [(ngModel)]="vid" style="font-size: 14px">
@@ -24,7 +61,7 @@
                 <label for="groupSteel">Группа</label>
             </div>
         </div>
-    </div>
+    </div>-->
 
-    <button class="btn waves-effect wavers-light btn-small" (click)="submitFilter()">Применить фильтр</button>
+    
 </div>

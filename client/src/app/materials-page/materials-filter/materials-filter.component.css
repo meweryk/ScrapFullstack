@@ -1,47 +1,13 @@
-.material-vid-input {
-  margin-top: 0;
-  margin-bottom: 0
-}
-
-.material-vid-input input {
-  margin-bottom: 0 !important
-}
-
-select {
-  font-size: 10px
-}
-
-.fr {
-  display: flex;
-  margin-bottom: 10px
-}
-
-.fr .col.material {
-  width: 40px
-}
-
-.fr .col.filter-pickers {
-  padding: 0 20px;
-  width: 40%;
-  display: flex
-}
-
-.fr .col.filter-pickers .input-field {
-  width: 45% !important;
-  min-width: 200px;
-  margin-right: 20px !important;
-  margin-top: 0 !important;
-  margin-bottom: 0 !important;
-  font-size: 10px
+.col .input-field {
+  margin-top: 10px !important;
+  margin-bottom: 10px !important
 }
 
 
 
 
-.filter {
-  margin-bottom: 10px
-}
 
-select option {
-  font-size: 10px
-}
+
+
+
+
