@@ -1,12 +1,17 @@
 <div class="page-title">
     <h5>Материалы</h5>
-    <button class="waves-effect waves-light btn btn-small" (click)="onAddMaterial()" data-position="left" #tooltipAdd
-        data-tooltip="Добавить материал">
-        <i class="material-icons">add</i>
-    </button>
-    <button (click)="isFilterVisible = !isFilterVisible" class="btn btn-small" [ngClass]="{'active': isFilterVisible, 'red': isFiltered()}" data-position="left" data-tooltip="Открыть фильтр" #tooltip >
-        <i class="material-icons">filter_list</i>
-    </button>
+    <div col s6>
+        <button class="waves-effect waves-light btn btn-small" (click)="onAddMaterial()">
+            <i class="material-icons">add</i>
+        </button>
+        <span>&#160;</span>
+        <button (click)="filterVisible()" class="btn btn-small"
+            [ngClass]="{'active': isFilterVisible, 'red': isFiltered()}" data-position="bottom"
+            data-tooltip="Открыть фильтр" #tooltip>
+            <i class="material-icons">filter_list</i>
+        </button>
+    </div>
+
 </div>
 
 <app-materials-filter *ngIf="isFilterVisible" (onFilter)="applyFilter($event)" [arrClassSteel]="arrClassSteel"
@@ -80,7 +85,7 @@
         </div>
     </div>
     <ng-template #empty>
-            <div class="center">Материалов нет.</div>
+        <div class="center">Материалов нет.</div>
     </ng-template>
 </div>
 
@@ -92,7 +97,7 @@
 <form [formGroup]="form" (ngSubmit)="onSubmit()">
     <div class="modal" #modal>
         <div class="modal-content">
-            <h5 class="mb1">Добавить материал (в разработке)</h5>
+            <h5 class="mb1">Добавить материал</h5>
             <div class="row">
                 <div class="input-field col s12 m4">
                     <input formControlName="vid" id="mat-vid" type="text"

@@ -15,6 +15,7 @@ export class MaterialsFilterComponent implements OnInit, AfterViewInit, OnDestro
   @ViewChild('tooltipF', { static: false }) tooltipFRef: ElementRef
   @ViewChild('select1', { static: false }) select1Ref: ElementRef
   @ViewChild('select2', { static: false }) select2Ref: ElementRef
+  tooltipF: MaterialInstance
   select1: MaterialInstance
   select2: MaterialInstance
 
@@ -36,7 +37,7 @@ export class MaterialsFilterComponent implements OnInit, AfterViewInit, OnDestro
   }
 
   ngOnDestroy() {
-    this.tooltip.destroy()
+    this.tooltipF.destroy()
     this.select1.destroy()
     this.select2.destroy()
   }

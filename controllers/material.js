@@ -5,8 +5,9 @@ module.exports.getAll = async function (req, res) {
     const query = {}
 
     if (req.query.vid) {
-        query.vid = req.query.vid
+        query.vid = new RegExp(req.query.vid, 'i')
     }
+
 
     if (req.query.classSteel) {
         query.classSteel = req.query.classSteel
@@ -58,28 +59,46 @@ module.exports.create = async function (req, res) {
 }
 
 module.exports.update = async function (req, res) {
-    try {
-        const material = await Material.findOneAndUpdate(
-            { _id: req.params.id },
-            { $set: req.body },
-            { new: true }
-        )
-        res.status(200).json(material)
-    } catch (e) {
-        errorHandler(res, e)
+    const upmaterial = await Material.findOne({ _id: req.params.id })
+    if ((upmaterial.user == req.user.id) || (req.user.id === "5d83890013edd119b4d510b0")) {
+        try {
+            const material = await Material.findOneAndUpdate(
+                { _id: req.params.id },
+                { $set: req.body },
+                { new: true }
+            )
+            res.status(200).json(material)
+        } catch (e) {
+            errorHandler(res, e)
+        }
+    } else {
+        res.status(409).json({
+            message: 'Изменяйте или удаляйте созданные Вами материалы.'
+        })
     }
+
+
+
+
 }
 
 module.exports.remove = async function (req, res) {
-    try {
-        await Material.remove({
-            _id: req.params.id
+    const upmaterial = await Material.findOne({ _id: req.params.id })
+    if ((upmaterial.user == req.user.id) || (req.user.id === "5d83890013edd119b4d510b0")) {
+        try {
+            await Material.remove({
+                _id: req.params.id
+            })
+            res.status(200).json({
+                message: 'Материал удалён.'
+            })
+        } catch (e) {
+            errorHandler(res, e)
+        }
+    } else {
+        res.status(409).json({
+            message: 'Изменяйте или удаляйте созданные Вами материалы.'
         })
-        res.status(200).json({
-            message: 'Материал удалён.'
-        })
-    } catch (e) {
-        errorHandler(res, e)
     }
 }
 

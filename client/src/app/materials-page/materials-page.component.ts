@@ -14,14 +14,15 @@ export class MaterialsPageComponent implements OnInit, AfterViewInit, OnDestroy 
 
   @ViewChild('modal', { static: false }) modalRef: ElementRef
   @ViewChild('tooltip', { static: false }) tooltipRef: ElementRef
-  @ViewChild('tooltipAdd', { static: false }) tooltipAddRef: ElementRef
+  modal: MaterialInstance
+  tooltip: MaterialInstance
+  
   loading = false
   isFilterVisible = false
+  koef = 0.7
   oSub: Subscription
   height: number
-  modal: MaterialInstance
-  tooltipAdd: MaterialInstance
-  tooltip: MaterialInstance
+
   form: FormGroup
   materialId = null
   materialList: MaterialList[] = []
@@ -36,7 +37,7 @@ export class MaterialsPageComponent implements OnInit, AfterViewInit, OnDestroy 
 
   ngOnInit() {
     this.loading = true
-    this.height = 0.70 * window.innerHeight;
+    this.height = this.koef * window.innerHeight
 
     this.form = new FormGroup({
       vid: new FormControl(null, Validators.required),
@@ -77,17 +78,26 @@ export class MaterialsPageComponent implements OnInit, AfterViewInit, OnDestroy 
 
   @HostListener('window:resize', ['$event'])
   onResize(event: any) {
-    this.height = 0.70 * event.target.innerHeight;
+    this.height = this.koef * event.target.innerHeight
+  }
+
+  filterVisible() {
+    this.isFilterVisible = !this.isFilterVisible
+    if (this.isFilterVisible === true) {
+      this.koef = 0.5
+    } else {
+      this.koef = 0.7
+    }
+    this.height = this.koef * window.innerHeight
+
   }
 
   ngAfterViewInit() {
     this.modal = MaterialService.initModal(this.modalRef)
-    this.tooltipAdd = MaterialService.initTooltip(this.tooltipAddRef)
     this.tooltip = MaterialService.initTooltip(this.tooltipRef)
   }
 
   ngOnDestroy() {
-    this.tooltipAdd.destroy()
     this.tooltip.destroy()
     this.modal.destroy()
     this.oSub.unsubscribe()
@@ -206,11 +216,6 @@ export class MaterialsPageComponent implements OnInit, AfterViewInit, OnDestroy 
       c: this.form.value.c
     }
 
-    const completed = () => {
-      this.modal.close()
-      this.form.enable()
-    }
-
     if (!newMaterial.groupSteel) {
       newMaterial.groupSteel = newMaterial.classSteel
     }
@@ -222,6 +227,11 @@ export class MaterialsPageComponent implements OnInit, AfterViewInit, OnDestroy 
       return MaterialService.toast('Содержание элементов не может быть больше 100%')
     }
 
+    const completed = () => {
+      this.modal.close()
+      this.form.enable()
+    }
+
     if (this.materialId) {
       newMaterial._id = this.materialId
       this.materialsService.update(newMaterial).subscribe(
@@ -231,8 +241,11 @@ export class MaterialsPageComponent implements OnInit, AfterViewInit, OnDestroy 
           MaterialService.toast('Изменения сохранены')
         },
         error => MaterialService.toast(error.error.message),
-        completed
+        
       )
+      this.modal.close()
+      this.form.enable()
+
     } else {
       let mdx = this.materials.findIndex(p => p.vid === newMaterial.vid)
       if (mdx < 0) {
@@ -244,7 +257,7 @@ export class MaterialsPageComponent implements OnInit, AfterViewInit, OnDestroy 
           },
           error => MaterialService.toast(error.error.message),
           completed
-        )
+        )        
       } else {
         MaterialService.toast(`Материал "${newMaterial.vid}" уже существует`)
         this.modal.close()
