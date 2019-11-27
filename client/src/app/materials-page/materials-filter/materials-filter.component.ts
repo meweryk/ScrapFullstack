@@ -12,10 +12,10 @@ export class MaterialsFilterComponent implements OnInit, AfterViewInit, OnDestro
   @Input() arrClassSteel: any[]
   @Input() arrGroupSteel: any[]
   @Output() onFilter = new EventEmitter<FilterMaterial>()
-  @ViewChild('tooltipF', { static: false }) tooltipFRef: ElementRef
+
   @ViewChild('select1', { static: false }) select1Ref: ElementRef
   @ViewChild('select2', { static: false }) select2Ref: ElementRef
-  tooltipF: MaterialInstance
+
   select1: MaterialInstance
   select2: MaterialInstance
 
@@ -31,13 +31,11 @@ export class MaterialsFilterComponent implements OnInit, AfterViewInit, OnDestro
   }
 
   ngAfterViewInit() {
-    this.tooltipF = MaterialService.initTooltip(this.tooltipFRef)
     this.select1 = MaterialService.initFormSelect(this.select1Ref)
     this.select2 = MaterialService.initFormSelect(this.select2Ref)
   }
 
   ngOnDestroy() {
-    this.tooltipF.destroy()
     this.select1.destroy()
     this.select2.destroy()
   }

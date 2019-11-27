@@ -13,9 +13,7 @@ import { Subscription } from 'rxjs';
 export class MaterialsPageComponent implements OnInit, AfterViewInit, OnDestroy {
 
   @ViewChild('modal', { static: false }) modalRef: ElementRef
-  @ViewChild('tooltip', { static: false }) tooltipRef: ElementRef
   modal: MaterialInstance
-  tooltip: MaterialInstance
   
   loading = false
   isFilterVisible = false
@@ -94,11 +92,9 @@ export class MaterialsPageComponent implements OnInit, AfterViewInit, OnDestroy 
 
   ngAfterViewInit() {
     this.modal = MaterialService.initModal(this.modalRef)
-    this.tooltip = MaterialService.initTooltip(this.tooltipRef)
   }
 
   ngOnDestroy() {
-    this.tooltip.destroy()
     this.modal.destroy()
     this.oSub.unsubscribe()
   }
