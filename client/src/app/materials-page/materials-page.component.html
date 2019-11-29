@@ -108,7 +108,7 @@
                 </div>
                 <div class="input-field col s12 m4">
                     <input #autocomplete class="autocomplete" formControlName="classSteel" id="mat-classSteel"
-                        type="text" data=""
+                        type="text"
                         [ngClass]="{'invalid': form.get('classSteel').invalid && form.get('classSteel').touched}">
                     <label for="mat-classSteel">Класс</label>
                     <span *ngIf="form.get('classSteel').invalid && form.get('classSteel').touched"
