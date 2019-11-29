@@ -6,6 +6,7 @@ export interface MaterialInstance {
     open?(): void
     close?(): void
     destroy?(): void
+    updateData?(data: any): {}
 }
 
 export interface MaterialDatepicker extends MaterialInstance {
@@ -41,7 +42,8 @@ export class MaterialService {
         return M.Datepicker.init(ref.nativeElement, {
             format: 'dd.dd.yyyy',
             showClearBtn: true,
-            onClose
+            onClose,
+            autoClose: true
         })
     }
 
@@ -55,5 +57,11 @@ export class MaterialService {
 
     static initCollapsible(ref: ElementRef): MaterialInstance {
         return M.Collapsible.init(ref.nativeElement)
+    }
+
+    static initAutocomplete(ref: ElementRef): MaterialInstance {
+        return M.Autocomplete.init(ref.nativeElement, {
+            data: {}
+        })
     }
 }

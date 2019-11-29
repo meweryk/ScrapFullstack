@@ -107,16 +107,18 @@
                     </span>
                 </div>
                 <div class="input-field col s12 m4">
-                    <input formControlName="classSteel" id="mat-classSteel" type="text"
+                    <input #autocomplete class="autocomplete" formControlName="classSteel" id="mat-classSteel"
+                        type="text" data=""
                         [ngClass]="{'invalid': form.get('classSteel').invalid && form.get('classSteel').touched}">
-                    <label for="mat-classSteel">Класс материала</label>
+                    <label for="mat-classSteel">Класс</label>
                     <span *ngIf="form.get('classSteel').invalid && form.get('classSteel').touched"
                         class="helper-text red-text">Позиция не должна быть пустой.
                     </span>
                 </div>
                 <div class="input-field col s12 m4">
-                    <input formControlName="groupSteel" id="mat-groupSteel" type="text">
-                    <label for="mat-groupSteel">Подкласс материала</label>
+                    <input #autocompleteGr class="autocomplete" formControlName="groupSteel" id="mat-groupSteel"
+                        type="text">
+                    <label for="mat-groupSteel">Группа</label>
                 </div>
                 <div class="input-field col s12 m4">
                     <input formControlName="markSteel" id="mat-markSteel" type="text">
@@ -131,15 +133,7 @@
                         Минимальное значение 0, максимальное 100.
                     </span>
                 </div>
-                <!--<div class="input-field col s3 m2">
-                    <select formControlName="rank" #select
-                        [ngClass]="{'invalid': form.get('rank').invalid && form.get('rank').touched}">
-                        <option value="" disabled selected>Выбор</option>
-                        <option value="т">тонн</option>
-                        <option value="шт">штук</option>
-                    </select>
-                    <label>Мера</label>
-                </div>-->
+
                 <div class="input-field col s4 m2">
                     <input formControlName="cr" id="mat-cr" type="number"
                         [ngClass]="{'invalid': form.get('cr').invalid && form.get('cr').touched}">

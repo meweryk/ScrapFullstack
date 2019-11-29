@@ -3,7 +3,7 @@ import { MaterialsService } from '../shared/services/materials.service';
 import { Material, MaterialList, FilterMaterial } from '../shared/interfaces';
 import { MaterialInstance, MaterialService } from '../shared/classes/material.service';
 import { FormGroup, FormControl, Validators } from '@angular/forms'
-import { Subscription } from 'rxjs';
+import { Subscription } from 'rxjs'
 
 @Component({
   selector: 'app-materials-page',
@@ -13,8 +13,11 @@ import { Subscription } from 'rxjs';
 export class MaterialsPageComponent implements OnInit, AfterViewInit, OnDestroy {
 
   @ViewChild('modal', { static: false }) modalRef: ElementRef
+  @ViewChild('autocomplete', { static: false }) autocompleteRef: ElementRef
+  @ViewChild('autocompleteGr', { static: false }) autocompleteGrRef: ElementRef
   modal: MaterialInstance
-  
+  autocomplete: MaterialInstance
+  autocompleteGr: MaterialInstance
   loading = false
   isFilterVisible = false
   koef = 0.7
@@ -30,6 +33,7 @@ export class MaterialsPageComponent implements OnInit, AfterViewInit, OnDestroy 
 
   arrClassSteel: any[]
   arrGroupSteel: any[]
+  data: {} //объект для автокомплита
 
   constructor(private materialsService: MaterialsService) { }
 
@@ -61,6 +65,7 @@ export class MaterialsPageComponent implements OnInit, AfterViewInit, OnDestroy 
     })
 
     this.fetch()
+
   }
 
   private fetch() {
@@ -71,7 +76,6 @@ export class MaterialsPageComponent implements OnInit, AfterViewInit, OnDestroy 
       this.arrGroupSteel = materialList['arrGroupSteel']
       this.loading = false
     })
-
   }
 
   @HostListener('window:resize', ['$event'])
@@ -92,11 +96,14 @@ export class MaterialsPageComponent implements OnInit, AfterViewInit, OnDestroy 
 
   ngAfterViewInit() {
     this.modal = MaterialService.initModal(this.modalRef)
+    this.autocomplete = MaterialService.initAutocomplete(this.autocompleteRef)
+    this.autocompleteGr = MaterialService.initAutocomplete(this.autocompleteGrRef)
   }
 
   ngOnDestroy() {
     this.modal.destroy()
     this.oSub.unsubscribe()
+    this.autocomplete.destroy()
   }
 
   applyFilter(filter: FilterMaterial) {
@@ -132,6 +139,16 @@ export class MaterialsPageComponent implements OnInit, AfterViewInit, OnDestroy 
     })
     this.modal.open()
     MaterialService.updateTextInputs()
+    this.autocomplete.updateData(this.arrToString(this.arrClassSteel))
+    this.autocompleteGr.updateData(this.arrToString(this.arrGroupSteel))
+  }
+
+  arrToString(arr: any[]) {
+    this.data = {}
+    for (let val of arr) {
+      this.data[val] = null
+    }
+    return this.data
   }
 
   onAddMaterial() {
@@ -160,6 +177,8 @@ export class MaterialsPageComponent implements OnInit, AfterViewInit, OnDestroy 
     })
     this.modal.open()
     MaterialService.updateTextInputs()
+    this.autocomplete.updateData(this.arrToString(this.arrClassSteel))
+    this.autocompleteGr.updateData(this.arrToString(this.arrGroupSteel))
   }
 
   onDeleteMaterial(event: Event, material: Material) {
@@ -237,7 +256,7 @@ export class MaterialsPageComponent implements OnInit, AfterViewInit, OnDestroy 
           MaterialService.toast('Изменения сохранены')
         },
         error => MaterialService.toast(error.error.message),
-        
+
       )
       this.modal.close()
       this.form.enable()
@@ -253,7 +272,7 @@ export class MaterialsPageComponent implements OnInit, AfterViewInit, OnDestroy 
           },
           error => MaterialService.toast(error.error.message),
           completed
-        )        
+        )
       } else {
         MaterialService.toast(`Материал "${newMaterial.vid}" уже существует`)
         this.modal.close()
