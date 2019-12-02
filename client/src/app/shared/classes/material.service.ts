@@ -59,9 +59,7 @@ export class MaterialService {
         return M.Collapsible.init(ref.nativeElement)
     }
 
-    static initAutocomplete(ref: ElementRef): MaterialInstance {
-        return M.Autocomplete.init(ref.nativeElement, {
-            data: {}
-        })
+    static initAutocomplete(ref: ElementRef, data: {}): MaterialInstance {
+        return M.Autocomplete.init(ref.nativeElement, { data })
     }
 }

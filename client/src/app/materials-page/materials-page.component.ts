@@ -13,11 +13,7 @@ import { Subscription } from 'rxjs'
 export class MaterialsPageComponent implements OnInit, AfterViewInit, OnDestroy {
 
   @ViewChild('modal', { static: false }) modalRef: ElementRef
-  @ViewChild('autocomplete', { static: false }) autocompleteRef: ElementRef
-  @ViewChild('autocompleteGr', { static: false }) autocompleteGrRef: ElementRef
   modal: MaterialInstance
-  autocomplete: MaterialInstance
-  autocompleteGr: MaterialInstance
   loading = false
   isFilterVisible = false
   koef = 0.7
@@ -31,9 +27,8 @@ export class MaterialsPageComponent implements OnInit, AfterViewInit, OnDestroy 
   materials: Material[] = []
   filter: FilterMaterial = {}
 
-  arrClassSteel: any[]
-  arrGroupSteel: any[]
-  data: {} //объект для автокомплита
+  protected arrClassSteel: string[]
+  protected arrGroupSteel: string[]
 
   constructor(private materialsService: MaterialsService) { }
 
@@ -42,7 +37,7 @@ export class MaterialsPageComponent implements OnInit, AfterViewInit, OnDestroy 
     this.height = this.koef * window.innerHeight
 
     this.form = new FormGroup({
-      vid: new FormControl(null, Validators.required),
+      vid: new FormControl(null, [Validators.required, Validators.maxLength(10)]),
       classSteel: new FormControl(null, Validators.required),
       groupSteel: new FormControl(null),
       markSteel: new FormControl(null),
@@ -65,7 +60,6 @@ export class MaterialsPageComponent implements OnInit, AfterViewInit, OnDestroy 
     })
 
     this.fetch()
-
   }
 
   private fetch() {
@@ -96,14 +90,11 @@ export class MaterialsPageComponent implements OnInit, AfterViewInit, OnDestroy 
 
   ngAfterViewInit() {
     this.modal = MaterialService.initModal(this.modalRef)
-    this.autocomplete = MaterialService.initAutocomplete(this.autocompleteRef)
-    this.autocompleteGr = MaterialService.initAutocomplete(this.autocompleteGrRef)
   }
 
   ngOnDestroy() {
     this.modal.destroy()
     this.oSub.unsubscribe()
-    this.autocomplete.destroy()
   }
 
   applyFilter(filter: FilterMaterial) {
@@ -139,17 +130,15 @@ export class MaterialsPageComponent implements OnInit, AfterViewInit, OnDestroy 
     })
     this.modal.open()
     MaterialService.updateTextInputs()
-    this.autocomplete.updateData(this.arrToString(this.arrClassSteel))
-    this.autocompleteGr.updateData(this.arrToString(this.arrGroupSteel))
   }
 
-  arrToString(arr: any[]) {
+  /*arrToString(arr: string[]) {
     this.data = {}
     for (let val of arr) {
       this.data[val] = null
     }
     return this.data
-  }
+  }*/
 
   onAddMaterial() {
     this.materialId = null
@@ -177,8 +166,6 @@ export class MaterialsPageComponent implements OnInit, AfterViewInit, OnDestroy 
     })
     this.modal.open()
     MaterialService.updateTextInputs()
-    this.autocomplete.updateData(this.arrToString(this.arrClassSteel))
-    this.autocompleteGr.updateData(this.arrToString(this.arrGroupSteel))
   }
 
   onDeleteMaterial(event: Event, material: Material) {
@@ -213,22 +200,22 @@ export class MaterialsPageComponent implements OnInit, AfterViewInit, OnDestroy 
       groupSteel: this.form.value.groupSteel,
       markSteel: this.form.value.markSteel,
       vid: this.form.value.vid,
-      ni: this.form.value.ni,
-      cr: this.form.value.cr,
-      mo: this.form.value.mo,
-      cu: this.form.value.cu,
-      mn: this.form.value.mn,
-      w: this.form.value.w,
-      v: this.form.value.v,
-      co: this.form.value.co,
+      ni: (this.form.value.ni).toFixed(2),
+      cr: (this.form.value.cr).toFixed(2),
+      mo: (this.form.value.mo).toFixed(2),
+      cu: (this.form.value.cu).toFixed(2),
+      mn: (this.form.value.mn).toFixed(2),
+      w: (this.form.value.w).toFixed(2),
+      v: (this.form.value.v).toFixed(2),
+      co: (this.form.value.co).toFixed(2),
       si: this.form.value.si,
-      ti: this.form.value.ti,
+      ti: (this.form.value.ti).toFixed(2),
       al: this.form.value.al,
       nb: this.form.value.nb,
-      fe: this.form.value.fe,
-      p: this.form.value.p,
-      s: this.form.value.s,
-      c: this.form.value.c
+      fe: (this.form.value.fe).toFixed(2),
+      p: (this.form.value.p).toFixed(3),
+      s: (this.form.value.s).toFixed(3),
+      c: (this.form.value.c).toFixed(2)
     }
 
     if (!newMaterial.groupSteel) {

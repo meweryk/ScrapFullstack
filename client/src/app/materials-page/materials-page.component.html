@@ -107,18 +107,19 @@
                     </span>
                 </div>
                 <div class="input-field col s12 m4">
-                    <input #autocomplete class="autocomplete" formControlName="classSteel" id="mat-classSteel"
-                        type="text"
+                    <ng2-completer formControlName="classSteel" [datasource]="arrClassSteel" [minSearchLength]="0"
+                        openOnClick="true" placeholder="Класс"
                         [ngClass]="{'invalid': form.get('classSteel').invalid && form.get('classSteel').touched}">
-                    <label for="mat-classSteel">Класс</label>
+                    </ng2-completer>
+
                     <span *ngIf="form.get('classSteel').invalid && form.get('classSteel').touched"
                         class="helper-text red-text">Позиция не должна быть пустой.
                     </span>
                 </div>
+
                 <div class="input-field col s12 m4">
-                    <input #autocompleteGr class="autocomplete" formControlName="groupSteel" id="mat-groupSteel"
-                        type="text">
-                    <label for="mat-groupSteel">Группа</label>
+                    <ng2-completer formControlName="groupSteel" [datasource]="arrGroupSteel" [minSearchLength]="0"
+                        openOnClick="true" placeholder="Группа"></ng2-completer>
                 </div>
                 <div class="input-field col s12 m4">
                     <input formControlName="markSteel" id="mat-markSteel" type="text">
