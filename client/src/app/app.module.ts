@@ -1,8 +1,7 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
-import { Ng2CompleterModule } from 'ng2-completer';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http'
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -27,8 +26,6 @@ import { DeliveriesPageComponent } from './deliveries-page/deliveries-page.compo
 import { MaterialsPageComponent } from './materials-page/materials-page.component';
 import { MaterialsFilterComponent } from './materials-page/materials-filter/materials-filter.component'
 
-
-
 @NgModule({
   declarations: [
     AppComponent,
@@ -52,14 +49,15 @@ import { MaterialsFilterComponent } from './materials-page/materials-filter/mate
     MaterialsPageComponent,
     MaterialsFilterComponent
   ],
+
   imports: [
     BrowserModule,
     AppRoutingModule,
     FormsModule,
     ReactiveFormsModule,
-    HttpClientModule,
-    Ng2CompleterModule
+    HttpClientModule
   ],
+
   providers: [
     {
       provide: HTTP_INTERCEPTORS,
@@ -69,4 +67,5 @@ import { MaterialsFilterComponent } from './materials-page/materials-filter/mate
   ],
   bootstrap: [AppComponent]
 })
+
 export class AppModule { }

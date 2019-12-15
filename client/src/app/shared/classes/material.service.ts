@@ -6,11 +6,16 @@ export interface MaterialInstance {
     open?(): void
     close?(): void
     destroy?(): void
-    updateData?(data: any): {}
+
 }
 
 export interface MaterialDatepicker extends MaterialInstance {
     date?: Date
+}
+
+export interface MaterialAutocomplete extends MaterialInstance {
+    el?: any
+    updateData?(data: any): any
 }
 
 export class MaterialService {
@@ -59,7 +64,11 @@ export class MaterialService {
         return M.Collapsible.init(ref.nativeElement)
     }
 
-    static initAutocomplete(ref: ElementRef, data: {}): MaterialInstance {
-        return M.Autocomplete.init(ref.nativeElement, { data })
+    static initAutocomplete(ref: ElementRef, onAutocomplete: () => void): MaterialAutocomplete {
+        return M.Autocomplete.init(ref.nativeElement, {
+            data: {},
+            minLength: 0,
+            onAutocomplete
+        })
     }
 }

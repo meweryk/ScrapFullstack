@@ -88,10 +88,7 @@
     </ng-template>
 </div>
 
-
 <app-loader *ngIf="loading"></app-loader>
-
-
 
 <form [formGroup]="form" (ngSubmit)="onSubmit()">
     <div class="modal" #modal>
@@ -99,7 +96,7 @@
             <h5 class="mb1">Добавить материал</h5>
             <div class="row">
                 <div class="input-field col s12 m4">
-                    <input formControlName="vid" id="mat-vid" type="text"
+                    <input formControlName="vid" id="mat-vid" type="text" maxlength="15"
                         [ngClass]="{'invalid': form.get('vid').invalid && form.get('vid').touched}">
                     <label for="mat-vid">Название</label>
                     <span *ngIf="form.get('vid').invalid && form.get('vid').touched" class="helper-text red-text">
@@ -107,22 +104,24 @@
                     </span>
                 </div>
                 <div class="input-field col s12 m4">
-                    <ng2-completer formControlName="classSteel" [datasource]="arrClassSteel" [minSearchLength]="0"
-                        openOnClick="true" placeholder="Класс"
+                    <input #autocompleteCl class="autocomplete" name="classSteel" formControlName="classSteel"
+                        id="mat-classSteel" type="text" maxlength="40"
                         [ngClass]="{'invalid': form.get('classSteel').invalid && form.get('classSteel').touched}">
-                    </ng2-completer>
-
-                    <span *ngIf="form.get('classSteel').invalid && form.get('classSteel').touched"
+                    <label for="mat-classSteel">Класс</label>
+                    <span *ngIf="form.controls.classSteel.invalid && form.controls.classSteel.touched"
                         class="helper-text red-text">Позиция не должна быть пустой.
                     </span>
-                </div>
 
-                <div class="input-field col s12 m4">
-                    <ng2-completer formControlName="groupSteel" [datasource]="arrGroupSteel" [minSearchLength]="0"
-                        openOnClick="true" placeholder="Группа"></ng2-completer>
+
                 </div>
                 <div class="input-field col s12 m4">
-                    <input formControlName="markSteel" id="mat-markSteel" type="text">
+                    <input #autocompleteGr class="autocomplete" formControlName="groupSteel" id="mat-groupSteel"
+                        type="text" maxlength="40">
+                    <label for="mat-groupSteel">Группа</label>
+
+                </div>
+                <div class="input-field col s12 m4">
+                    <input formControlName="markSteel" id="mat-markSteel" type="text" maxlength="30">
                     <label for="mat-markSteel">марки сталей</label>
                 </div>
 
@@ -130,7 +129,8 @@
                     <input formControlName="ni" id="mat-ni" type="number"
                         [ngClass]="{'invalid': form.get('ni').invalid && form.get('ni').touched}">
                     <label for="mat-ni">Ni%</label>
-                    <span *ngIf="form.get('ni').invalid && form.get('cr').touched" class="helper-text red-text">
+                    <span *ngIf="form.get('ni').invalid && (form.get('ni').touched || form.get('ni').dirty)"
+                        class="helper-text red-text">
                         Минимальное значение 0, максимальное 100.
                     </span>
                 </div>
@@ -139,7 +139,8 @@
                     <input formControlName="cr" id="mat-cr" type="number"
                         [ngClass]="{'invalid': form.get('cr').invalid && form.get('cr').touched}">
                     <label for="mat-cr">Cr%</label>
-                    <span *ngIf="form.get('cr').invalid && form.get('cr').touched" class="helper-text red-text">
+                    <span *ngIf="form.get('cr').invalid && (form.get('cr').touched || form.get('cr').dirty)"
+                        class="helper-text red-text">
                         Минимальное значение 0, максимальное 100.
                     </span>
                 </div>
@@ -147,7 +148,8 @@
                     <input formControlName="mo" id="mat-mo" type="number"
                         [ngClass]="{'invalid': form.get('mo').invalid && form.get('mo').touched}">
                     <label for="mat-mo">Mo%</label>
-                    <span *ngIf="form.get('mo').invalid && form.get('mo').touched" class="helper-text red-text">
+                    <span *ngIf="form.get('mo').invalid && (form.get('mo').touched || form.get('mo').dirty)"
+                        class="helper-text red-text">
                         Минимальное значение 0, максимальное 100.
                     </span>
                 </div>
@@ -155,7 +157,8 @@
                     <input formControlName="cu" id="mat-cu" type="number"
                         [ngClass]="{'invalid': form.get('cu').invalid && form.get('cu').touched}">
                     <label for="mat-cu">Cu%</label>
-                    <span *ngIf="form.get('cu').invalid && form.get('cu').touched" class="helper-text red-text">
+                    <span *ngIf="form.get('cu').invalid && (form.get('cu').touched || form.get('cu').dirty)"
+                        class="helper-text red-text">
                         Минимальное значение 0, максимальное 100.
                     </span>
                 </div>
@@ -163,7 +166,8 @@
                     <input formControlName="mn" id="mat-mn" type="number"
                         [ngClass]="{'invalid': form.get('mn').invalid && form.get('mn').touched}">
                     <label for="mat-mn">Mn%</label>
-                    <span *ngIf="form.get('mn').invalid && form.get('mn').touched" class="helper-text red-text">
+                    <span *ngIf="form.get('mn').invalid && (form.get('mn').touched || form.get('mn').dirty)"
+                        class="helper-text red-text">
                         Минимальное значение 0, максимальное 100.
                     </span>
                 </div>
@@ -171,7 +175,8 @@
                     <input formControlName="w" id="mat-w" type="number"
                         [ngClass]="{'invalid': form.get('w').invalid && form.get('w').touched}">
                     <label for="mat-w">W%</label>
-                    <span *ngIf="form.get('w').invalid && form.get('w').touched" class="helper-text red-text">
+                    <span *ngIf="form.get('w').invalid && (form.get('w').touched || form.get('w').dirty)"
+                        class="helper-text red-text">
                         Минимальное значение 0, максимальное 100.
                     </span>
                 </div>
@@ -179,7 +184,8 @@
                     <input formControlName="v" id="mat-v" type="number"
                         [ngClass]="{'invalid': form.get('v').invalid && form.get('v').touched}">
                     <label for="mat-v">V%</label>
-                    <span *ngIf="form.get('v').invalid && form.get('v').touched" class="helper-text red-text">
+                    <span *ngIf="form.get('v').invalid && (form.get('v').touched || form.get('v').dirty)"
+                        class="helper-text red-text">
                         Минимальное значение 0, максимальное 100.
                     </span>
                 </div>
@@ -187,7 +193,8 @@
                     <input formControlName="co" id="mat-co" type="number"
                         [ngClass]="{'invalid': form.get('co').invalid && form.get('co').touched}">
                     <label for="mat-co">Co%</label>
-                    <span *ngIf="form.get('co').invalid && form.get('co').touched" class="helper-text red-text">
+                    <span *ngIf="form.get('co').invalid && (form.get('co').touched || form.get('co').dirty)"
+                        class="helper-text red-text">
                         Минимальное значение 0, максимальное 100.
                     </span>
                 </div>
@@ -195,7 +202,8 @@
                     <input formControlName="si" id="mat-si" type="text"
                         [ngClass]="{'invalid': form.get('si').invalid && form.get('si').touched}">
                     <label for="mat-si">Si%</label>
-                    <span *ngIf="form.get('si').invalid && form.get('si').touched" class="helper-text red-text">
+                    <span *ngIf="form.get('si').invalid && (form.get('si').touched || form.get('si').dirty)"
+                        class="helper-text red-text">
                         Минимальное значение 0, максимальное 100.
                     </span>
                 </div>
@@ -203,7 +211,8 @@
                     <input formControlName="ti" id="mat-ti" type="number"
                         [ngClass]="{'invalid': form.get('ti').invalid && form.get('ti').touched}">
                     <label for="mat-ti">Ti%</label>
-                    <span *ngIf="form.get('ti').invalid && form.get('ti').touched" class="helper-text red-text">
+                    <span *ngIf="form.get('ti').invalid && (form.get('ti').touched || form.get('ti').dirty)"
+                        class="helper-text red-text">
                         Минимальное значение 0, максимальное 100.
                     </span>
                 </div>
@@ -211,7 +220,8 @@
                     <input formControlName="al" id="mat-al" type="text"
                         [ngClass]="{'invalid': form.get('al').invalid && form.get('al').touched}">
                     <label for="mat-al">Al%</label>
-                    <span *ngIf="form.get('al').invalid && form.get('al').touched" class="helper-text red-text">
+                    <span *ngIf="form.get('al').invalid && (form.get('al').touched || form.get('al').dirty)"
+                        class="helper-text red-text">
                         Минимальное значение 0, максимальное 100.
                     </span>
                 </div>
@@ -219,7 +229,8 @@
                     <input formControlName="nb" id="mat-nb" type="text"
                         [ngClass]="{'invalid': form.get('nb').invalid && form.get('nb').touched}">
                     <label for="mat-nb">Nb%</label>
-                    <span *ngIf="form.get('nb').invalid && form.get('nb').touched" class="helper-text red-text">
+                    <span *ngIf="form.get('nb').invalid && (form.get('nb').touched || form.get('nb').dirty)"
+                        class="helper-text red-text">
                         Минимальное значение 0, максимальное 100.
                     </span>
                 </div>
@@ -227,7 +238,8 @@
                     <input formControlName="fe" id="mat-fe" type="number"
                         [ngClass]="{'invalid': form.get('fe').invalid && form.get('fe').touched}">
                     <label for="mat-fe">Fe%</label>
-                    <span *ngIf="form.get('fe').invalid && form.get('fe').touched" class="helper-text red-text">
+                    <span *ngIf="form.get('fe').invalid && (form.get('fe').touched || form.get('flex-fill').dirty)"
+                        class="helper-text red-text">
                         Минимальное значение 0, максимальное 100.
                     </span>
                 </div>
@@ -235,7 +247,8 @@
                     <input formControlName="p" id="mat-p" type="number"
                         [ngClass]="{'invalid': form.get('p').invalid && form.get('p').touched}">
                     <label for="mat-p">P%</label>
-                    <span *ngIf="form.get('p').invalid && form.get('p').touched" class="helper-text red-text">
+                    <span *ngIf="form.get('p').invalid && (form.get('p').touched || form.get('p').dirty)"
+                        class="helper-text red-text">
                         Минимальное значение 0, максимальное 100.
                     </span>
                 </div>
@@ -243,7 +256,8 @@
                     <input formControlName="s" id="mat-s" type="number"
                         [ngClass]="{'invalid': form.get('s').invalid && form.get('s').touched}">
                     <label for="mat-s">S%</label>
-                    <span *ngIf="form.get('s').invalid && form.get('s').touched" class="helper-text red-text">
+                    <span *ngIf="form.get('s').invalid && (form.get('s').touched || form.get('s').dirty)"
+                        class="helper-text red-text">
                         Минимальное значение 0, максимальное 100.
                     </span>
                 </div>
@@ -251,7 +265,8 @@
                     <input formControlName="c" id="mat-c" type="number"
                         [ngClass]="{'invalid': form.get('c').invalid && form.get('c').touched}">
                     <label for="mat-c">C%</label>
-                    <span *ngIf="form.get('c').invalid && form.get('c').touched" class="helper-text red-text">
+                    <span *ngIf="form.get('c').invalid && (form.get('c').touched || form.get('card-action').dirty)"
+                        class="helper-text red-text">
                         Минимальное значение 0, максимальное 100.
                     </span>
                 </div>

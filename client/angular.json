@@ -26,9 +26,7 @@
             "styles": [
               "src/styles.css"
             ],
-            "scripts": [
-              "node_modules/ng2-completer/bundles/ng2-completer.umd.js"
-            ]
+            "scripts": []
           },
           "configurations": {
             "production": {
@@ -91,12 +89,9 @@
               "src/assets"
             ],
             "styles": [
-              "src/styles.css",
-              "../node"
+              "src/styles.css"
             ],
-            "scripts": [
-              "node_modules/ng2-completer/bundles/ng2-completer.umd.js"
-            ]
+            "scripts": []
           }
         },
         "lint": {
