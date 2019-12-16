@@ -9,12 +9,14 @@
             <a data-target="mobil" class="sidenav-trigger show-on-large pointer" (click)="openSidenav()">
                 <i class="large material-icons">menu</i>
             </a>
-            <ul id="nav-mobile" class="left">
+            <ul id="nav-mobile" class="right">
                 <li routerLinkActive="active">
-
+                    <a class="waves-effect waves-red lighten-3"><i
+                            class="material-icons left">account_box</i>{{shop}}</a>
                 </li>
                 <li routerLinkActive="active">
-                    <a routerLink="/register"></a>
+                    <a href="#" class="waves-effect waves-red lighten-3" (click)="logout($event)"><i
+                            class="material-icons left">exit_to_app</i>Выход</a>
                 </li>
             </ul>
         </div>
@@ -44,7 +46,7 @@
         </a>
     </li>
 
-    <li class="bold last"><a href="#" class="waves-effect waves-orange" (click)="logout($event)">Выйти</a></li>
+    <li class="bold last"></li>
 </ul>
 
 <main class="content">
