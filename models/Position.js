@@ -23,6 +23,12 @@ const positionSchema = new Schema({
   user: {
     ref: 'users',
     type: Schema.Types.ObjectId
+  },
+  shop: {
+    type: String
+  },
+  nicname: {
+    type: String
   }
 })
 

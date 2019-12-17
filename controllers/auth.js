@@ -73,7 +73,6 @@ module.exports.getUser = async function (req, res) {
       nicname: user.nicname,
       shop: user.shop
     })
-    console.log(user)
   } catch (e) {
     errorHandler(res, e)
   }

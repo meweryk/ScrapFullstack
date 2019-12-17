@@ -1,4 +1,5 @@
 const Position = require('../models/Position')
+const User = require('../models/User')
 const errorHandler = require('../utils/errorHandler')
 
 module.exports.getByCategoryId = async function (req, res) {
@@ -21,8 +22,11 @@ module.exports.create = async function (req, res) {
       rank: req.body.rank,
       cost: req.body.cost,
       category: req.body.category,
-      user: req.user.id
+      user: req.user.id,
+      shop: req.user.shop,
+      nicname: req.user.nicname
     }).save()
+    console.log(position.shop, position.nicname)
     res.status(201).json(position)
   } catch (e) {
     errorHandler(res, e)
@@ -44,7 +48,11 @@ module.exports.update = async function (req, res) {
   try {
     const position = await Position.findOneAndUpdate(
       { _id: req.params.id },
-      { $set: req.body },
+      {
+        $set: req.body,
+        user: req.user.id,
+        nicname: req.user.nicname
+      },
       { new: true }
     )
     res.status(200).json(position)
