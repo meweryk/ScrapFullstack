@@ -5,6 +5,7 @@
                 <th>Название</th>
                 <th>Стоимость</th>
                 <th>Количество</th>
+                <th>Поставщик</th>
                 <th></th>
             </tr>
         </thead>
@@ -18,6 +19,7 @@
                         <input type="number" min="1" [(ngModel)]="position.quantity">
                     </div>
                 </td>
+                <td>{{position.shop}}</td>
                 <td>
                     <button class="btn waves-effect wavers-light btn-small" (click)="addToOrder(position)"
                         [disabled]="!position.quantity">Добавить</button>

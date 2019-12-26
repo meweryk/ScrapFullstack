@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, ViewChild, ElementRef, AfterViewInit, OnDestroy } from '@angular/core';
+import { Component, OnInit, Input, ViewChild, ElementRef, AfterViewInit, OnDestroy, HostListener } from '@angular/core';
 import { PositionsService } from 'src/app/shared/services/positions.service';
 import { Position } from 'src/app/shared/interfaces';
 import { MaterialService, MaterialInstance } from 'src/app/shared/classes/material.service';
@@ -21,10 +21,12 @@ export class PositionsFormComponent implements OnInit, AfterViewInit, OnDestroy 
   modal: MaterialInstance
   select: MaterialInstance
   form: FormGroup
+  height: number
 
   constructor(private positionsService: PositionsService) { }
 
   ngOnInit() {
+    this.height = 0.5 * window.innerHeight
     this.form = new FormGroup({
       name: new FormControl(null, Validators.required),
       cost: new FormControl(null, [Validators.required, Validators.min(1)]),
@@ -36,6 +38,11 @@ export class PositionsFormComponent implements OnInit, AfterViewInit, OnDestroy 
       this.positions = positions
       this.loading = false
     })
+  }
+
+  @HostListener('window:resize', ['$event'])
+  onResize(event: any) {
+    this.height = 0.5 * event.target.innerHeight
   }
 
   ngOnDestroy() {

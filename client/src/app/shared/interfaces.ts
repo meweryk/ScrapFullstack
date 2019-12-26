@@ -56,6 +56,8 @@ export interface Position {
     quantity?: number
     stock?: number
     rank?: string
+    shop?: string
+
 }
 
 export interface Order {

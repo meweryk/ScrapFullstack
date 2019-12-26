@@ -1,0 +1,41 @@
+div.table-container {
+  max-height: 800px;
+  overflow: scroll;
+  margin: -10px;
+}
+
+thead th {
+  position: -webkit-sticky;
+  /* for Safari */
+  position: sticky;
+  top: 0;
+  font-weight: normal;
+  color: #039;
+  border-bottom: 2px solid #dbbe99;
+  background-color: #dbb999;
+  padding: 10px 8px;
+}
+
+tbody th {
+  position: -webkit-sticky;
+  /* for Safari */
+  position: sticky;
+  left: 0;
+}
+
+tbody th,
+tbody td {
+  background: #f9ffd5;
+  padding: 0.4em;
+  border-bottom: 1px solid #ccc;
+  color: #669;
+  transition: .3s linear;
+}
+
+table {
+  border-collapse: collapse;
+}
+
+.autocomplete {
+  font-size: 10px;
+}

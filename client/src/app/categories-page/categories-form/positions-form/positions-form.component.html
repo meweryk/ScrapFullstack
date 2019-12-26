@@ -7,9 +7,44 @@
             </button>
         </div>
 
-        <div *ngIf="!loading; else loader">
-            <div class="collection" *ngIf="positions.length !== 0; else empty">
-                <a *ngFor="let position of positions" class="collection-item collection-item-icon"
+        <div class="row" *ngIf="!loading; else loader">
+            <div *ngIf="positions.length !== 0; else empty">
+                <div class="col s12">
+                    <div class="table-container" [style.height.px]="height">
+                        <table class="highlight">
+                            <thead>
+                                <tr>
+                                    <th>Материал</th>
+                                    <th>Запас</th>
+                                    <th></th>
+                                    <th>Цена</th>
+                                    <th>Действие</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr *ngFor="let position of positions">
+                                    <th><a class="collection-item collection-item-icon"
+                                            (click)="onSelectPosition(position)">{{position.name}}</a></th>
+                                    <td>{{position.stock}}</td>
+                                    <td>{{position.rank}}</td>
+                                    <td>{{position.cost}}грн.</td>
+                                    <td>
+                                        <a class="collection-item collection-item-icon">
+                                            <span>
+                                                <i class="material-icons"
+                                                    (click)="onDeletePosition($event, position)">delete</i>
+                                            </span>
+                                        </a>
+                                    </td>
+                                    <ng-template #space>
+                                        <td> </td>
+                                    </ng-template>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                <!--<a *ngFor="let position of positions" class="collection-item collection-item-icon"
                     (click)="onSelectPosition(position)">
                     <span>
                         {{position.name}} <strong>{{position.stock}} {{position.rank}}</strong>
@@ -19,7 +54,7 @@
                     <span>
                         <i class="material-icons" (click)="onDeletePosition($event, position)">delete</i>
                     </span>
-                </a>
+                </a>-->
             </div>
             <ng-template #empty>
                 <div class="center">В категории позиций нет</div>
