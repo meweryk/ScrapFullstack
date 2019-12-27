@@ -1,8 +1,10 @@
 import { Component, OnInit, Input, ViewChild, ElementRef, AfterViewInit, OnDestroy, HostListener } from '@angular/core';
 import { PositionsService } from 'src/app/shared/services/positions.service';
-import { Position } from 'src/app/shared/interfaces';
+import { Position, User } from 'src/app/shared/interfaces';
 import { MaterialService, MaterialInstance } from 'src/app/shared/classes/material.service';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
+import { AuthService } from 'src/app/shared/services/auth.service';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-positions-form',
@@ -11,22 +13,27 @@ import { FormGroup, FormControl, Validators } from '@angular/forms';
 })
 export class PositionsFormComponent implements OnInit, AfterViewInit, OnDestroy {
   @Input('categoryId') categoryId: string
+  shop: string
+  aSub: Subscription
 
   @ViewChild('modal', { static: false }) modalRef: ElementRef
   @ViewChild('select', { static: false }) selectRef: ElementRef
 
   positions: Position[] = []
+
   loading = false
   positionId = null
   modal: MaterialInstance
   select: MaterialInstance
   form: FormGroup
   height: number
-
-  constructor(private positionsService: PositionsService) { }
+  constructor(private positionsService: PositionsService,
+    private auth: AuthService) { }
 
   ngOnInit() {
     this.height = 0.5 * window.innerHeight
+    this.aSub = this.auth.getById().subscribe((data: User) => { this.shop = data.shop })
+
     this.form = new FormGroup({
       name: new FormControl(null, Validators.required),
       cost: new FormControl(null, [Validators.required, Validators.min(1)]),
@@ -35,7 +42,7 @@ export class PositionsFormComponent implements OnInit, AfterViewInit, OnDestroy 
     })
     this.loading = true
     this.positionsService.fetch(this.categoryId).subscribe(positions => {
-      this.positions = positions
+      this.positions = positions.filter(position => position.shop === this.shop)
       this.loading = false
     })
   }
@@ -48,6 +55,7 @@ export class PositionsFormComponent implements OnInit, AfterViewInit, OnDestroy 
   ngOnDestroy() {
     this.modal.destroy()
     this.select.destroy()
+    this.aSub.unsubscribe()
   }
 
   ngAfterViewInit() {

@@ -2,7 +2,7 @@ import { Component, AfterViewInit, ElementRef, ViewChild, OnDestroy, OnInit, Hos
 import { AuthService } from '../../services/auth.service';
 import { Router } from '@angular/router';
 import { MaterialService, MaterialInstance } from '../../classes/material.service';
-import { Observable, Subscription } from 'rxjs';
+import { Subscription } from 'rxjs';
 import { User } from '../../interfaces';
 
 @Component({
@@ -63,6 +63,7 @@ export class SiteLayoutComponent implements OnInit, AfterViewInit, OnDestroy {
 
   ngOnDestroy() {
     this.sidenav.destroy()
+    this.aSub.unsubscribe()
   }
 
   openSidenav() {

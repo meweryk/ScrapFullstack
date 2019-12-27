@@ -11,7 +11,7 @@
             </a>
             <ul id="nav-mobile" class="right">
                 <li routerLinkActive="active">
-                    <a class="waves-effect waves-red lighten-3"><i
+                    <a class="waves-effect waves-red lighten-3" title={{nicname}}><i
                             class="material-icons left">account_box</i>{{shop}}</a>
                 </li>
                 <li routerLinkActive="active">
@@ -30,14 +30,10 @@
         <div class="card">
             <div class="card-image">
                 <img src="/uploads/plant_dss.jpg">
-                <span class="card-title">{{nicname}}</span>
             </div>
 
         </div>
     </li>
-    <h4 class="valign-wrapper"><img class="circle" src="/uploads/logo-dneprospecstal.jpg"> DSS {{shop}}</h4>
-
-    <div class="divider pure-text"></div>
 
 
     <li class="bold" routerLinkActive="active" *ngFor="let link of links">
