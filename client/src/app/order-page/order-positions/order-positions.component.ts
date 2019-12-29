@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, HostListener } from '@angular/core';
 import { ActivatedRoute, Params } from '@angular/router';
 import { PositionsService } from 'src/app/shared/services/positions.service';
 import { Observable } from 'rxjs';
@@ -14,12 +14,14 @@ import { MaterialService } from 'src/app/shared/classes/material.service';
 })
 export class OrderPositionsComponent implements OnInit {
   positions$: Observable<Position[]>
+  height: number
 
   constructor(private route: ActivatedRoute,
     private positionsService: PositionsService,
     private order: OrderService) { }
 
   ngOnInit() {
+    this.height = 0.8 * window.innerHeight
     this.positions$ = this.route.params
       .pipe(
         switchMap(
@@ -36,6 +38,11 @@ export class OrderPositionsComponent implements OnInit {
           }
         )
       )
+  }
+
+  @HostListener('window:resize', ['$event'])
+  onResize(event: any) {
+    this.height = 0.8 * event.target.innerHeight
   }
 
   addToOrder(position: Position) {

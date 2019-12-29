@@ -9,10 +9,9 @@ thead th {
   /* for Safari */
   position: sticky;
   top: 0;
-  font-weight: normal;
-  color: #039;
-  border-bottom: 2px solid #dbbe99;
-  background-color: #dbb999;
+  color: #669;
+  background-color: #ffeccd;
+  z-index: 200;
   padding: 10px 8px;
 }
 
@@ -25,7 +24,7 @@ tbody th {
 
 tbody th,
 tbody td {
-  background: #f9ffd5;
+  background: #fff3e0;
   padding: 0.4em;
   border-bottom: 1px solid #ccc;
   color: #669;

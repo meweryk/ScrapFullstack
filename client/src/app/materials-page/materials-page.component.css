@@ -9,6 +9,9 @@ thead th {
   /* for Safari */
   position: sticky;
   top: 0;
+  background: #a1887f;
+  color: #FFF;
+  z-index: 200;
 }
 
 tbody th {
@@ -16,14 +19,6 @@ tbody th {
   /* for Safari */
   position: sticky;
   left: 0;
-}
-
-thead th {
-  background: #a1887f;
-  color: #FFF;
-}
-
-tbody th {
   background: #ffcc80;
   border-right: 0px solid #CCC;
 }

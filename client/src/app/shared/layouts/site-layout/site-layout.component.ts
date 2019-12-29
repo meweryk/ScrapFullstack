@@ -75,4 +75,8 @@ export class SiteLayoutComponent implements OnInit, AfterViewInit, OnDestroy {
       this.sidenav.close()
     }
   }
+
+  nikcnameShow() {
+    MaterialService.toast(`${this.nicname}`)
+  }
 }
