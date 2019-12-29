@@ -25,6 +25,7 @@ import { HistoryFilterComponent } from './history-page/history-filter/history-fi
 import { DeliveriesPageComponent } from './deliveries-page/deliveries-page.component';
 import { MaterialsPageComponent } from './materials-page/materials-page.component';
 import { MaterialsFilterComponent } from './materials-page/materials-filter/materials-filter.component'
+import { SearchPipe } from './shared/classes/search.pipe';
 
 @NgModule({
   declarations: [
@@ -47,7 +48,8 @@ import { MaterialsFilterComponent } from './materials-page/materials-filter/mate
     HistoryFilterComponent,
     DeliveriesPageComponent,
     MaterialsPageComponent,
-    MaterialsFilterComponent
+    MaterialsFilterComponent,
+    SearchPipe
   ],
 
   imports: [

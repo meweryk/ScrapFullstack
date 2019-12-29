@@ -4,20 +4,30 @@
             <table class="highlight" *ngIf="positions.length !== 0; else empty">
                 <thead>
                     <tr>
-                        <th>Название</th>
+                        <th>
+                            <div class="input-field inline order-position-input">
+                                <input type="text" title="vid" [(ngModel)]="searchVid">
+                                <label for="vid">Название</label>
+                            </div>
+                        </th>
                         <th>Стоимость</th>
                         <th>Количество</th>
-                        <th>Поставщик</th>
+                        <th>
+                            <div class="input-field inline order-position-input">
+                                <input type="text" title="shop" [(ngModel)]="searchShop">
+                                <label for="shop">Поставщик</label>
+                            </div>
+                        </th>
                         <th></th>
                     </tr>
                 </thead>
 
                 <tbody>
-                    <tr *ngFor="let position of positions">
+                    <tr *ngFor="let position of positions | searchV: [searchVid, searchShop]">
                         <th>{{position.name}}</th>
                         <td>{{position.cost}} грн.</td>
                         <td>
-                            <div class="input-field inlione order-position-input">
+                            <div class="input-field inline order-position-input">
                                 <input type="number" min="1" [(ngModel)]="position.quantity">
                             </div>
                         </td>

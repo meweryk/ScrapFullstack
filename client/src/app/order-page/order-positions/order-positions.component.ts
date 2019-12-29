@@ -5,7 +5,7 @@ import { Observable } from 'rxjs';
 import { Position } from 'src/app/shared/interfaces';
 import { switchMap, map } from 'rxjs/operators';
 import { OrderService } from '../order.service';
-import { MaterialService } from 'src/app/shared/classes/material.service';
+import { MaterialService, MaterialInstance } from 'src/app/shared/classes/material.service';
 
 @Component({
   selector: 'app-order-positions',
@@ -13,8 +13,14 @@ import { MaterialService } from 'src/app/shared/classes/material.service';
   styleUrls: ['./order-positions.component.css']
 })
 export class OrderPositionsComponent implements OnInit {
+
   positions$: Observable<Position[]>
+
   height: number
+
+  allShops: string[]
+  searchShop = ''
+  searchVid = ''
 
   constructor(private route: ActivatedRoute,
     private positionsService: PositionsService,
@@ -49,5 +55,4 @@ export class OrderPositionsComponent implements OnInit {
     MaterialService.toast(`Добавлено х${position.quantity}`)
     this.order.add(position)
   }
-
 }
