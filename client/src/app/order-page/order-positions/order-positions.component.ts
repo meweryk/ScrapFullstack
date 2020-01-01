@@ -27,7 +27,7 @@ export class OrderPositionsComponent implements OnInit {
     private order: OrderService) { }
 
   ngOnInit() {
-    this.height = 0.8 * window.innerHeight
+    this.height = 0.75 * window.innerHeight
     this.positions$ = this.route.params
       .pipe(
         switchMap(
@@ -48,7 +48,7 @@ export class OrderPositionsComponent implements OnInit {
 
   @HostListener('window:resize', ['$event'])
   onResize(event: any) {
-    this.height = 0.8 * event.target.innerHeight
+    this.height = 0.75 * event.target.innerHeight
   }
 
   addToOrder(position: Position) {
