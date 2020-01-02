@@ -73,6 +73,7 @@ export interface OrderPosition {
     cost: number
     quantity: number
     _id?: string
+    shopSeller?: string
 }
 
 export interface Filter {

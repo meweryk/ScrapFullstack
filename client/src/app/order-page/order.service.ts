@@ -6,13 +6,15 @@ export class OrderService {
 
     public list: OrderPosition[] = []
     public price = 0
+    public weight = 0
 
     add(position: Position) {
         const orderPosition: OrderPosition = Object.assign({}, {
             name: position.name,
             cost: position.cost,
             quantity: position.quantity,
-            _id: position._id
+            _id: position._id,
+            shopSeller: position.shop
         })
 
         const candidate = this.list.find(p => p._id === orderPosition._id)
@@ -25,6 +27,7 @@ export class OrderService {
         }
 
         this.computePrice()
+        this.computeWeight()
 
     }
 
@@ -32,16 +35,24 @@ export class OrderService {
         const idx = this.list.findIndex(p => p._id === orderPosition._id)
         this.list.splice(idx, 1)
         this.computePrice()
+        this.computeWeight()
     }
 
     clear() {
         this.list = []
         this.price = 0
+        this.weight = 0
     }
 
     private computePrice() {
         this.price = this.list.reduce((total, item) => {
             return total += item.quantity * item.cost
+        }, 0)
+    }
+
+    private computeWeight() {
+        this.weight = this.list.reduce((total, item) => {
+            return total += item.quantity
         }, 0)
     }
 }

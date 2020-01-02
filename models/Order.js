@@ -20,12 +20,19 @@ const orderSchema = new Schema({
       },
       cost: {
         type: Number
-      }
+      },
+      shopSeller: String
     }
   ],
   user: {
     ref: 'users',
     type: Schema.Types.ObjectId
+  },
+  shopBuyer: {
+    type: String
+  },
+  nicname: {
+    type: String
   }
 })
 

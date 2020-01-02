@@ -38,7 +38,6 @@ module.exports.create = async function (req, res) {
       shop: req.user.shop,
       nicname: req.user.nicname
     }).save()
-    console.log(position.shop, position.nicname)
     res.status(201).json(position)
   } catch (e) {
     errorHandler(res, e)
