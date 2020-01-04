@@ -11,7 +11,10 @@ const userSchema = new Schema({
     type: String,
     required: true
   },
-  nicname: String,
+  nicname: {
+    type: String,
+    required: true
+  },
   shop: String
 })
 
