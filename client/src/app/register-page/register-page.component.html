@@ -28,18 +28,18 @@
     <div class="input-field">
       <input formControlName="nicname" id="nicname" type="text"
         [ngClass]="{invalid: form.get('nicname').invalid && form.get('nicname').touched}">
-      <label for="nicname">Nickname:</label>
+      <label for="nicname">Ф.И.О:</label>
       <span class="helper-text red-text" *ngIf="form.get('nicname').invalid && form.get('nicname').touched">
-        <span *ngIf="form.get('nicname').errors['required']">Nickname не должуен быть пустым</span>
+        <span *ngIf="form.get('nicname').errors['required']">Поле не должно быть пустым</span>
       </span>
     </div>
 
     <div class="input-field">
       <input formControlName="shop" id="shop" type="text"
         [ngClass]="{invalid: form.get('shop').invalid && form.get('shop').touched}">
-      <label for="shop">Department:</label>
+      <label for="shop">Управление, отдел, цех, склад:</label>
       <span class="helper-text red-text" *ngIf="form.get('shop').invalid && form.get('shop').touched">
-        <span *ngIf="form.get('shop').errors['required']">Department не должен быть пустым</span>
+        <span *ngIf="form.get('shop').errors['required']">Поле не должно быть пустым</span>
       </span>
     </div>
   </div>
