@@ -45,14 +45,14 @@ export class OrderService {
     }
 
     private computePrice() {
-        this.price = this.list.reduce((total, item) => {
+        this.price = +this.list.reduce((total, item) => {
             return total += item.quantity * item.cost
-        }, 0)
+        }, 0).toFixed(2)
     }
 
     private computeWeight() {
-        this.weight = this.list.reduce((total, item) => {
+        this.weight = +this.list.reduce((total, item) => {
             return total += item.quantity
-        }, 0)
+        }, 0).toFixed(3)
     }
 }

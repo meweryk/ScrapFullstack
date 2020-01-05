@@ -66,6 +66,8 @@ export interface Order {
     user?: string
     list: OrderPosition[]
     _id?: string
+    shopBuyer?: string
+    nicname?: string
 }
 
 export interface OrderPosition {
