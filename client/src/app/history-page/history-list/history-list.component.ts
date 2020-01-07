@@ -12,15 +12,18 @@ import { AuthService } from 'src/app/shared/services/auth.service';
 export class HistoryListComponent implements OnInit, OnDestroy, AfterViewInit {
   @Input() orders: Order[]
   @ViewChild('modal', { static: false }) modalRef: ElementRef
+  @ViewChild('select', { static: false }) selectRef: ElementRef
 
   shop: string
   aSub: Subscription
 
   selectedOrder: Order
   modal: MaterialInstance
+  select: MaterialInstance
+
+  searchOrd = ''
 
   constructor(private auth: AuthService) { }
-
 
   ngOnInit() {
     this.aSub = this.auth.getById().subscribe((data: User) => { this.shop = data.shop })
@@ -32,6 +35,7 @@ export class HistoryListComponent implements OnInit, OnDestroy, AfterViewInit {
 
   ngAfterViewInit() {
     this.modal = MaterialService.initModal(this.modalRef)
+    this.select = MaterialService.initFormSelect(this.selectRef)
   }
 
   computePrice(order: Order): number {

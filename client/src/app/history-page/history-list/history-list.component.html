@@ -5,27 +5,32 @@
             <th>Дата</th>
             <th>Время</th>
             <th>Сумма</th>
-            <th></th>
+            <th>
+                <div class="input-field" [style.margin.px]="0" style="cursor: pointer; width: 6rem;">
+                    <select #select [(ngModel)]="searchOrd">
+                        <option value="" selected><span style="font-size: 14px;">Все</span>
+                        </option>
+                        <option [value]="shop"><span style="font-size: 14px">Импорт</span></option>
+                        <option value="exportOrd"><span style="font-size: 14px">Экспорт</span></option>
+                    </select>
+                    <label>Заявки</label>
+                </div>
+            </th>
         </tr>
     </thead>
 
     <tbody>
-        <tr *ngFor="let order of orders">
+        <tr *ngFor="let order of orders | searchO: [searchOrd, shop]" [class.importOrder]="shop==order.shopBuyer">
             <td>{{order.order}}</td>
             <td>{{order.date | date:'dd.MM.yyyy'}}</td>
             <td>{{order.date | date:'HH:mm:ss'}}</td>
             <td>{{computePrice(order)}} грн.</td>
-            <td *ngIf="shop === order.shopBuyer; then buy else sell"></td>
-            <ng-template #buy>
-                <button class="btn btn-small lime darken-3" (click)="selectOrder(order)">
-                    <i class="material-icons">call_received</i>
-                </button>
-            </ng-template>
-            <ng-template #sell>
-                <button class="btn btn-small grey darken-1" (click)="selectOrder(order)">
+            <td>
+                <button [class.buttonOrder]="shop==order.shopBuyer" class="btn btn-small grey darken-1"
+                    (click)="selectOrder(order)">
                     <i class="material-icons">open_in_new</i>
                 </button>
-            </ng-template>
+            </td>
         </tr>
     </tbody>
 </table>
