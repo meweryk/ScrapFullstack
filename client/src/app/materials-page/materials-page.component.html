@@ -41,7 +41,7 @@
                             <th>S%</th>
                             <th>C%</th>
                             <th>Марки сталей</th>
-                            <th>Действие</th>
+                            <th colspan="2">Действие</th>
                         </tr>
                     </thead>
                     <tbody *ngFor="let material of materials">
@@ -65,6 +65,13 @@
                             <td *ngIf="material.s !== 0; else space">{{material.s}}</td>
                             <td *ngIf="material.c !== 0; else space">{{material.c}}</td>
                             <td>{{material.markSteel}}</td>
+                            <td>
+                                <a class="collection-item collection-item-icon">
+                                    <span>
+                                        <i class="material-icons" (click)="onSelectMaterial(material)">autorenew</i>
+                                    </span>
+                                </a>
+                            </td>
                             <td>
                                 <a class="collection-item collection-item-icon">
                                     <span>
@@ -110,14 +117,11 @@
                     <span *ngIf="form.controls.classSteel.invalid && form.controls.classSteel.touched"
                         class="helper-text red-text">Позиция не должна быть пустой.
                     </span>
-
-
                 </div>
                 <div class="input-field col s12 m4">
                     <input #autocompleteGr class="autocomplete" formControlName="groupSteel" id="mat-groupSteel"
-                        type="text" maxlength="40">
+                        type="text" maxlength="50">
                     <label for="mat-groupSteel">Группа</label>
-
                 </div>
                 <div class="input-field col s12 m4">
                     <input formControlName="markSteel" id="mat-markSteel" type="text" maxlength="30">

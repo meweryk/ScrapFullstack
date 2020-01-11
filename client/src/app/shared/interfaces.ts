@@ -20,6 +20,7 @@ export interface MaterialList {
     materials: Material[]
     arrClassSteel: string[]
     arrGroupSteel: string[]
+    arrName: string[]
 }
 
 export interface Material {

@@ -1,10 +1,11 @@
 import { Component, OnInit, Input, ViewChild, ElementRef, AfterViewInit, OnDestroy, HostListener } from '@angular/core';
 import { PositionsService } from 'src/app/shared/services/positions.service';
 import { Position, User } from 'src/app/shared/interfaces';
-import { MaterialService, MaterialInstance } from 'src/app/shared/classes/material.service';
+import { MaterialService, MaterialInstance, MaterialAutocomplete } from 'src/app/shared/classes/material.service';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { AuthService } from 'src/app/shared/services/auth.service';
 import { Subscription } from 'rxjs';
+import { MaterialsService } from 'src/app/shared/services/materials.service';
 
 @Component({
   selector: 'app-positions-form',
@@ -15,9 +16,14 @@ export class PositionsFormComponent implements OnInit, AfterViewInit, OnDestroy 
   @Input('categoryId') categoryId: string
   shop: string
   aSub: Subscription
+  mSub: Subscription
+
+  arrName: string[]
+  filter = {}
 
   @ViewChild('modal', { static: false }) modalRef: ElementRef
   @ViewChild('select', { static: false }) selectRef: ElementRef
+  @ViewChild('autocomplete', { static: false }) autocompleteRef: ElementRef
 
   positions: Position[] = []
 
@@ -25,12 +31,20 @@ export class PositionsFormComponent implements OnInit, AfterViewInit, OnDestroy 
   positionId = null
   modal: MaterialInstance
   select: MaterialInstance
+  autocomplete: MaterialAutocomplete
+
+  data = {}
+
   form: FormGroup
   height: number
   constructor(private positionsService: PositionsService,
-    private auth: AuthService) { }
+    private auth: AuthService,
+    private materialsService: MaterialsService
+  ) { }
 
   ngOnInit() {
+    const params = Object.assign({}, this.filter)
+
     this.height = 0.5 * window.innerHeight
     this.aSub = this.auth.getById().subscribe((data: User) => { this.shop = data.shop })
 
@@ -45,6 +59,11 @@ export class PositionsFormComponent implements OnInit, AfterViewInit, OnDestroy 
       this.positions = positions.filter(position => position.shop === this.shop)
       this.loading = false
     })
+
+    this.mSub = this.materialsService.fetch(params).subscribe(materialList => {
+      this.arrName = materialList['arrName']
+    })
+
   }
 
   @HostListener('window:resize', ['$event'])
@@ -56,11 +75,35 @@ export class PositionsFormComponent implements OnInit, AfterViewInit, OnDestroy 
     this.modal.destroy()
     this.select.destroy()
     this.aSub.unsubscribe()
+    this.mSub.unsubscribe()
+    this.autocomplete.destroy()
   }
 
   ngAfterViewInit() {
     this.modal = MaterialService.initModal(this.modalRef)
     this.select = MaterialService.initFormSelect(this.selectRef)
+    this.autocomplete = MaterialService.initAutocomplete(this.autocompleteRef, this.validate.bind(this), 1)
+  }
+
+  // [] => {}
+  private arrToString(arr: string[]) {
+    this.data = {}
+    for (let val of arr) {
+      this.data[val] = null
+    }
+    return this.data
+  }
+
+  //change autocomplete data []
+  update() {
+    this.autocomplete.updateData(this.arrToString(this.arrName))
+  }
+
+  //change form value after autocomplete
+  validate() {
+    if (this.autocomplete.el.value) {
+      this.form.patchValue({ name: this.autocomplete.el.value })
+    }
   }
 
   onSelectPosition(position: Position) {
@@ -73,6 +116,7 @@ export class PositionsFormComponent implements OnInit, AfterViewInit, OnDestroy 
     })
     this.modal.open()
     MaterialService.updateTextInputs()
+    this.update()
   }
 
   onAddPosition() {
@@ -80,6 +124,7 @@ export class PositionsFormComponent implements OnInit, AfterViewInit, OnDestroy 
     this.form.reset({ name: null, cost: 1, stock: 0, rank: '' })
     this.modal.open()
     MaterialService.updateTextInputs()
+    this.update()
   }
 
   onDeletePosition(event: Event, position: Position) {

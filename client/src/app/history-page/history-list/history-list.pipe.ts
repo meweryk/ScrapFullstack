@@ -14,7 +14,6 @@ export class HistoryListPipe implements PipeTransform {
             return orders.filter(order => {
                 let a = order.shopBuyer.includes(value[1])
                 a = !a
-                console.log(a)
                 return a
             })
         }

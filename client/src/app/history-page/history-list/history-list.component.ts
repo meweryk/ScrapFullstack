@@ -52,7 +52,6 @@ export class HistoryListComponent implements OnInit, OnDestroy, AfterViewInit {
 
   selectOrder(order: Order) {
     this.selectedOrder = order
-    console.log(this.selectedOrder)
     this.modal.open()
   }
 
