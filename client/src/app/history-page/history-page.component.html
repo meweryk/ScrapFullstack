@@ -1,10 +1,17 @@
 <div class="page-title">
-    <h4>История заказов</h4>
-    <button (click)="isFilterVisible = !isFilterVisible" class="btn btn-small"
-        [ngClass]="{'active': isFilterVisible, 'red': isFiltered()}" data-tooltip="Открыть фильтр" data-position="left"
-        #tooltip>
-        <i class="material-icons">filter_list</i>
-    </button>
+    <h5>История заказов</h5>
+    <div col s6>
+        <button  (click)="updateHistoryList()" class="btn btn-small waves-effect waves-light" data-tooltip="Обновить историю заказов" data-position="left"
+            #tooltip1 >
+            <i class="material-icons">update</i>
+        </button>
+        <span>&#160;</span>
+        <button (click)="isFilterVisible = !isFilterVisible" class="btn btn-small waves-effect waves-light"
+            [ngClass]="{'active': isFilterVisible, 'red': isFiltered()}" data-tooltip="Открыть фильтр"
+            data-position="bottom" #tooltip2>
+            <i class="material-icons">filter_list</i>
+        </button>
+    </div>
 </div>
 
 <app-history-filter *ngIf="isFilterVisible" (onFilter)="applyFilter($event)"></app-history-filter>

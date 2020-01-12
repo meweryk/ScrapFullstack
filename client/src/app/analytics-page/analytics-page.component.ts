@@ -12,7 +12,7 @@ import { Subscription } from 'rxjs';
 export class AnalyticsPageComponent implements AfterViewInit, OnDestroy {
 
   @ViewChild('gain', { static: false }) gainRef: ElementRef
-  @ViewChild('order', { static: false }) orderRef: ElementRef
+  @ViewChild('orderImport', { static: false }) orderImportRef: ElementRef
 
   aSub: Subscription
   average: number
@@ -42,7 +42,7 @@ export class AnalyticsPageComponent implements AfterViewInit, OnDestroy {
       orderConfig.data = data.chart.map(item => item.order)
 
       const gainCtx = this.gainRef.nativeElement.getContext('2d')
-      const orderCtx = this.orderRef.nativeElement.getContext('2d')
+      const orderCtx = this.orderImportRef.nativeElement.getContext('2d')
       gainCtx.canvas.height = '300px'
       orderCtx.canvas.height = '300px'
       new Chart(gainCtx, createChartConfig(gainConfig))
