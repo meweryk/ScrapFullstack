@@ -3,8 +3,21 @@ const errorHandler = require('../utils/errorHandler')
 
 //localhost:5000/api/order?offset=2&limit=5
 module.exports.getAll = async function (req, res) {
-  const query = {
-    user: req.user.id
+  const query = {}
+
+  if (req.user.shop) {
+    query.$or = [
+      { shopBuyer: req.user.shop },
+      {
+        list: {
+          $elemMatch: {
+            shopSeller: req.user.shop
+          }
+        }
+      }
+    ]
+  } else {
+    query.user = req.user.id
   }
 
   //дата старта
@@ -19,7 +32,6 @@ module.exports.getAll = async function (req, res) {
     if (!query.date) {
       query.date = {}
     }
-
     query.date['$lte'] = req.query.end
   }
 
@@ -35,7 +47,6 @@ module.exports.getAll = async function (req, res) {
       })
       .skip(+req.query.offset)
       .limit(+req.query.limit)
-
     res.status(200).json(orders)
 
   } catch (e) {

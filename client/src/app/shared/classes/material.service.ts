@@ -64,10 +64,10 @@ export class MaterialService {
         return M.Collapsible.init(ref.nativeElement)
     }
 
-    static initAutocomplete(ref: ElementRef, onAutocomplete: () => void): MaterialAutocomplete {
+    static initAutocomplete(ref: ElementRef, onAutocomplete: () => void, minLength: number): MaterialAutocomplete {
         return M.Autocomplete.init(ref.nativeElement, {
             data: {},
-            minLength: 0,
+            minLength,
             onAutocomplete
         })
     }

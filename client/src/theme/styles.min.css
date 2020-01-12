@@ -61,25 +61,9 @@ footer {
   cursor: pointer
 }
 
-.order-row {
-  flex-wrap: wrap
-}
-
-.order-row .card {
-  width: 30%;
-  min-width: 175px;
-  margin-right: 20px
-}
-
 .order-img {
-  height: 100px !important
-}
-
-.frow {
-  display: flex;
-  margin-bottom: 20px;
-  margin-left: auto;
-  margin-right: auto
+  height: 100px !important;
+  background-size: contain;
 }
 
 .page-title {

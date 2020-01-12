@@ -3,7 +3,6 @@ import { CategoriesService } from '../shared/services/categories.service';
 import { Observable } from 'rxjs/index';
 import { Category } from '../shared/interfaces';
 
-
 @Component({
   selector: 'app-categories-page',
   templateUrl: './categories-page.component.html',
@@ -18,5 +17,4 @@ export class CategoriesPageComponent implements OnInit {
   ngOnInit() {
     this.categories$ = this.categoriesService.fetch()
   }
-
 }

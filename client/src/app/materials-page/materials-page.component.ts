@@ -69,7 +69,6 @@ export class MaterialsPageComponent implements OnInit, AfterViewInit, OnDestroy 
     this.fetch()
     this.arrClassSteel = this.arrClassSteel
     this.arrGroupSteel = this.arrGroupSteel
-
   }
 
   private fetch() {
@@ -89,8 +88,8 @@ export class MaterialsPageComponent implements OnInit, AfterViewInit, OnDestroy 
 
   ngAfterViewInit() {
     this.modal = MaterialService.initModal(this.modalRef)
-    this.autocompleteCl = MaterialService.initAutocomplete(this.autocompleteClRef, this.validate.bind(this))
-    this.autocompleteGr = MaterialService.initAutocomplete(this.autocompleteGrRef, this.validate.bind(this))
+    this.autocompleteCl = MaterialService.initAutocomplete(this.autocompleteClRef, this.validate.bind(this), 0)
+    this.autocompleteGr = MaterialService.initAutocomplete(this.autocompleteGrRef, this.validate.bind(this), 0)
   }
 
   ngOnDestroy() {
@@ -140,7 +139,7 @@ export class MaterialsPageComponent implements OnInit, AfterViewInit, OnDestroy 
     return this.data
   }
 
-  //change form value aftet autocomplete
+  //change form value after autocomplete
   validate() {
     if (this.autocompleteCl.el.value) {
       this.form.patchValue({ classSteel: this.autocompleteCl.el.value })
@@ -148,9 +147,6 @@ export class MaterialsPageComponent implements OnInit, AfterViewInit, OnDestroy 
     if (this.autocompleteGr.el.value) {
       this.form.patchValue({ groupSteel: this.autocompleteGr.el.value })
     }
-    //console.log(this.autocompleteCl.el.value)
-    //console.log(this.autocompleteGr.el.value)
-    //console.warn(this.form.value)
   }
 
   onAddMaterial() {

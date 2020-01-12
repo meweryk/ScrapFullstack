@@ -21,7 +21,8 @@ module.exports.getAll = async function (req, res) {
         const materials = await Material.find(query).sort({ vid: 1 })
         const arrClassSteel = await Material.distinct('classSteel')
         const arrGroupSteel = await Material.distinct(('groupSteel'))
-        const materialList = { materials, arrClassSteel, arrGroupSteel }
+        const arrName = await Material.distinct((('vid')))
+        const materialList = { materials, arrClassSteel, arrGroupSteel, arrName }
         res.status(200).json(materialList)
     } catch (e) {
         errorHandler(res, e)
@@ -73,13 +74,9 @@ module.exports.update = async function (req, res) {
         }
     } else {
         res.status(409).json({
-            message: 'Изменяйте или удаляйте созданные Вами материалы.'
+            message: 'Изменяйте или удаляйте созданные только Вами материалы.'
         })
     }
-
-
-
-
 }
 
 module.exports.remove = async function (req, res) {

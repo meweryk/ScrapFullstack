@@ -20,6 +20,7 @@ export interface MaterialList {
     materials: Material[]
     arrClassSteel: string[]
     arrGroupSteel: string[]
+    arrName: string[]
 }
 
 export interface Material {
@@ -66,6 +67,8 @@ export interface Order {
     user?: string
     list: OrderPosition[]
     _id?: string
+    shopBuyer?: string
+    nicname?: string
 }
 
 export interface OrderPosition {

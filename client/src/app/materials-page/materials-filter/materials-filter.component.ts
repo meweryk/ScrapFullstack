@@ -27,7 +27,6 @@ export class MaterialsFilterComponent implements OnInit, AfterViewInit, OnDestro
   constructor() { }
 
   ngOnInit() {
-
   }
 
   ngAfterViewInit() {

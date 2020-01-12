@@ -1,11 +1,12 @@
-import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
+import { Component, OnInit, ViewChild, ElementRef, Input } from '@angular/core';
 import { ActivatedRoute, Params, Router } from '@angular/router';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { CategoriesService } from 'src/app/shared/services/categories.service';
 import { switchMap } from 'rxjs/operators';
-import { of } from 'rxjs';
+import { of, Subscription } from 'rxjs';
 import { MaterialService } from 'src/app/shared/classes/material.service';
 import { Category } from 'src/app/shared/interfaces';
+import { MaterialsService } from 'src/app/shared/services/materials.service';
 
 @Component({
   selector: 'app-categories-form',
@@ -26,6 +27,7 @@ export class CategoriesFormComponent implements OnInit {
     private router: Router) { }
 
   ngOnInit() {
+
     this.form = new FormGroup({
       name: new FormControl(null, Validators.required)
     })
@@ -62,6 +64,8 @@ export class CategoriesFormComponent implements OnInit {
         error => MaterialService.toast(error.error.message)
       )
   }
+
+
 
   triggerClick() {
     this.innputRef.nativeElement.click()

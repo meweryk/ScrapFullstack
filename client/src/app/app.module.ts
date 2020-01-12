@@ -26,6 +26,7 @@ import { DeliveriesPageComponent } from './deliveries-page/deliveries-page.compo
 import { MaterialsPageComponent } from './materials-page/materials-page.component';
 import { MaterialsFilterComponent } from './materials-page/materials-filter/materials-filter.component'
 import { SearchPipe } from './shared/classes/search.pipe';
+import { HistoryListPipe } from './history-page/history-list/history-list.pipe'
 
 @NgModule({
   declarations: [
@@ -49,7 +50,8 @@ import { SearchPipe } from './shared/classes/search.pipe';
     DeliveriesPageComponent,
     MaterialsPageComponent,
     MaterialsFilterComponent,
-    SearchPipe
+    SearchPipe,
+    HistoryListPipe
   ],
 
   imports: [
