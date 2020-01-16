@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild, ElementRef, AfterViewInit, OnDestroy } from '@angular/core';
+import { Component, ViewChild, ElementRef, AfterViewInit, OnDestroy } from '@angular/core';
 import { AnalyticsService } from '../shared/services/analytics.service';
 import { AnalyticsPage } from '../shared/interfaces';
 import { Chart } from 'chart.js'
