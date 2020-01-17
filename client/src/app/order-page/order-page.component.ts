@@ -14,7 +14,7 @@ import { Subscription } from 'rxjs';
 })
 export class OrderPageComponent implements OnInit, OnDestroy, AfterViewInit {
 
-  @ViewChild('modal', { static: false }) modalRef: ElementRef
+  @ViewChild('modal') modalRef: ElementRef
   isRoot: boolean
   modal: MaterialInstance
   oSub: Subscription

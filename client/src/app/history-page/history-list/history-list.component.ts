@@ -11,8 +11,8 @@ import { AuthService } from 'src/app/shared/services/auth.service';
 })
 export class HistoryListComponent implements OnInit, OnDestroy, AfterViewInit {
   @Input() orders: Order[]
-  @ViewChild('modal', { static: false }) modalRef: ElementRef
-  @ViewChild('select', { static: false }) selectRef: ElementRef
+  @ViewChild('modal') modalRef: ElementRef
+  @ViewChild('select') selectRef: ElementRef
 
   shop: string
   aSub: Subscription

@@ -11,7 +11,7 @@ import { MaterialInstance, MaterialService } from '../shared/classes/material.se
 })
 export class OverviewPageComponent implements OnInit, OnDestroy, AfterViewInit {
 
-  @ViewChild('tapTarget', { static: false }) tapTargetRef: ElementRef
+  @ViewChild('tapTarget') tapTargetRef: ElementRef
   tapTarget: MaterialInstance
   data$: Observable<OverviewPage>
 

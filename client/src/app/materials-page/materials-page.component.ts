@@ -12,9 +12,9 @@ import { Subscription } from 'rxjs'
 })
 export class MaterialsPageComponent implements OnInit, AfterViewInit, OnDestroy {
 
-  @ViewChild('modal', { static: false }) modalRef: ElementRef
-  @ViewChild('autocompleteCl', { static: false }) autocompleteClRef: ElementRef
-  @ViewChild('autocompleteGr', { static: false }) autocompleteGrRef: ElementRef
+  @ViewChild('modal') modalRef: ElementRef
+  @ViewChild('autocompleteCl') autocompleteClRef: ElementRef
+  @ViewChild('autocompleteGr') autocompleteGrRef: ElementRef
 
   modal: MaterialInstance
   autocompleteCl: MaterialAutocomplete

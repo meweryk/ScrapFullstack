@@ -25,9 +25,9 @@ const routes: Routes = [
   },
   {
     path: '', component: SiteLayoutComponent, canActivate: [AuthGuard], children: [
-      { path: 'overview', loadChildren: './overview-page/overview.module#OverviewModule' },
-      { path: 'analytics', loadChildren: './analytics-page/analytics.module#AnalyticsModule' },
-      { path: 'history', loadChildren: './history-page/history.module#HistoryModule' },
+      { path: 'overview', loadChildren: () => import('./overview-page/overview.module').then(m => m.OverviewModule) },
+      { path: 'analytics', loadChildren: () => import('./analytics-page/analytics.module').then(m => m.AnalyticsModule) },
+      { path: 'history', loadChildren: () => import('./history-page/history.module').then(m => m.HistoryModule) },
       {
         path: 'order', component: OrderPageComponent, children: [
           { path: '', component: OrderCategoriesComponent },

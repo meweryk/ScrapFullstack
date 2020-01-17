@@ -11,8 +11,8 @@ import { Subscription } from 'rxjs';
 })
 export class AnalyticsPageComponent implements AfterViewInit, OnDestroy {
 
-  @ViewChild('gain', { static: false }) gainRef: ElementRef
-  @ViewChild('orderImport', { static: false }) orderImportRef: ElementRef
+  @ViewChild('gain') gainRef: ElementRef
+  @ViewChild('orderImport') orderImportRef: ElementRef
 
   aSub: Subscription
   average: number

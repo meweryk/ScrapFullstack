@@ -15,7 +15,7 @@ import { MaterialsService } from 'src/app/shared/services/materials.service';
 })
 export class CategoriesFormComponent implements OnInit {
 
-  @ViewChild('input', { static: false }) innputRef: ElementRef
+  @ViewChild('input') innputRef: ElementRef
   form: FormGroup
   image: File
   imagePreview = ''

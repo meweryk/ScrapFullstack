@@ -13,8 +13,8 @@ export class MaterialsFilterComponent implements OnInit, AfterViewInit, OnDestro
   @Input() arrGroupSteel: any[]
   @Output() onFilter = new EventEmitter<FilterMaterial>()
 
-  @ViewChild('select1', { static: false }) select1Ref: ElementRef
-  @ViewChild('select2', { static: false }) select2Ref: ElementRef
+  @ViewChild('select1') select1Ref: ElementRef
+  @ViewChild('select2') select2Ref: ElementRef
 
   select1: MaterialInstance
   select2: MaterialInstance

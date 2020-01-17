@@ -12,8 +12,8 @@ import { User } from '../../interfaces';
 })
 export class SiteLayoutComponent implements OnInit, AfterViewInit, OnDestroy {
 
-  @ViewChild('floating', { static: false }) floatingRef: ElementRef
-  @ViewChild('sidenav', { static: false }) sidenavRef: ElementRef
+  @ViewChild('floating') floatingRef: ElementRef
+  @ViewChild('sidenav') sidenavRef: ElementRef
 
   width: any
   sidenav: MaterialInstance

@@ -13,8 +13,8 @@ const STEP = 6
 })
 export class HistoryPageComponent implements OnInit, OnDestroy, AfterViewInit {
 
-  @ViewChild('tooltip1', { static: false }) tooltip1Ref: ElementRef
-  @ViewChild('tooltip2', { static: false }) tooltip2Ref: ElementRef
+  @ViewChild('tooltip1') tooltip1Ref: ElementRef
+  @ViewChild('tooltip2') tooltip2Ref: ElementRef
   tooltip1: MaterialInstance
   tooltip2: MaterialInstance
   oSub: Subscription

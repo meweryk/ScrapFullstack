@@ -21,9 +21,9 @@ export class PositionsFormComponent implements OnInit, AfterViewInit, OnDestroy 
   arrName: string[]
   filter = {}
 
-  @ViewChild('modal', { static: false }) modalRef: ElementRef
-  @ViewChild('select', { static: false }) selectRef: ElementRef
-  @ViewChild('autocomplete', { static: false }) autocompleteRef: ElementRef
+  @ViewChild('modal') modalRef: ElementRef
+  @ViewChild('select') selectRef: ElementRef
+  @ViewChild('autocomplete') autocompleteRef: ElementRef
 
   positions: Position[] = []
 

@@ -10,8 +10,8 @@ import { MaterialService, MaterialDatepicker } from 'src/app/shared/classes/mate
 export class HistoryFilterComponent implements OnDestroy, AfterViewInit {
 
   @Output() onFilter = new EventEmitter<Filter>()
-  @ViewChild('start', { static: false }) startRef: ElementRef
-  @ViewChild('end', { static: false }) endRef: ElementRef
+  @ViewChild('start') startRef: ElementRef
+  @ViewChild('end') endRef: ElementRef
 
   start: MaterialDatepicker
   end: MaterialDatepicker
