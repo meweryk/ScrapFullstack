@@ -5,8 +5,8 @@
   "private": true,
   "main": "index.js",
   "engines": {
-    "node": "10.16.0",
-    "npm": "6.12.0"
+    "node": "12.14.1",
+    "npm": "6.13.6"
   },
   "scripts": {
     "start": "node index",
@@ -14,7 +14,7 @@
     "client-install": "npm install --prefix client",
     "client": "npm run start --prefix client",
     "dev": "concurrently \"npm run server\" \"npm run client\"",
-    "heroku-postbuild": "NPM_CONFIG_PRODUCTION=false npm run client-install && npm run build --prefix client"
+    "heroku-postbuild": "NPM_CONFIG_PRODUCTION=true npm run client-install && npm run build --prefix client"
   },
   "keywords": [
     "express",
