@@ -16,7 +16,6 @@ import { OrderCategoriesComponent } from './order-page/order-categories/order-ca
 import { OrderPositionsComponent } from './order-page/order-positions/order-positions.component';
 import { DeliveriesPageComponent } from './deliveries-page/deliveries-page.component';
 import { ComponentModule } from './shared/components/components.module'
-import { CategoriesModule } from './categories-page/categories.module';
 
 @NgModule({
   declarations: [
@@ -38,8 +37,7 @@ import { CategoriesModule } from './categories-page/categories.module';
     FormsModule,
     ReactiveFormsModule,
     HttpClientModule,
-    ComponentModule,
-    CategoriesModule
+    ComponentModule
   ],
 
   providers: [
