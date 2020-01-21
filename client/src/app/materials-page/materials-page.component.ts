@@ -275,7 +275,6 @@ export class MaterialsPageComponent implements OnInit, AfterViewInit, OnDestroy 
           MaterialService.toast('Изменения сохранены')
         },
         error => MaterialService.toast(error.error.message),
-
       )
       this.modal.close()
       this.form.enable()

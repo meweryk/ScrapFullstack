@@ -56,7 +56,7 @@ export class PositionsFormComponent implements OnInit, AfterViewInit, OnDestroy 
     })
     this.loading = true
     this.positionsService.fetch(this.categoryId).subscribe(positions => {
-      this.positions = positions.filter(position => position.shop === this.shop)
+      this.positions = positions.filter(position => position.shop === this.shop).sort((a, b) => Intl.Collator().compare(a.name, b.name))
       this.loading = false
     })
 
@@ -121,7 +121,12 @@ export class PositionsFormComponent implements OnInit, AfterViewInit, OnDestroy 
 
   onAddPosition() {
     this.positionId = null
-    this.form.reset({ name: null, cost: 1, stock: 0, rank: '' })
+    this.form.reset({
+      name: null,
+      cost: 1,
+      stock: 0,
+      rank: ''
+    })
     this.modal.open()
     MaterialService.updateTextInputs()
     this.update()
@@ -175,14 +180,23 @@ export class PositionsFormComponent implements OnInit, AfterViewInit, OnDestroy 
         completed
       )
     } else {
-      this.positionsService.create(newPosition).subscribe(
-        position => {
-          MaterialService.toast('Позиция создана')
-          this.positions.push(position)
-        },
-        error => MaterialService.toast(error.error.message),
-        completed
-      )
+      let mdx = this.positions.findIndex(p => p.name === newPosition.name)
+      if (mdx < 0) {
+        this.positionsService.create(newPosition).subscribe(
+          position => {
+            MaterialService.toast('Позиция создана')
+            this.positions.push(position)
+            this.positions.sort((a, b) => Intl.Collator().compare(a.name, b.name))
+          },
+          error => MaterialService.toast(error.error.message),
+          completed
+        )
+      } else {
+        MaterialService.toast(`Позиция "${newPosition.name}" уже существует`)
+        this.modal.close()
+        this.form.enable()
+      }
+
     }
   }
 
