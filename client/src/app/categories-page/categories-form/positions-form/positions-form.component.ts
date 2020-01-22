@@ -196,7 +196,6 @@ export class PositionsFormComponent implements OnInit, AfterViewInit, OnDestroy 
         this.modal.close()
         this.form.enable()
       }
-
     }
   }
 

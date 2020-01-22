@@ -1,7 +1,3 @@
-body {
-  background-color: #fff3e0;
-}
-
 .a-sidenav {
   transform: translateX(1) !important;
   width: 250px !important;
@@ -162,17 +158,6 @@ footer {
 
 .btn-floating.tap-target-origin {
   background-color: #bdbdbd !important
-}
-
-.auth-block {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  padding-top: 50px
-}
-
-.auth-block .card {
-  width: 400px
 }
 
 .nav-wrapper {

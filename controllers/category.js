@@ -24,27 +24,40 @@ module.exports.getById = async function (req, res) {
 
 module.exports.remove = async function (req, res) {
   const category = await Category.findOne({ _id: req.params.id })
-  //const elseShop = await Position.findOne({category: req.params.id})
-  if (category.user == req.user.id) {
+  const elseShop = await Position.findOne({ category: req.params.id, shop: { $ne: req.user.shop } }, { shop: 1 })
+
+  if ((category.user == req.user.id) && !elseShop) {
+    //если категория создана пльзователем и уё не используют позиций с других складов-магазинов
     try {
       await Category.remove({
         _id: req.params.id
       })
       await Position.remove({
-        category: req.params.id
+        category: req.params.id,
+        shop: req.user.shop
       })
       res.status(200).json({
-        message: 'Категория удалена.'
+        message: 'Категория удалена'
       })
     } catch (e) {
       errorHandler(res, e)
     }
-  } else {
-    res.status(409).json({
-      message: 'У Вас нет прав на удаление этой категории.'
-    })
-  }
 
+  } else {
+
+    try {
+      await Position.remove({
+        category: req.params.id,
+        shop: req.user.shop
+      })
+      res.status(200).json({
+        message: 'Категория используется глобально. Ваши позиции удалены.'
+      })
+    } catch (e) {
+      errorHandler(res, e)
+    }
+
+  }
 }
 
 module.exports.create = async function (req, res) {

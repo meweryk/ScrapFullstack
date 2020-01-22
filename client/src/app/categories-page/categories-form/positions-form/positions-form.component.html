@@ -78,10 +78,10 @@
                 <div class="input-field col s3 m2">
                     <select formControlName="rank" #select name="rank"
                         [ngClass]="{'invalid': form.get('rank').invalid && form.get('rank').touched}">
-                        <option value="" disabled selected><span style="font-size: 14px"></span>
+                        <option value="" disabled><span style="font-size: 14px"></span>
                         </option>
-                        <option value="т">тонн</option>
-                        <option value="шт">штук</option>
+                        <option value="т">т</option>
+                        <option value="шт">шт</option>
                     </select>
                     <label>Мера</label>
                 </div>
