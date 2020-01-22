@@ -10,7 +10,9 @@ import { AuthLayoutComponent } from './shared/layouts/auth-layout/auth-layout.co
 import { SiteLayoutComponent } from './shared/layouts/site-layout/site-layout.component';
 import { RegisterPageComponent } from './register-page/register-page.component';
 import { TokenInterceptor } from './shared/classes/token.interceptor';
-import { ComponentModule } from './shared/components/components.module'
+import { ComponentModule } from './shared/components/components.module';
+import { ServiceWorkerModule } from '@angular/service-worker';
+import { environment } from '../environments/environment'
 
 @NgModule({
   declarations: [
@@ -27,7 +29,8 @@ import { ComponentModule } from './shared/components/components.module'
     FormsModule,
     ReactiveFormsModule,
     HttpClientModule,
-    ComponentModule
+    ComponentModule,
+    ServiceWorkerModule.register('ngsw-worker.js', { enabled: environment.production })
   ],
 
   providers: [

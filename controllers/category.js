@@ -24,6 +24,7 @@ module.exports.getById = async function (req, res) {
 
 module.exports.remove = async function (req, res) {
   const category = await Category.findOne({ _id: req.params.id })
+  //const elseShop = await Position.findOne({category: req.params.id})
   if (category.user == req.user.id) {
     try {
       await Category.remove({
