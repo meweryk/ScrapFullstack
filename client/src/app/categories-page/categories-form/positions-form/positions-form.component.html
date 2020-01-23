@@ -61,17 +61,19 @@
             <div class="row">
                 <div class="input-field col s12 m4">
                     <input #autocomplete class="autocomplete" name="name" formControlName="name" id="pos-name"
-                        type="text" [ngClass]="{'invalid': form.get('name').invalid && form.get('name').touched}">
+                        type="text" maxlength="15"
+                        [ngClass]="{'invalid': form.get('name').invalid && form.get('name').touched}">
                     <label for="pos-name">Название</label>
                     <span *ngIf="form.get('name').invalid && form.get('name').touched" class="helper-text red-text">
                         Позиция не должна быть пустой.
                     </span>
                 </div>
                 <div class="input-field col s9 m3">
-                    <input formControlName="stock" id="pos-stock" type="number"
+                    <input formControlName="stock" id="pos-stock" type="number" maxlength="8"
                         [ngClass]="{'invalid': form.get('stock').invalid && form.get('stock').touched}">
                     <label for="pos-stock">количество</label>
-                    <span *ngIf="form.get('stock').invalid && form.get('stock').touched" class="helper-text red-text">
+                    <span *ngIf="form.get('stock').invalid && (form.get('stock').touched || form.get('stock').dirty)"
+                        class="helper-text red-text">
                         Введите корректный запас. Минимальное значение 0.
                     </span>
                 </div>
@@ -86,7 +88,7 @@
                     <label>Мера</label>
                 </div>
                 <div class="input-field col s12 m3">
-                    <input formControlName="cost" id="pos-cost" type="number"
+                    <input formControlName="cost" id="pos-cost" type="number" maxlength=8
                         [ngClass]="{'invalid': form.get('cost').invalid && form.get('cost').touched}">
                     <label for="pos-cost">Цена</label>
                     <span *ngIf="form.get('cost').invalid && form.get('cost').touched" class="helper-text red-text">

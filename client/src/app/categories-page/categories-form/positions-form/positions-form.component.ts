@@ -49,7 +49,7 @@ export class PositionsFormComponent implements OnInit, AfterViewInit, OnDestroy 
     this.aSub = this.auth.getById().subscribe((data: User) => { this.shop = data.shop })
 
     this.form = new FormGroup({
-      name: new FormControl(null, Validators.required),
+      name: new FormControl(null, [Validators.required, Validators.maxLength(15)]),
       cost: new FormControl(null, [Validators.required, Validators.min(1)]),
       stock: new FormControl(null, [Validators.required, Validators.min(0)]),
       rank: new FormControl(null, Validators.required),
@@ -153,15 +153,18 @@ export class PositionsFormComponent implements OnInit, AfterViewInit, OnDestroy 
   }
 
   onSubmit() {
+    this.form.setValue
     this.form.disable()
 
     const newPosition: Position = {
       name: this.form.value.name,
-      cost: this.form.value.cost,
-      stock: this.form.value.stock,
+      cost: (this.form.value.cost).toFixed(2),
+      stock: (this.form.value.stock).toFixed(3),
       rank: this.form.value.rank,
       category: this.categoryId
     }
+
+    console.log(newPosition.stock)
 
     const completed = () => {
       this.modal.close()
