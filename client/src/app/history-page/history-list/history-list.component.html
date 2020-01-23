@@ -21,7 +21,8 @@
 
     <tbody>
         <tr *ngFor="let order of orders | searchO: [searchOrd, shop]" [class.importOrder]="shop==order.shopBuyer">
-            <td>{{order.order}}</td>
+            <td>{{order.order}}
+            <td>
             <td>{{order.date | date:'dd.MM.yyyy'}}</td>
             <td>{{order.date | date:'HH:mm:ss'}}</td>
             <td>{{computePrice(order)}} грн.</td>

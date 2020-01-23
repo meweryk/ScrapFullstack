@@ -38,7 +38,7 @@ export class OrderPositionsComponent implements OnInit {
         map(
           (positions: Position[]) => {
             return positions.map(position => {
-              (position.quantity) = 1
+              position.quantity = 1
               return position
             })
           }
