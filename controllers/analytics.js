@@ -9,7 +9,6 @@ module.exports.overview = async function (req, res) {
         const allOrders = await Order.find({ user: req.user.id }).sort({ date: 1 })
         const ordersMap = getOrdersMap(allOrders)
         const yesterdayOrders = ordersMap[moment().add(-1, 'd').format('DD.MM.YYYY')] || []
-        console.log(moment().add(-1, 'd').format('DD.MM.YYYY'))
         //Количество заказов вчера
         const yesterdayOrdersNumber = yesterdayOrders.length
         //Количество заказов
@@ -90,7 +89,6 @@ function getOrdersMap(orders = []) {
         }
 
         daysOrders[date].push(order)
-        console.log(`${date} номер ${order.order} от ${order.date}`, order.date)
     })
     return daysOrders
 }
