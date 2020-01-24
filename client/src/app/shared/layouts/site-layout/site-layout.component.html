@@ -24,7 +24,7 @@
 </div>
 
 <!--SIDENAV-->
-<ul class="sidenav a-sidenav sidenav-fixed z-depth-3" id="mobil" #sidenav>
+<ul class="sidenav a-sidenav sidenav-fixed z-depth-3" id="mobil" edge="right" #sidenav>
 
     <li>
         <div class="card">
@@ -41,6 +41,22 @@
             {{link.name}}
         </a>
     </li>
+
+    <li class="bold">
+        <a #dropdown class="dropdown-trigger waves-effect waves-orange" data-target="dropdown1">
+            Плавка<i class="material-icons right">arrow_drop_down</i>
+        </a>
+    </li>
+
+    <ul id='dropdown1' class='dropdown-content'>
+        <li class="bold" routerLinkActive="active" style="background-color: #b39ddb;">
+            <a class="waves-effect waves-orange" (click)="closeSidenav()">
+                В разработке
+            </a>
+        </li>
+    </ul>
+
+
 
     <li class="bold last"></li>
 </ul>

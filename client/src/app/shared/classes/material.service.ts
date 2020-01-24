@@ -71,4 +71,10 @@ export class MaterialService {
             onAutocomplete
         })
     }
+
+    static initDropdown(ref: ElementRef): MaterialInstance {
+        return M.Dropdown.init(ref.nativeElement, {
+            coverTrigger: false
+        })
+    }
 }
