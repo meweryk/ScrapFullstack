@@ -33,6 +33,15 @@ const orderSchema = new Schema({
   },
   nicname: {
     type: String
+  },
+  view: {
+    type: Date
+  },
+  send: {
+    type: Date
+  },
+  view: {
+    type: Date
   }
 })
 

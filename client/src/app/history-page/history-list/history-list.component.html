@@ -20,9 +20,8 @@
     </thead>
 
     <tbody>
-        <tr *ngFor="let order of orders | searchO: [searchOrd, shop]" [class.importOrder]="shop==order.shopBuyer">
-            <td>{{order.order}}
-            <td>
+        <tr [class.importOrder]="shop==order.shopBuyer" *ngFor="let order of orders | searchO: [searchOrd, shop]">
+            <td>{{order.order}}</td>
             <td>{{order.date | date:'dd.MM.yyyy'}}</td>
             <td>{{order.date | date:'HH:mm:ss'}}</td>
             <td>{{computePrice(order)}} грн.</td>
@@ -60,12 +59,16 @@
                 </tr>
             </tbody>
         </table>
+
         <div class="order-summary">
             <p>Общее количество <strong>{{computeWeight(selectedOrder)}} т.</strong><br>Общая стоимость
                 <strong>{{computePrice(selectedOrder)}} грн.</strong></p>
         </div>
     </div>
     <div class="modal-footer">
-        <button class="modal-action waves-effect waves-black btn-flat" (click)="closeModal()">Закрыть</button>
+        <button class="modal-action waves-effect waves-black btn-flat" [disabled]="!workOrder">Просмотр</button>
+        <button class="modal-action waves-effect waves-black btn-flat" [disabled]="workOrder">Обработать</button>
+        <button class="modal-action waves-effect waves-black btn-flat" (click)="closeModal()"><i
+                class="material-icons">close</i></button>
     </div>
 </div>
