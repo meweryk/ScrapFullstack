@@ -4,9 +4,14 @@ import { FormsModule } from '@angular/forms';
 
 import { ComponentModule } from '../shared/components/components.module';
 import { DeliveriesRoitingModule } from './deliveries-routing.module';
+import { DeliveriesFormComponent } from './deliveries-form/deliveries-form.component';
+import { DeliveriesPageComponent } from './deliveries-page.component';
 
 @NgModule({
-    declarations: [],
+    declarations: [
+        DeliveriesPageComponent,
+        DeliveriesFormComponent
+    ],
     imports: [
         CommonModule,
         FormsModule,

@@ -1,0 +1,37 @@
+<div class="modal modal-fixed-footer" #modal>
+    <div class="modal-content" *ngIf="selectedOrder">
+        <h5 class="mb1 blue-grey-text text-darken-3">Заказ №{{selectedOrder.order}}</h5>
+        <p>Заказчик: {{selectedOrder.shopBuyer}} - {{selectedOrder.nicname}}<br>
+            {{selectedOrder.date | date:'Дата dd.MM.yyyy, время HH:mm'}}</p>
+        <table class="highlight">
+            <thead>
+                <tr>
+                    <th>Название</th>
+                    <th>Кол-во</th>
+                    <th>Цена</th>
+                    <th>Поставщик</th>
+                </tr>
+            </thead>
+
+            <tbody>
+                <tr *ngFor="let item of selectedOrder.list">
+                    <td>{{item.name}}</td>
+                    <td>{{item.quantity}}</td>
+                    <td>{{item.cost}}грн.</td>
+                    <td>{{item.shopSeller}}</td>
+                </tr>
+            </tbody>
+        </table>
+
+        <div class="order-summary">
+            <p>Общее количество <strong>{{computeWeight()}} т.</strong><br>Общая стоимость
+                <strong>{{computePrice()}} грн.</strong></p>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <button class="modal-action waves-effect waves-black btn-flat" [disabled]="!workOrder">Просмотр</button>
+        <button class="modal-action waves-effect waves-black btn-flat" [disabled]="workOrder">Обработать</button>
+        <button class="modal-action waves-effect waves-black btn-flat" (click)="closeModal()"><i
+                class="material-icons">close</i></button>
+    </div>
+</div>
