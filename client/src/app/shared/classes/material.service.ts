@@ -45,7 +45,7 @@ export class MaterialService {
 
     static initDatepicker(ref: ElementRef, onClose: () => void): MaterialDatepicker {
         return M.Datepicker.init(ref.nativeElement, {
-            format: 'dd.dd.yyyy',
+            format: 'dd.mm.yyyy',
             showClearBtn: true,
             onClose,
             autoClose: true
@@ -69,6 +69,12 @@ export class MaterialService {
             data: {},
             minLength,
             onAutocomplete
+        })
+    }
+
+    static initDropdown(ref: ElementRef): MaterialInstance {
+        return M.Dropdown.init(ref.nativeElement, {
+            coverTrigger: false
         })
     }
 }

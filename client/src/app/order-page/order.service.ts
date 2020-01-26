@@ -11,8 +11,8 @@ export class OrderService {
     add(position: Position) {
         const orderPosition: OrderPosition = Object.assign({}, {
             name: position.name,
-            cost: position.cost,
-            quantity: position.quantity,
+            cost: +(position.cost).toFixed(2),
+            quantity: +(position.quantity).toFixed(3),
             _id: position._id,
             shopSeller: position.shop
         })

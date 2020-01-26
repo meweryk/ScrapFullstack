@@ -245,8 +245,8 @@ export class MaterialsPageComponent implements OnInit, AfterViewInit, OnDestroy 
       al: this.form.value.al,
       nb: this.form.value.nb,
       fe: !this.form.value.fe ? +0 : +(this.form.value.fe).toFixed(2),
-      p: !this.form.value.p ? +0 : +(this.form.value.p).toFixed(2),
-      s: !this.form.value.s ? +0 : +(this.form.value.s).toFixed(2),
+      p: !this.form.value.p ? +0 : +(this.form.value.p).toFixed(3),
+      s: !this.form.value.s ? +0 : +(this.form.value.s).toFixed(3),
       c: !this.form.value.c ? +0 : +(this.form.value.c).toFixed(2)
     }
 
@@ -275,7 +275,6 @@ export class MaterialsPageComponent implements OnInit, AfterViewInit, OnDestroy 
           MaterialService.toast('Изменения сохранены')
         },
         error => MaterialService.toast(error.error.message),
-
       )
       this.modal.close()
       this.form.enable()

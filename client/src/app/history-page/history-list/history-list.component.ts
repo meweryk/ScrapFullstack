@@ -22,6 +22,7 @@ export class HistoryListComponent implements OnInit, OnDestroy, AfterViewInit {
   select: MaterialInstance
 
   searchOrd = ''
+  workOrder: boolean = false
 
   constructor(private auth: AuthService) { }
 
@@ -52,6 +53,7 @@ export class HistoryListComponent implements OnInit, OnDestroy, AfterViewInit {
 
   selectOrder(order: Order) {
     this.selectedOrder = order
+    this.workOrder = (this.selectedOrder.shopBuyer === this.shop)
     this.modal.open()
   }
 

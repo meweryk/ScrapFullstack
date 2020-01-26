@@ -13,10 +13,8 @@ const STEP = 6
 })
 export class HistoryPageComponent implements OnInit, OnDestroy, AfterViewInit {
 
-  @ViewChild('tooltip1') tooltip1Ref: ElementRef
-  @ViewChild('tooltip2') tooltip2Ref: ElementRef
-  tooltip1: MaterialInstance
-  tooltip2: MaterialInstance
+  @ViewChild('tooltip') tooltipRef: ElementRef
+  tooltip: MaterialInstance
   oSub: Subscription
   isFilterVisible = false
   orders: Order[] = []
@@ -56,8 +54,7 @@ export class HistoryPageComponent implements OnInit, OnDestroy, AfterViewInit {
   }
 
   ngOnDestroy() {
-    this.tooltip1.destroy()
-    this.tooltip2.destroy()
+    this.tooltip.destroy()
     this.oSub.unsubscribe()
   }
 
@@ -71,8 +68,7 @@ export class HistoryPageComponent implements OnInit, OnDestroy, AfterViewInit {
   }
 
   ngAfterViewInit() {
-    this.tooltip1 = MaterialService.initTooltip(this.tooltip1Ref)
-    this.tooltip2 = MaterialService.initTooltip(this.tooltip2Ref)
+    this.tooltip = MaterialService.initTooltip(this.tooltipRef)
   }
 
   isFiltered(): boolean {
@@ -83,6 +79,6 @@ export class HistoryPageComponent implements OnInit, OnDestroy, AfterViewInit {
     this.orders = []
     this.offset = 0
     this.reloading = true
-    this.fetch()   
+    this.fetch()
   }
 }

@@ -14,9 +14,11 @@ export class SiteLayoutComponent implements OnInit, AfterViewInit, OnDestroy {
 
   @ViewChild('floating') floatingRef: ElementRef
   @ViewChild('sidenav') sidenavRef: ElementRef
+  @ViewChild('dropdown') dropdownRef: ElementRef
 
   width: any
   sidenav: MaterialInstance
+  dropdown: MaterialInstance
   aSub: Subscription
   nicname: string
   shop: string
@@ -53,6 +55,7 @@ export class SiteLayoutComponent implements OnInit, AfterViewInit, OnDestroy {
   ngAfterViewInit(): void {
     MaterialService.initializeFloatingButton(this.floatingRef)
     this.sidenav = MaterialService.initSidenav(this.sidenavRef)
+    this.dropdown = MaterialService.initDropdown(this.dropdownRef)
   }
 
   logout(event: Event) {
@@ -64,6 +67,7 @@ export class SiteLayoutComponent implements OnInit, AfterViewInit, OnDestroy {
   ngOnDestroy() {
     this.sidenav.destroy()
     this.aSub.unsubscribe()
+    this.dropdown.destroy()
   }
 
   openSidenav() {

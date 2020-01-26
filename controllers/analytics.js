@@ -1,13 +1,14 @@
-const moment = require('moment')
+const moment = require('moment-timezone')
 const Order = require('../models/Order')
 const errorHandler = require('../utils/errorHandler')
+
+const zone = "Europe/Zaporozhye"
 
 module.exports.overview = async function (req, res) {
     try {
         const allOrders = await Order.find({ user: req.user.id }).sort({ date: 1 })
         const ordersMap = getOrdersMap(allOrders)
         const yesterdayOrders = ordersMap[moment().add(-1, 'd').format('DD.MM.YYYY')] || []
-
         //Количество заказов вчера
         const yesterdayOrdersNumber = yesterdayOrders.length
         //Количество заказов
@@ -23,7 +24,7 @@ module.exports.overview = async function (req, res) {
         //Выручка в день
         const gainPerDay = (totalGain / daysNumber).toFixed(2)
         //Выручка за вчера
-        const yesterdayGain = calculatePrice(yesterdayOrders)
+        const yesterdayGain = (calculatePrice(yesterdayOrders)).toFixed(2)
         //Процент выручки
         const gainPercent = (((yesterdayGain / gainPerDay) - 1) * 100).toFixed(2)
         //Сравнение выручки
@@ -77,9 +78,9 @@ module.exports.analytics = async function (req, res) {
 function getOrdersMap(orders = []) {
     const daysOrders = {}
     orders.forEach(order => {
-        const date = moment(order.date).format('DD.MM.YYYY')
+        const date = moment(order.date).utc().tz(zone).format('DD.MM.YYYY')
 
-        if (date === moment().format('DD.MM.YYYY')) {
+        if (date === moment().tz(zone).format('DD.MM.YYYY')) {
             return
         }
 

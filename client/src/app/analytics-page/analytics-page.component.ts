@@ -44,7 +44,7 @@ export class AnalyticsPageComponent implements AfterViewInit, OnDestroy {
       const gainCtx = this.gainRef.nativeElement.getContext('2d')
       const orderCtx = this.orderImportRef.nativeElement.getContext('2d')
       gainCtx.canvas.height = '300px'
-      orderCtx.canvas.height = '300px'
+      orderCtx.canvas.height = '320px'
       new Chart(gainCtx, createChartConfig(gainConfig))
       new Chart(orderCtx, createChartConfig(orderConfig))
 

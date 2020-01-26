@@ -72,7 +72,7 @@ export class CategoriesFormComponent implements OnInit {
   }
 
   deleteCategory() {
-    const desision = window.confirm(`Вы уверены, что хотите удалить категорию "${this.category.name}"`)
+    const desision = window.confirm(`Вы уверены, что хотите удалить категорию? будут удалены все позиции "${this.category.name}"`)
 
     if (desision) {
       this.categoriesService.delete(this.category._id)

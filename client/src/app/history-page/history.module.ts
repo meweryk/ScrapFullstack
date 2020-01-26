@@ -13,7 +13,7 @@ import { HistoryRoutingModule } from './history-routing.module';
     declarations: [
         HistoryPageComponent,
         HistoryListComponent,
-        HistoryFilterComponent,
+        HistoryFilterComponent
     ],
     providers: [
     ],

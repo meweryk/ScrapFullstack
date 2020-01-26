@@ -10,17 +10,9 @@ import { AuthLayoutComponent } from './shared/layouts/auth-layout/auth-layout.co
 import { SiteLayoutComponent } from './shared/layouts/site-layout/site-layout.component';
 import { RegisterPageComponent } from './register-page/register-page.component';
 import { TokenInterceptor } from './shared/classes/token.interceptor';
-
-import { OrderPageComponent } from './order-page/order-page.component';
-import { CategoriesPageComponent } from './categories-page/categories-page.component';
-import { CategoriesFormComponent } from './categories-page/categories-form/categories-form.component';
-import { PositionsFormComponent } from './categories-page/categories-form/positions-form/positions-form.component';
-import { OrderCategoriesComponent } from './order-page/order-categories/order-categories.component';
-import { OrderPositionsComponent } from './order-page/order-positions/order-positions.component';
-import { DeliveriesPageComponent } from './deliveries-page/deliveries-page.component';
-import { MaterialsPageComponent } from './materials-page/materials-page.component';
-import { MaterialsFilterComponent } from './materials-page/materials-filter/materials-filter.component';
 import { ComponentModule } from './shared/components/components.module';
+import { ServiceWorkerModule } from '@angular/service-worker';
+import { environment } from '../environments/environment'
 
 @NgModule({
   declarations: [
@@ -28,16 +20,7 @@ import { ComponentModule } from './shared/components/components.module';
     LoginPageComponent,
     AuthLayoutComponent,
     SiteLayoutComponent,
-    RegisterPageComponent,
-    OrderPageComponent,
-    CategoriesPageComponent,
-    CategoriesFormComponent,
-    PositionsFormComponent,
-    OrderCategoriesComponent,
-    OrderPositionsComponent,
-    DeliveriesPageComponent,
-    MaterialsPageComponent,
-    MaterialsFilterComponent
+    RegisterPageComponent
   ],
 
   imports: [
@@ -46,7 +29,8 @@ import { ComponentModule } from './shared/components/components.module';
     FormsModule,
     ReactiveFormsModule,
     HttpClientModule,
-    ComponentModule
+    ComponentModule,
+    ServiceWorkerModule.register('ngsw-worker.js', { enabled: environment.production })
   ],
 
   providers: [

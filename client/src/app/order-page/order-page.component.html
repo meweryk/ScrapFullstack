@@ -1,11 +1,11 @@
 <div class="page-title">
-    <h4 *ngIf="isRoot">Заказ</h4>
-    <h4 *ngIf="!isRoot">
+    <h5 *ngIf="isRoot">Заказ</h5>
+    <h5 *ngIf="!isRoot">
         <a routerLink="/order">Заказ</a>
-        <i class="material-icons">keyboard_arrow_right</i>
+        <i class="tiny material-icons">keyboard_arrow_right</i>
         Выбрать продукцию
-    </h4>
-    <button class="waves-effect btn grey darken-1" (click)="open()" [disabled]="allPosition.list.length === 0">
+    </h5>
+    <button class="waves-effect btn-small grey darken-1" (click)="open()" [disabled]="allPosition.list.length === 0">
         <i class="material-icons">shopping_basket</i>
     </button>
 </div>

@@ -1,19 +1,20 @@
 <div class="page-title">
-    <h4>Аналитика</h4>
+    <h5>Аналитика</h5>
 </div>
 
 <div [style.display]="pending ? 'none' : 'block'">
-    <div class="average-price">
-        <p>Средний чек <strong>{{average}} грн.</strong></p>
+    <div>
+        <p style="font-size: 18px; margin-top: -10px; color:rgb(80, 80, 80) ">Средний чек <strong>{{average}}
+                грн.</strong></p>
     </div>
 
-    <div class="analytics-block pb3 z-depth-3 amber lighten-5">
-        <h5>Выручка</h5>
+    <div class="analytics-block pb3 z-depth-2 amber lighten-5">
+        <h6 style="padding-left: 5px; color: rgba(185, 0, 0, 0.61)">Выручка</h6>
         <canvas #gain></canvas>
     </div>
 
-    <div class="analytics-block z-depth-3 amber lighten-5">
-        <h5>Заказы импорт</h5>
+    <div class="analytics-block pb3 z-depth-2 amber lighten-5">
+        <h6 style="padding-left: 5px; color: rgba(0, 89, 255, 0.747)">Заказы импорт</h6>
         <canvas #orderImport></canvas>
     </div>
 </div>

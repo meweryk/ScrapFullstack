@@ -49,14 +49,14 @@ export class PositionsFormComponent implements OnInit, AfterViewInit, OnDestroy 
     this.aSub = this.auth.getById().subscribe((data: User) => { this.shop = data.shop })
 
     this.form = new FormGroup({
-      name: new FormControl(null, Validators.required),
+      name: new FormControl(null, [Validators.required, Validators.maxLength(15)]),
       cost: new FormControl(null, [Validators.required, Validators.min(1)]),
       stock: new FormControl(null, [Validators.required, Validators.min(0)]),
       rank: new FormControl(null, Validators.required),
     })
     this.loading = true
     this.positionsService.fetch(this.categoryId).subscribe(positions => {
-      this.positions = positions.filter(position => position.shop === this.shop)
+      this.positions = positions.filter(position => position.shop === this.shop).sort((a, b) => Intl.Collator().compare(a.name, b.name))
       this.loading = false
     })
 
@@ -121,7 +121,12 @@ export class PositionsFormComponent implements OnInit, AfterViewInit, OnDestroy 
 
   onAddPosition() {
     this.positionId = null
-    this.form.reset({ name: null, cost: 1, stock: 0, rank: '' })
+    this.form.reset({
+      name: null,
+      cost: 1,
+      stock: 0,
+      rank: ''
+    })
     this.modal.open()
     MaterialService.updateTextInputs()
     this.update()
@@ -148,15 +153,18 @@ export class PositionsFormComponent implements OnInit, AfterViewInit, OnDestroy 
   }
 
   onSubmit() {
+    this.form.setValue
     this.form.disable()
 
     const newPosition: Position = {
       name: this.form.value.name,
-      cost: this.form.value.cost,
-      stock: this.form.value.stock,
+      cost: (this.form.value.cost).toFixed(2),
+      stock: (this.form.value.stock).toFixed(3),
       rank: this.form.value.rank,
       category: this.categoryId
     }
+
+    console.log(newPosition.stock)
 
     const completed = () => {
       this.modal.close()
@@ -175,14 +183,22 @@ export class PositionsFormComponent implements OnInit, AfterViewInit, OnDestroy 
         completed
       )
     } else {
-      this.positionsService.create(newPosition).subscribe(
-        position => {
-          MaterialService.toast('Позиция создана')
-          this.positions.push(position)
-        },
-        error => MaterialService.toast(error.error.message),
-        completed
-      )
+      let mdx = this.positions.findIndex(p => p.name === newPosition.name)
+      if (mdx < 0) {
+        this.positionsService.create(newPosition).subscribe(
+          position => {
+            MaterialService.toast('Позиция создана')
+            this.positions.push(position)
+            this.positions.sort((a, b) => Intl.Collator().compare(a.name, b.name))
+          },
+          error => MaterialService.toast(error.error.message),
+          completed
+        )
+      } else {
+        MaterialService.toast(`Позиция "${newPosition.name}" уже существует`)
+        this.modal.close()
+        this.form.enable()
+      }
     }
   }
 
