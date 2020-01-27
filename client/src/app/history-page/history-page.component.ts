@@ -20,6 +20,9 @@ export class HistoryPageComponent implements OnInit, OnDestroy, AfterViewInit {
   orders: Order[] = []
   filter: Filter = {}
 
+  deliveryOrder: Order
+  shop: string
+
   offset = 0
   limit = STEP
 
@@ -80,5 +83,10 @@ export class HistoryPageComponent implements OnInit, OnDestroy, AfterViewInit {
     this.offset = 0
     this.reloading = true
     this.fetch()
+  }
+
+  updateDeliveryForm(order: Order) {
+    this.deliveryOrder = order
+    console.log(this.deliveryOrder)
   }
 }

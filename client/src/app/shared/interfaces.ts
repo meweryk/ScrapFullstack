@@ -114,3 +114,27 @@ export interface AnalyticsChartItem {
     order: number
     label: string
 }
+
+export interface Delivery {
+    date?: Date
+    shopHost: string
+    shopSend: string
+    train: string
+    waybill: string
+    order?: number
+    user?: string
+    list: DeliveryPosition[]
+    imageSrc?: string
+    _id?: string
+}
+
+export interface DeliveryPosition {
+    name: String
+    fraction: String
+    quantity: Number
+    rank: String
+    trash: Number
+    trashStap: String
+    quantityNoTrash: Number
+    cost: Number
+}

@@ -67,8 +67,10 @@
     </div>
     <div class="modal-footer">
         <button class="modal-action waves-effect waves-black btn-flat" [disabled]="!workOrder">Просмотр</button>
-        <button class="modal-action waves-effect waves-black btn-flat" [disabled]="workOrder">Обработать</button>
-        <button class="modal-action waves-effect waves-black btn-flat" (click)="closeModal()"><i
-                class="material-icons">close</i></button>
+        <button class="modal-action waves-effect waves-black btn-flat" [disabled]="workOrder"
+            (click)="addDelivery()">Обработать</button>
+        <button class="modal-action waves-effect waves-black btn-flat" (click)="closeModal()">
+            <i class="material-icons">close</i>
+        </button>
     </div>
 </div>

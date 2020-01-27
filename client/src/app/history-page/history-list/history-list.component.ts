@@ -1,4 +1,4 @@
-import { Component, Input, ViewChild, ElementRef, OnDestroy, AfterViewInit, OnInit } from '@angular/core';
+import { Component, Input, ViewChild, ElementRef, OnDestroy, AfterViewInit, OnInit, Output, EventEmitter } from '@angular/core';
 import { Order, User } from 'src/app/shared/interfaces';
 import { MaterialInstance, MaterialService } from 'src/app/shared/classes/material.service';
 import { Subscription } from 'rxjs';
@@ -13,6 +13,7 @@ export class HistoryListComponent implements OnInit, OnDestroy, AfterViewInit {
   @Input() orders: Order[]
   @ViewChild('modal') modalRef: ElementRef
   @ViewChild('select') selectRef: ElementRef
+  @Output('onAddDelivery') orderEmitter = new EventEmitter<Order>()
 
   shop: string
   aSub: Subscription
@@ -55,6 +56,14 @@ export class HistoryListComponent implements OnInit, OnDestroy, AfterViewInit {
     this.selectedOrder = order
     this.workOrder = (this.selectedOrder.shopBuyer === this.shop)
     this.modal.open()
+  }
+
+  addDelivery() {
+    this.orderEmitter.emit(
+      this.selectedOrder
+    );
+
+    this.modal.close()
   }
 
   closeModal() {
