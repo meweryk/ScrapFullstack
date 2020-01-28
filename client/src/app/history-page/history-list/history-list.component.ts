@@ -1,5 +1,5 @@
 import { Component, Input, ViewChild, ElementRef, OnDestroy, AfterViewInit, OnInit, Output, EventEmitter } from '@angular/core';
-import { Order, User, Flags } from 'src/app/shared/interfaces';
+import { Order, User } from 'src/app/shared/interfaces';
 import { MaterialInstance, MaterialService } from 'src/app/shared/classes/material.service';
 import { Subscription } from 'rxjs';
 import { AuthService } from 'src/app/shared/services/auth.service';
@@ -25,7 +25,9 @@ export class HistoryListComponent implements OnInit, OnDestroy, AfterViewInit {
 
   searchOrd = ''
   workOrder: boolean = false
+
   today = new Date()
+  objectId: string
   view: Date
   send: Date
   got: Date
@@ -62,19 +64,12 @@ export class HistoryListComponent implements OnInit, OnDestroy, AfterViewInit {
   selectOrder(order: Order) {
     this.selectedOrder = order
     this.workOrder = (this.selectedOrder.shopBuyer === this.shop) //true если магазин покупает: кнопка "обработать" отключена
-    this.today.setDate(this.today.getDate())
     this.modal.open()
-    const toDoList: Flags = {}
+
     if (!this.selectedOrder.view && this.workOrder == false) {
-      toDoList.view = this.today
-      this.ordersService.update(order).subscribe(
-        order => {
-          const idx = this.orders.findIndex(p => p._id === order._id)
-          this.orders[idx] = order
-          MaterialService.toast('заказ просмотрен')
-        },
-        error => MaterialService.toast(error.error.message),
-      )
+      this.objectId = this.selectedOrder._id
+      this.today.setDate(this.today.getDate())
+      //this.ordersService.update(upOrder)
     }
   }
 

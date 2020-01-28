@@ -77,14 +77,13 @@ module.exports.create = async function (req, res) {
     errorHandler(res, e)
   }
 
-  module.exports.update = async function (req, res) {
+  /*module.exports.update = async function (req, res) {
+
     try {
       const order = await Order.findOneAndUpdate(
         { _id: req.params.id },
         {
-          $set: { view: 300 },
-          user: req.user.id,
-          nicname: req.user.nicname
+          $set: req.body
         },
         { new: true }
       )
@@ -92,5 +91,5 @@ module.exports.create = async function (req, res) {
     } catch (e) {
       errorHandler(res, e)
     }
-  }
+  }*/
 }

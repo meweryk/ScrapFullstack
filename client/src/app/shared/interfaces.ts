@@ -88,11 +88,6 @@ export interface Filter {
     order?: number
 }
 
-export interface Flags {
-    view?: Date
-    send?: Date
-    got?: Date
-}
 
 export interface FilterMaterial {
     classSteel?: string

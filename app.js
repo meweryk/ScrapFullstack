@@ -13,13 +13,6 @@ const positionRoutes = require('./routes/position')
 const deliveryRoutes = require('./routes/delivery')
 const keys = require('./config/keys')
 const app = express()
-/*const options = {
-  chunkSize: zlib.Z_DEFAULT_CHUNK,
-  level: zlib.Z_DEFAULT_COMPRESSION,
-  windowBits: 15,
-  memLevel: 8,
-  strategy: zlib.Z_DEFAULT_STRATEGY
-}*/
 
 mongoose.connect(keys.mongoURI, {
   useNewUrlParser: true
