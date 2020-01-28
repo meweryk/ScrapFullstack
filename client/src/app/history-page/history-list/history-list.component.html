@@ -1,6 +1,6 @@
 <table class="highlight mb2">
     <thead>
-        <tr [ngStyle]="{color: 5 > 10 ? 'green' : 'red', fontWeight: 'bold'}">
+        <tr [ngStyle]="{backgroundColor: '#ffeccd'}">
             <th>№</th>
             <th>Дата</th>
             <th>Время</th>
@@ -20,14 +20,15 @@
     </thead>
 
     <tbody>
-        <tr *ngFor="let order of orders | searchO: [searchOrd, shop]" [class.bold]="order.view ? true : false" [class.importOrder]="shop === order.shopBuyer" >
+        <tr *ngFor="let order of orders | searchO: [searchOrd, shop]"
+            [ngStyle]="{backgroundColor: shop === order.shopBuyer ? '#dfffbe' : 'none', fontWeight: !order.view ? 'bold' : 'normal'}">
             <td>{{order.order}}</td>
             <td>{{order.date | date:'dd.MM.yyyy'}}</td>
             <td>{{order.date | date:'HH:mm:ss'}}</td>
             <td>{{computePrice(order)}} грн.</td>
             <td>
-                <button [class.buttonOrder]="shop==order.shopBuyer" class="btn btn-small grey darken-1"
-                    (click)="selectOrder(order)">
+                <button [style.color]="shop === order.shopBuyer ? 'lawngreen' : 'none'"
+                    class="btn btn-small grey darken-1" (click)="selectOrder(order)">
                     <i class="material-icons">open_in_new</i>
                 </button>
             </td>
