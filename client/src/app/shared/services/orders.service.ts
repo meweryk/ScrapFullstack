@@ -20,4 +20,8 @@ export class OrdersServise {
             })
         })
     }
+
+    update(order: Order): Observable<Order> {
+        return this.http.patch<Order>(`/api/order/${order._id}`, order)
+    }
 }

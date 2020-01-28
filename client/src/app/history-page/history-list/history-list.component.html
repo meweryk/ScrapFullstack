@@ -1,6 +1,6 @@
 <table class="highlight mb2">
     <thead>
-        <tr>
+        <tr [ngStyle]="{color: 5 > 10 ? 'green' : 'red', fontWeight: 'bold'}">
             <th>№</th>
             <th>Дата</th>
             <th>Время</th>
@@ -20,7 +20,7 @@
     </thead>
 
     <tbody>
-        <tr [class.importOrder]="shop==order.shopBuyer" *ngFor="let order of orders | searchO: [searchOrd, shop]">
+        <tr *ngFor="let order of orders | searchO: [searchOrd, shop]" [class.bold]="order.view ? true : false" [class.importOrder]="shop === order.shopBuyer" >
             <td>{{order.order}}</td>
             <td>{{order.date | date:'dd.MM.yyyy'}}</td>
             <td>{{order.date | date:'HH:mm:ss'}}</td>

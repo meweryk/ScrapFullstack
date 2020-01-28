@@ -76,4 +76,21 @@ module.exports.create = async function (req, res) {
   } catch (e) {
     errorHandler(res, e)
   }
+
+  module.exports.update = async function (req, res) {
+    try {
+      const order = await Order.findOneAndUpdate(
+        { _id: req.params.id },
+        {
+          $set: { view: 300 },
+          user: req.user.id,
+          nicname: req.user.nicname
+        },
+        { new: true }
+      )
+      res.status(200).json(order)
+    } catch (e) {
+      errorHandler(res, e)
+    }
+  }
 }

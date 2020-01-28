@@ -40,7 +40,7 @@ const orderSchema = new Schema({
   send: {
     type: Date
   },
-  view: {
+  got: {
     type: Date
   }
 })

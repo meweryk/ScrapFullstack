@@ -25,7 +25,6 @@ module.exports.getByCategoryId = async function (req, res) {
   }
 }
 
-
 module.exports.create = async function (req, res) {
   try {
     const position = await new Position({

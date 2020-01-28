@@ -69,6 +69,9 @@ export interface Order {
     _id?: string
     shopBuyer?: string
     nicname?: string
+    view?: Date
+    send?: Date
+    got?: Date
 }
 
 export interface OrderPosition {
@@ -83,6 +86,12 @@ export interface Filter {
     start?: Date
     end?: Date
     order?: number
+}
+
+export interface Flags {
+    view?: Date
+    send?: Date
+    got?: Date
 }
 
 export interface FilterMaterial {

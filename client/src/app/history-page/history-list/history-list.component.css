@@ -9,3 +9,7 @@
 thead th {
   background-color: #ffeccd;
 }
+
+.bold {
+  font-weight: bold
+}
