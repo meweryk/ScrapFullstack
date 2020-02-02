@@ -21,7 +21,7 @@ export class OrdersServise {
         })
     }
 
-    /*update(order: Order): Observable<Order> {
-        return this.http.patch<Order>(`/api/order/${order._id}`, order)
-    }*/
+    update(objectFlag: any = {}): Observable<Order> {
+        return this.http.patch<Order>(`/api/order/${objectFlag._id}`, objectFlag)
+    }
 }

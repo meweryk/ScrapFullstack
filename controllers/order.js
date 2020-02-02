@@ -1,5 +1,8 @@
+const moment = require('moment-timezone')
 const Order = require('../models/Order')
 const errorHandler = require('../utils/errorHandler')
+
+const zone = "Europe/Zaporozhye"
 
 //localhost:5000/api/order?offset=2&limit=5
 module.exports.getAll = async function (req, res) {
@@ -76,20 +79,33 @@ module.exports.create = async function (req, res) {
   } catch (e) {
     errorHandler(res, e)
   }
+}
 
-  /*module.exports.update = async function (req, res) {
+module.exports.update = async function (req, res) {
+  const updated = {}
+  if (req.body.view) {
+    updated.view = moment().tz(zone)
+  }
 
-    try {
-      const order = await Order.findOneAndUpdate(
-        { _id: req.params.id },
-        {
-          $set: req.body
-        },
-        { new: true }
-      )
-      res.status(200).json(order)
-    } catch (e) {
-      errorHandler(res, e)
-    }
-  }*/
+  if (req.body.send) {
+    updated.send = moment().tz(zone)
+  }
+
+  if (req.body.got) {
+    updated.got = moment().tz(zone)
+  }
+
+  try {
+    const order = await Order.findOneAndUpdate({
+      _id: req.params.id
+    }, {
+      $set: updated
+    }, {
+      new: true
+    })
+    res.status(200).json(order)
+  } catch (e) {
+    errorHandler(res, e)
+  }
+
 }

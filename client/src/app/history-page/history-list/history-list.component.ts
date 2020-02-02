@@ -11,10 +11,10 @@ import { OrdersServise } from 'src/app/shared/services/orders.service';
   styleUrls: ['./history-list.component.css']
 })
 export class HistoryListComponent implements OnInit, OnDestroy, AfterViewInit {
-  @Input() orders: Order[]
+  @Input() gsorders: Order[];
+  @Output('onAddDelivery') orderEmitter = new EventEmitter<Order>()
   @ViewChild('modal') modalRef: ElementRef
   @ViewChild('select') selectRef: ElementRef
-  @Output('onAddDelivery') orderEmitter = new EventEmitter<Order>()
 
   shop: string
   aSub: Subscription
@@ -27,21 +27,25 @@ export class HistoryListComponent implements OnInit, OnDestroy, AfterViewInit {
   workOrder: boolean = false
 
   today = new Date()
-  objectId: string
-  view: Date
-  send: Date
-  got: Date
+  isView: boolean
+
+  _id = ''
+  view = null
+  send = null
+  got = null
 
   constructor(private auth: AuthService,
-    private ordersService: OrdersServise) { }
+    private ordersService: OrdersServise) {
+  }
 
   ngOnInit() {
     this.aSub = this.auth.getById().subscribe((data: User) => { this.shop = data.shop })
-
   }
 
   ngOnDestroy() {
     this.modal.destroy()
+    this.select.destroy()
+    this.aSub.unsubscribe()
   }
 
   ngAfterViewInit() {
@@ -65,19 +69,31 @@ export class HistoryListComponent implements OnInit, OnDestroy, AfterViewInit {
     this.selectedOrder = order
     this.workOrder = (this.selectedOrder.shopBuyer === this.shop) //true если магазин покупает: кнопка "обработать" отключена
     this.modal.open()
-
     if (!this.selectedOrder.view && this.workOrder == false) {
-      this.objectId = this.selectedOrder._id
-      this.today.setDate(this.today.getDate())
-      //this.ordersService.update(upOrder)
+      this.update()
     }
+  }
+
+  private update() {
+    const objectFlag = Object.assign({}, {
+      _id: this.selectedOrder._id,
+      view: "f",
+      send: this.send,
+      got: this.got
+    })
+    this.ordersService.update(objectFlag).subscribe((order: Order) => {
+      const idx = this.gsorders.findIndex(p => p._id === objectFlag._id)
+      this.gsorders[idx].view = order.view
+      MaterialService.toast(`Заказ просмотрен поставщиком ${this.shop}`)
+    },
+      error => MaterialService.toast(error.error.message),
+    )
   }
 
   addDelivery() {
     this.orderEmitter.emit(
       this.selectedOrder
     );
-
     this.modal.close()
   }
 

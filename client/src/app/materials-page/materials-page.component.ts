@@ -26,6 +26,7 @@ export class MaterialsPageComponent implements OnInit, AfterViewInit, OnDestroy 
   koef = 0.7
   oSub: Subscription
   height: number
+  isNew = true
 
   form: FormGroup = this._formBuilder.group({
     vid: [null, Validators.required],
@@ -173,6 +174,7 @@ export class MaterialsPageComponent implements OnInit, AfterViewInit, OnDestroy 
       s: null,
       c: null
     })
+    this.isNew = true
     this.modal.open()
     MaterialService.updateTextInputs()
     this.update()
@@ -202,6 +204,7 @@ export class MaterialsPageComponent implements OnInit, AfterViewInit, OnDestroy 
       s: material.s === 0 ? '' : material.s,
       c: material.c === 0 ? '' : material.c
     })
+    this.isNew = false
     this.modal.open()
     MaterialService.updateTextInputs()
     this.update()

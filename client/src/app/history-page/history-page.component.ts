@@ -25,6 +25,7 @@ export class HistoryPageComponent implements OnInit, OnDestroy, AfterViewInit {
 
   offset = 0
   limit = STEP
+  odx: number
 
   loading = false
   reloading = false
@@ -67,7 +68,6 @@ export class HistoryPageComponent implements OnInit, OnDestroy, AfterViewInit {
     this.filter = filter
     this.reloading = true
     this.fetch()
-
   }
 
   ngAfterViewInit() {
@@ -87,6 +87,6 @@ export class HistoryPageComponent implements OnInit, OnDestroy, AfterViewInit {
 
   updateDeliveryForm(order: Order) {
     this.deliveryOrder = order
-    console.log(this.deliveryOrder)
   }
+
 }

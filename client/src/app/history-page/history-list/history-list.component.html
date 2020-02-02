@@ -20,8 +20,8 @@
     </thead>
 
     <tbody>
-        <tr *ngFor="let order of orders | searchO: [searchOrd, shop]"
-            [ngStyle]="{backgroundColor: shop === order.shopBuyer ? '#dfffbe' : 'none', fontWeight: !order.view ? 'bold' : 'normal'}">
+        <tr *ngFor="let order of gsorders | searchO: [searchOrd, shop]"
+            [ngStyle]="{backgroundColor: shop === order.shopBuyer ? '#eaffd5b0' : 'none'}" [class.bold]="!order.view">
             <td>{{order.order}}</td>
             <td>{{order.date | date:'dd.MM.yyyy'}}</td>
             <td>{{order.date | date:'HH:mm:ss'}}</td>
