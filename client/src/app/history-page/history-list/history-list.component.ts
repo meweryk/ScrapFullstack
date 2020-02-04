@@ -1,7 +1,6 @@
 import { Component, Input, ViewChild, ElementRef, OnDestroy, AfterViewInit, OnInit, Output, EventEmitter } from '@angular/core';
-import { Order, User } from 'src/app/shared/interfaces';
+import { Order } from 'src/app/shared/interfaces';
 import { MaterialInstance, MaterialService } from 'src/app/shared/classes/material.service';
-import { Subscription } from 'rxjs';
 import { AuthService } from 'src/app/shared/services/auth.service';
 import { OrdersServise } from 'src/app/shared/services/orders.service';
 
@@ -17,7 +16,6 @@ export class HistoryListComponent implements OnInit, OnDestroy, AfterViewInit {
   @ViewChild('select') selectRef: ElementRef
 
   shop: string
-  aSub: Subscription
 
   selectedOrder: Order
   modal: MaterialInstance
@@ -39,13 +37,12 @@ export class HistoryListComponent implements OnInit, OnDestroy, AfterViewInit {
   }
 
   ngOnInit() {
-    this.aSub = this.auth.getById().subscribe((data: User) => { this.shop = data.shop })
+    this.shop = this.auth.getShop()
   }
 
   ngOnDestroy() {
     this.modal.destroy()
     this.select.destroy()
-    this.aSub.unsubscribe()
   }
 
   ngAfterViewInit() {

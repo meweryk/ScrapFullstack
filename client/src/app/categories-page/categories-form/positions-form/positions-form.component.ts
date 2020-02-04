@@ -1,6 +1,6 @@
 import { Component, OnInit, Input, ViewChild, ElementRef, AfterViewInit, OnDestroy, HostListener } from '@angular/core';
 import { PositionsService } from 'src/app/shared/services/positions.service';
-import { Position, User } from 'src/app/shared/interfaces';
+import { Position } from 'src/app/shared/interfaces';
 import { MaterialService, MaterialInstance, MaterialAutocomplete } from 'src/app/shared/classes/material.service';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { AuthService } from 'src/app/shared/services/auth.service';
@@ -15,7 +15,6 @@ import { MaterialsService } from 'src/app/shared/services/materials.service';
 export class PositionsFormComponent implements OnInit, AfterViewInit, OnDestroy {
   @Input('categoryId') categoryId: string
   shop: string
-  aSub: Subscription
   mSub: Subscription
 
   arrName: string[]
@@ -46,7 +45,7 @@ export class PositionsFormComponent implements OnInit, AfterViewInit, OnDestroy 
     const params = Object.assign({}, this.filter)
 
     this.height = 0.5 * window.innerHeight
-    this.aSub = this.auth.getById().subscribe((data: User) => { this.shop = data.shop })
+    this.shop = this.auth.getShop()
 
     this.form = new FormGroup({
       name: new FormControl(null, [Validators.required, Validators.maxLength(15)]),
@@ -74,7 +73,6 @@ export class PositionsFormComponent implements OnInit, AfterViewInit, OnDestroy 
   ngOnDestroy() {
     this.modal.destroy()
     this.select.destroy()
-    this.aSub.unsubscribe()
     this.mSub.unsubscribe()
     this.autocomplete.destroy()
   }

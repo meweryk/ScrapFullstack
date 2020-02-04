@@ -2,8 +2,6 @@ import { Component, AfterViewInit, ElementRef, ViewChild, OnDestroy, OnInit, Hos
 import { AuthService } from '../../services/auth.service';
 import { Router } from '@angular/router';
 import { MaterialService, MaterialInstance } from '../../classes/material.service';
-import { Subscription } from 'rxjs';
-import { User } from '../../interfaces';
 
 @Component({
   selector: 'app-site-layout',
@@ -19,7 +17,6 @@ export class SiteLayoutComponent implements OnInit, AfterViewInit, OnDestroy {
   width: any
   sidenav: MaterialInstance
   dropdown: MaterialInstance
-  aSub: Subscription
   nicname: string
   shop: string
 
@@ -41,10 +38,8 @@ export class SiteLayoutComponent implements OnInit, AfterViewInit, OnDestroy {
   ngOnInit() {
     this.width = window.innerWidth
 
-    this.aSub = this.auth.getById().subscribe((data: User) => {
-      this.nicname = data.nicname
-      this.shop = data.shop
-    })
+    this.nicname = this.auth.getNicname()
+    this.shop = this.auth.getShop()
   }
 
   @HostListener('window:resize', ['$event'])
@@ -66,7 +61,6 @@ export class SiteLayoutComponent implements OnInit, AfterViewInit, OnDestroy {
 
   ngOnDestroy() {
     this.sidenav.destroy()
-    this.aSub.unsubscribe()
     this.dropdown.destroy()
   }
 

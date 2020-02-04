@@ -10,6 +10,8 @@ import { tap } from 'rxjs/operators';
 })
 export class AuthService {
     private token = null
+    private myNicname = null
+    private myShop = null
 
     constructor(private http: HttpClient) { }
 
@@ -17,13 +19,17 @@ export class AuthService {
         return this.http.post<User>('/api/auth/register', user)
     }
 
-    login(user: User): Observable<{ token: string }> {
-        return this.http.post<{ token: string }>('/api/auth/login', user)
+    login(user: User): Observable<{ token: string, nicname: string, shop: string }> {
+        return this.http.post<{ token: string, nicname: string, shop: string }>('/api/auth/login', user)
             .pipe(
                 tap(
-                    ({ token }) => {
+                    ({ token, nicname, shop }) => {
                         localStorage.setItem('auth-token', token)
                         this.setToken(token)
+                        localStorage.setItem('my-nicname', nicname)
+                        this.setNicname(nicname)
+                        localStorage.setItem('my-shop', shop)
+                        this.setShop(shop)
                     }
                 )
             )
@@ -43,10 +49,25 @@ export class AuthService {
 
     logout() {
         this.setToken(null)
+        this.setNicname(null)
+        this.setShop(null)
         localStorage.clear()
     }
 
-    getById(): Observable<User> {
-        return this.http.get<User>('/api/auth')
+    setNicname(nicname: string) {
+        this.myNicname = nicname
     }
+    getNicname(): string {
+        return this.myNicname
+    }
+
+    setShop(shop: string) {
+        this.myShop = shop
+    }
+
+    getShop(): string {
+        return this.myShop
+    }
+
+
 }

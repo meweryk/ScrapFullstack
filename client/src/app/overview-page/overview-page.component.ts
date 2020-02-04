@@ -21,7 +21,6 @@ export class OverviewPageComponent implements OnInit, OnDestroy, AfterViewInit {
 
   ngOnInit() {
     this.data$ = this.service.getOverview()
-
     this.yesterday.setDate(this.yesterday.getDate() - 1)
   }
 

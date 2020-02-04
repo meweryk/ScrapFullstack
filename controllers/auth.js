@@ -17,9 +17,13 @@ module.exports.login = async function (req, res) {
         email: candidate.email,
         userId: candidate._id
       }, keys.jwt, { expiresIn: 60 * 60 * 12 })
+      const nicname = candidate.nicname
+      const shop = candidate.shop
 
       res.status(200).json({
-        token: `Bearer ${token}`
+        token: `Bearer ${token}`,
+        nicname: nicname,
+        shop: shop
       })
     } else {
       // Пароли не совпали
@@ -63,17 +67,5 @@ module.exports.register = async function (req, res) {
       errorHandler(res, e)
     }
 
-  }
-}
-
-module.exports.getUser = async function (req, res) {
-  try {
-    const user = await User.findById(req.user.id)
-    res.status(200).json({
-      nicname: user.nicname,
-      shop: user.shop
-    })
-  } catch (e) {
-    errorHandler(res, e)
   }
 }
