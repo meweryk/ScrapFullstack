@@ -7,9 +7,7 @@ import { Position, Message } from '../interfaces';
     providedIn: 'root'
 })
 export class PositionsService {
-    constructor(private http: HttpClient) {
-
-    }
+    constructor(private http: HttpClient) { }
 
     fetch(categoryId: string): Observable<Position[]> {
         return this.http.get<Position[]>(`/api/position/${categoryId}`)

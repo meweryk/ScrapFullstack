@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { FormsModule } from '@angular/forms';
+import { SharedModule } from '../shared/shared.module';
 
 import { HistoryPageComponent } from './history-page.component';
 import { HistoryListComponent } from './history-list/history-list.component';
@@ -19,7 +19,7 @@ import { HistoryRoutingModule } from './history-routing.module';
     ],
     imports: [
         CommonModule,
-        FormsModule,
+        SharedModule,
         HistoryRoutingModule,
         ComponentModule
     ]

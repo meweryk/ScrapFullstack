@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { SharedModule } from '../shared/shared.module';
 
 import { CategoriesPageComponent } from './categories-page.component';
 import { CategoriesFormComponent } from './categories-form/categories-form.component';
@@ -18,8 +18,7 @@ import { ComponentModule } from '../shared/components/components.module';
     providers: [],
     imports: [
         CommonModule,
-        FormsModule,
-        ReactiveFormsModule,
+        SharedModule,
         CategoriesRoutingModule,
         ComponentModule
     ]

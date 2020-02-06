@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { SharedModule } from '../shared/shared.module';
 
 import { ComponentModule } from '../shared/components/components.module';
 import { OrderPageComponent } from './order-page.component';
@@ -16,8 +16,7 @@ import { OrderRoutingModule } from './order-routing.module';
     ],
     imports: [
         CommonModule,
-        FormsModule,
-        ReactiveFormsModule,
+        SharedModule,
         ComponentModule,
         OrderRoutingModule
     ],
