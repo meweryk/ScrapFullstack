@@ -7,11 +7,11 @@
       "installMode": "prefetch",
       "resources": {
         "files": [
-          "/client/favicon.ico",
-          "/client/index.html",
-          "/client/manifest.webmanifest",
-          "/client/*.css",
-          "/client/*.js"
+          "/favicon.ico",
+          "/index.html",
+          "/manifest.webmanifest",
+          "/*.css",
+          "/*.js"
         ]
       }
     },
@@ -21,9 +21,28 @@
       "updateMode": "prefetch",
       "resources": {
         "files": [
-          "/client/assets/**",
-          "/client/*.(eot|svg|cur|jpg|png|webp|gif|otf|ttf|woff|woff2|ani)"
+          "/assets/**",
+          "/*.(eot|svg|cur|jpg|png|webp|gif|otf|ttf|woff|woff2|ani)"
         ]
+      }
+    }
+  ],
+  "dataGroups": [
+    {
+      "name": "data",
+      "urls": [
+        "*/overview",
+        "*/analytics",
+        "*/materials",
+        "*/order/**",
+        "*/position/**",
+        "*/api/category/**"
+      ],
+      "cacheConfig": {
+        "maxSize": 2000,
+        "maxAge": "24h",
+        "timeout": "3s",
+        "strategy": "freshness"
       }
     }
   ]
