@@ -26,24 +26,5 @@
         ]
       }
     }
-  ],
-  "dataGroups": [
-    {
-      "name": "data",
-      "urls": [
-        "*/overview",
-        "*/analytics",
-        "*/materials",
-        "*/order/**",
-        "*/position/**",
-        "*/api/category/**"
-      ],
-      "cacheConfig": {
-        "maxSize": 2000,
-        "maxAge": "24h",
-        "timeout": "3s",
-        "strategy": "freshness"
-      }
-    }
   ]
 }
