@@ -22,8 +22,7 @@
             "assets": [
               "src/favicon.ico",
               "src/assets",
-              "src/manifest.webmanifest",
-              "./uploads/*.(jpg|png|webp|gif|ttf|woff|woff2|)"
+              "src/manifest.webmanifest"
             ],
             "styles": [
               "src/styles.css"
