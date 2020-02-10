@@ -103,18 +103,32 @@ export interface OverviewPage {
 
 export interface OverviewPageItem {
     percent: number
+    percentIn: number
+    percentOut: number
     compare: number
+    compareIn: number
+    compareOut: number
     yesterday: number
-    isHigher: boolean
+    yesterdayIn: number
+    yesterdayOut: number
+    OutisHigher: boolean
+    isHigherIn: boolean
+    isHigherOut: boolean
 }
 
 export interface AnalyticsPage {
     average: number
+    averageIn: number
+    averageOut: number
     chart: AnalyticsChartItem[]
 }
 
 export interface AnalyticsChartItem {
     gain: number
+    gainIn: number
+    gainOut: number
+    orderIn: number
+    orderOut: number
     order: number
     label: string
 }

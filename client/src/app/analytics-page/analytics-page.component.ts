@@ -16,6 +16,8 @@ export class AnalyticsPageComponent implements AfterViewInit, OnDestroy {
 
   aSub: Subscription
   average: number
+  averageIn: number
+  averageOut: number
   pending = true
 
   //инжектирование сервиса при помощи которого делается бэк запрос
@@ -34,9 +36,12 @@ export class AnalyticsPageComponent implements AfterViewInit, OnDestroy {
 
     this.aSub = this.service.getAnalytics().subscribe((data: AnalyticsPage) => {
       this.average = data.average
+      this.averageIn = data.averageIn
+      this.averageOut = data.averageOut
 
       gainConfig.labels = data.chart.map(item => item.label)
       gainConfig.data = data.chart.map(item => item.gain)
+
 
       orderConfig.labels = data.chart.map(item => item.label)
       orderConfig.data = data.chart.map(item => item.order)

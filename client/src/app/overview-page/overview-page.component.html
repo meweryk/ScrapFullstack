@@ -7,45 +7,93 @@
 
 <div class="row" *ngIf="data$ | async as data; else loader">
     <div class="col s12 l6">
-        <div class="card indigo lighten-3 z-depth-3 white-text">
+        <div class="card indigo lighten-4 z-depth-3 white-text">
             <div class="card-content">
-                <span class="card-title">Выручка:</span>
-                <h4>{{data.gain.yesterday}} грн.</h4>
-                <h4 class="m0 mb1" [ngClass]=" {
-                    'green-text text-darken-2': data.gain.isHigher, 
-                    'red-text text-darken-2': !data.gain.isHigher
+                <span class="card-title">Выручка: {{data.gain.yesterdayOut - data.gain.yesterdayIn}} грн</span>
+                <div class="section">
+                    <h6>по Вашим заказам на поставку</h6>
+                    <h5>{{data.gain.yesterdayIn}} грн.</h5>
+                    <div [ngClass]=" {
+                    'green-text text-darken-2': data.gain.isHigherIn, 
+                    'red-text text-darken-2': !data.gain.isHigherIn
                 }">
-                    <i class="material-icons">
-                        {{data.gain.isHigher ? 'arrow_upward' : 'arrow_downward'}}
-                    </i>
-                    {{data.gain.percent}}%
-                </h4>
-                <p>
-                    Выручка вашего бизнеса вчера на {{data.gain.percent}}%
-                    {{data.gain.isHigher ? 'выше' : 'ниже'}} среднего:
-                    {{data.gain.compare}} грн. в день
-                </p>
+                        <h5 class="m0 mb1">
+                            <i class="material-icons">
+                                {{data.gain.isHigherIn ? 'arrow_upward' : 'arrow_downward'}}
+                            </i>
+                            {{data.gain.percentIn}}%
+                        </h5>
+                        <p>
+                            Сумма по заказам на {{data.gain.percentIn}}%
+                            {{data.gain.isHigherIn ? 'выше' : 'ниже'}} среднего:
+                            на {{data.gain.compareIn}} грн. в день
+                        </p>
+                    </div>
+                </div>
+                <div class="divider"></div>
+                <div class="section">
+                    <h6>по заказам на отгрузку</h6>
+                    <h5>{{data.gain.yesterdayOut}} грн.</h5>
+                    <div [ngClass]=" {
+                    'green-text text-darken-2': data.gain.isHigherOut, 
+                    'red-text text-darken-2': !data.gain.isHigherOut
+                }">
+                        <h5 class="m0 mb1">
+                            <i class="material-icons">
+                                {{data.gain.isHigherOut ? 'arrow_upward' : 'arrow_downward'}}
+                            </i>
+                            {{data.gain.percentOut}}%
+                        </h5>
+                        <p>
+                            По заказам на отгрузку сумма на {{data.gain.percentOut}}%
+                            {{data.gain.isHigherOut ? 'выше' : 'ниже'}} среднего:
+                            {{data.gain.compareOut}} грн. в день
+                        </p>
+                    </div>
+                </div>
+
             </div>
         </div>
     </div>
 
     <div class="col s12 l6">
-        <div class="card orange lighten-1 z-depth-3 white-text">
+        <div class="card amber darken-1 z-depth-3 white-text">
             <div class="card-content">
-                <span class="card-title">Заказы:</span>
-                <h4>{{data.orders.yesterday}} зак.</h4>
-                <h4 class="m0 mb1" [ngClass]=" {
-                    'green-text text-darken-2': data.orders.isHigher, 
-                    'red-text text-darken-2': !data.orders.isHigher
-                }">
-                    <i class="material-icons">
-                        {{data.orders.isHigher ? 'arrow_upward' : 'arrow_downward'}}
-                    </i>
-                    {{data.orders.percent}}%
-                </h4>
-                <p>Число заказов вчера на {{data.orders.percent}}%
-                    {{data.orders.isHigher ? 'выше' : 'ниже'}}
-                    среднего значения: {{data.orders.compare}} зак. в день</p>
+                <span class="card-title">Заказы: {{data.orders.yesterdayIn + data.orders.yesterdayOut}} зак.</span>
+                <div class="section">
+                    <h6>На поставку</h6>
+                    <h5>{{data.orders.yesterdayIn}} зак.</h5>
+                    <div
+                        [ngClass]=" {'green-text text-darken-2': data.orders.isHigherIn, 'red-text text-darken-2': !data.orders.isHigherIn}">
+                        <h5 class="m0 mb1">
+                            <i class="material-icons">
+                                {{data.orders.isHigherIn ? 'arrow_upward' : 'arrow_downward'}}
+                            </i>
+                            {{data.orders.percentIn}}%
+                        </h5>
+                        <p>Число заказов на приход вчера на {{data.orders.percentIn}}%
+                            {{data.orders.isHigherIn ? 'выше' : 'ниже'}}
+                            среднего значения: на {{data.orders.compareIn}} зак. в день</p>
+                    </div>
+                </div>
+                <div class="divider"></div>
+                <div class="section">
+                    <h6>На отгрузку</h6>
+                    <h5>{{data.orders.yesterdayOut}} зак.</h5>
+                    <div
+                        [ngClass]=" {'green-text text-darken-2': data.orders.isHigherOut, 'red-text text-darken-2': !data.orders.isHigherOut}">
+                        <h5 class="m0 mb1">
+                            <i class="material-icons">
+                                {{data.orders.isHigherOut ? 'arrow_upward' : 'arrow_downward'}}
+                            </i>
+                            {{data.orders.percentOut}}%
+                        </h5>
+                        <p>
+                            Число заказов на отгрузку вчера на {{data.orders.percentOut}}%
+                            {{data.orders.isHigherOut ? 'выше' : 'ниже'}}
+                            среднего значения: на {{data.orders.compareOut}} зак. в день</p>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
