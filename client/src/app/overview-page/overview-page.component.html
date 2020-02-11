@@ -11,7 +11,7 @@
             <div class="card-content">
                 <span class="card-title">Выручка: {{data.gain.yesterdayOut - data.gain.yesterdayIn}} грн</span>
                 <div class="section">
-                    <h6>по Вашим заказам на поставку</h6>
+                    <h6>по заказам на поставку</h6>
                     <h5>{{data.gain.yesterdayIn}} грн.</h5>
                     <div [ngClass]=" {
                     'green-text text-darken-2': data.gain.isHigherIn, 
@@ -106,7 +106,9 @@
 <div class="tap-target" data-target="menu" #tapTarget>
     <div class="tap-target-content">
         <h5>Зачем нужна эта страница?</h5>
-        <p>Страница “Обзор” покажет динамику продаж за предыдущий день. Сравнение со средним значениями поможет вам
-            понять, как идут дела у Вашего бизнеса.</p>
+        <p>Страница “Обзор” покажет динамику закупок и продаж за предыдущий день. Сравнение со средним значениями
+            поможет вам
+            понять, как идут дела у Вашего бизнеса.<br>Отрицательная выручка показавает насколько закупки превысили
+            продажи и наоборот.</p>
     </div>
 </div>

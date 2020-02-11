@@ -3,6 +3,7 @@ import { AnalyticsService } from '../shared/services/analytics.service';
 import { AnalyticsPage } from '../shared/interfaces';
 import { Chart } from 'chart.js'
 import { Subscription } from 'rxjs';
+import { MaterialInstance, MaterialService } from '../shared/classes/material.service';
 
 @Component({
   selector: 'app-analytics-page',
@@ -12,7 +13,9 @@ import { Subscription } from 'rxjs';
 export class AnalyticsPageComponent implements AfterViewInit, OnDestroy {
 
   @ViewChild('gain') gainRef: ElementRef
-  @ViewChild('orderImport') orderImportRef: ElementRef
+  @ViewChild('order') orderImportRef: ElementRef
+  @ViewChild('tapTarget') tapTargetRef: ElementRef
+  tapTarget: MaterialInstance
 
   aSub: Subscription
   average: number
@@ -24,15 +27,58 @@ export class AnalyticsPageComponent implements AfterViewInit, OnDestroy {
   constructor(private service: AnalyticsService) { }
 
   ngAfterViewInit() {
-    const gainConfig: any = {
+    this.tapTarget = MaterialService.initTapTarget(this.tapTargetRef)
+
+    const gainConfig: any = {}
+
+    const gainAllConfig: any = {
       label: 'Выручка',
-      color: 'rgb(255, 99, 132)'
+      borderColor: 'black',
+      borderWidth: '2',
+      borderDash: [5, 5],
+      steppedLine: false,
+      fill: true
+    }
+    const gainInConfig: any = {
+      label: 'Импорт',
+      borderColor: '#ff8f63',
+      lineTension: 0.3,
+      steppedLine: false,
+      fill: false
+    }
+    const gainOutConfig: any = {
+      label: 'Экспорт',
+      borderColor: '#36dfeb',
+      lineTension: 0.3,
+      steppedLine: false,
+      fill: false
     }
 
-    const orderConfig: any = {
-      label: 'Заказы',
-      color: 'rgb(54, 162, 235)'
+    const orderConfig: any = {}
+
+    const orderAllConfig: any = {
+      label: 'Все заказы',
+      borderColor: 'black',
+      borderWidth: '2',
+      borderDash: [5, 5],
+      steppedLine: false,
+      fill: false
     }
+    const orderInConfig: any = {
+      label: 'Импорт',
+      borderColor: '#ff8f63',
+      lineTension: 0.3,
+      steppedLine: false,
+      fill: false
+    }
+    const orderOutConfig: any = {
+      label: 'Экспорт',
+      borderColor: '#36dfeb',
+      lineTension: 0.3,
+      steppedLine: false,
+      fill: false
+    }
+
 
     this.aSub = this.service.getAnalytics().subscribe((data: AnalyticsPage) => {
       this.average = data.average
@@ -40,16 +86,23 @@ export class AnalyticsPageComponent implements AfterViewInit, OnDestroy {
       this.averageOut = data.averageOut
 
       gainConfig.labels = data.chart.map(item => item.label)
-      gainConfig.data = data.chart.map(item => item.gain)
+      gainInConfig.data = data.chart.map(item => item.gainIn)
+      gainOutConfig.data = data.chart.map(item => item.gainOut)
+      gainAllConfig.data = data.chart.map(item => item.gain)
+      gainConfig.datasets = [gainAllConfig, gainOutConfig, gainInConfig]
+
 
 
       orderConfig.labels = data.chart.map(item => item.label)
-      orderConfig.data = data.chart.map(item => item.order)
+      orderAllConfig.data = data.chart.map(item => item.order)
+      orderInConfig.data = data.chart.map(item => item.orderIn)
+      orderOutConfig.data = data.chart.map(item => item.orderOut)
+      orderConfig.datasets = [orderAllConfig, orderOutConfig, orderInConfig]
 
       const gainCtx = this.gainRef.nativeElement.getContext('2d')
       const orderCtx = this.orderImportRef.nativeElement.getContext('2d')
-      gainCtx.canvas.height = '300px'
-      orderCtx.canvas.height = '320px'
+      gainCtx.canvas.height = '305px'
+      orderCtx.canvas.height = '325px'
       new Chart(gainCtx, createChartConfig(gainConfig))
       new Chart(orderCtx, createChartConfig(orderConfig))
 
@@ -61,11 +114,16 @@ export class AnalyticsPageComponent implements AfterViewInit, OnDestroy {
     if (this.aSub) {
       this.aSub.unsubscribe()
     }
+    this.tapTarget.destroy()
+  }
+
+  openInfo() {
+    this.tapTarget.open()
   }
 
 }
 
-function createChartConfig({ labels, data, label, color }) {
+function createChartConfig({ labels, datasets }) {
   return {
     type: 'line',
     options: {
@@ -73,14 +131,7 @@ function createChartConfig({ labels, data, label, color }) {
     },
     data: {
       labels,
-      datasets: [
-        {
-          label, data,
-          borderColor: color,
-          steppedLine: false,
-          fill: false
-        }
-      ]
+      datasets
     }
   }
 }

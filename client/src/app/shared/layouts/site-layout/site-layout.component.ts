@@ -27,8 +27,9 @@ export class SiteLayoutComponent implements OnInit, AfterViewInit, OnDestroy {
     { url: '/history', name: 'История' },
     { url: '/order', name: 'Добавить заказ' },
     { url: '/categories', name: 'Ассортимент' },
-    { url: '/deliveries', name: 'Поставки' },
-    { url: '/materials', name: 'База материалов' }
+    { url: '/materials', name: 'База материалов' },
+    { url: '/deliveries', name: 'Поставки' }
+
   ]
 
   constructor(private auth: AuthService,

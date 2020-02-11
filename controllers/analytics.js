@@ -115,16 +115,18 @@ module.exports.analytics = async function (req, res) {
         const shop = req.user.shop
         const ordersMap = getOrdersMap(allOrders, shop)
 
-        //Средний чек всех заказов
-        const average = +(calculatePrice(allOrders, '') / Object.keys(ordersMap[0]).length).toFixed(2)
-        const averageIn = +(calculatePrice(allOrders, shop) / Object.keys(ordersMap[0]).length).toFixed(2)
-        const averageOut = +(average - averageIn).toFixed(2)
+        //Средний чек 
+        const averageAll = +(calculatePrice(allOrders, '') / Object.keys(ordersMap[0]).length).toFixed(2) // 
+        const averageIn = -(calculatePrice(allOrders, shop) / Object.keys(ordersMap[0]).length).toFixed(2) //по импорту
+        const averageOut = +(averageAll + averageIn).toFixed(2) // по экспорту
+        const average = +(averageOut + averageIn).toFixed(2)
+        console.log(averageAll, averageIn, averageOut, average)
 
         const chart = Object.keys(ordersMap[0]).map(label => {
-            //label = =05.05.2019
-            const gain = calculatePrice(ordersMap[0][label]) + calculatePrice(ordersMap[1][label])
-            const gainIn = calculatePrice(ordersMap[0][label])
+            //label = 05.05.2019            
+            const gainIn = -calculatePrice(ordersMap[0][label])
             const gainOut = calculatePrice(ordersMap[1][label])
+            const gain = gainIn + gainOut
             const order = ordersMap[0][label].length + ordersMap[1][label].length
             const orderIn = ordersMap[0][label].length
             const orderOut = ordersMap[1][label].length

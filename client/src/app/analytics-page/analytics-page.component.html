@@ -1,23 +1,39 @@
 <div class="page-title">
-    <h5>Аналитика</h5>
+    <h5>
+        Аналитика
+        <i class="material-icons black-text pointer" (click)="openInfo()">info_outline</i>
+    </h5>
+
 </div>
 
 <div [style.display]="pending ? 'none' : 'block'">
     <div>
-        <p style="font-size: 18px; margin-top: -10px; color:rgb(80, 80, 80) ">Средний чек <strong>{{average}}
-                грн.</strong></p>
+        <p style="font-size: 18px; margin-top: -10px; color:rgb(80, 80, 80) ">
+            Средний чек: <strong>{{average}}</strong> грн/день
+            <br><sub>Средний чек по закупкам "импорт": <strong>{{averageIn}}</strong> грн/день</sub>
+            <br><sub>Средний чек по продажам "экспорт": <strong>{{averageOut}}</strong> грн/день</sub>
+        </p>
     </div>
 
     <div class="analytics-block pb3 z-depth-2 amber lighten-5">
-        <h6 style="padding-left: 5px; color: rgba(185, 0, 0, 0.61)">Выручка</h6>
+        <h6 class="graf">Выручка</h6>
         <canvas #gain></canvas>
     </div>
 
     <div class="analytics-block pb3 z-depth-2 amber lighten-5">
-        <h6 style="padding-left: 5px; color: rgba(0, 89, 255, 0.747)">Заказы импорт</h6>
-        <canvas #orderImport></canvas>
+        <h6 class="graf">Заказы</h6>
+        <canvas #order></canvas>
     </div>
 </div>
 
 
 <app-loader *ngIf="pending"></app-loader>
+
+<div class="tap-target" data-target="menu" #tapTarget>
+    <div class="tap-target-content">
+        <h5>Зачем нужна эта страница?</h5>
+        <p>Страница “Аналитика” покажет динамику закупок и продаж за период. Отрицательный средний чек показывает, что
+            закупки превышают продажи.<br>График заказов покажет динамику заказов по импорту и экспотрту за период.
+        </p>
+    </div>
+</div>
