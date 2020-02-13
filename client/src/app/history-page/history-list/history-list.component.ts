@@ -69,6 +69,10 @@ export class HistoryListComponent implements OnInit, OnDestroy, AfterViewInit {
     if (!this.selectedOrder.view && this.workOrder == false) {
       this.update()
     }
+    //сброс формы обработки поставки
+    this.orderEmitter.emit(
+      null
+    );
   }
 
   private update() {

@@ -4,7 +4,7 @@
             <th>№</th>
             <th>Дата</th>
             <th>Время</th>
-            <th>Сумма</th>
+            <th>Сумма<br>грн.</th>
             <th>
                 <div class="input-field" [style.margin.px]="0" style="cursor: pointer; width: 6rem;">
                     <select #select [(ngModel)]="searchOrd">
@@ -25,7 +25,7 @@
             <td>{{order.order}}</td>
             <td>{{order.date | date:'dd.MM.yyyy'}}</td>
             <td>{{order.date | date:'HH:mm:ss'}}</td>
-            <td>{{computePrice(order)}} грн.</td>
+            <td>{{computePrice(order)}}</td>
             <td>
                 <button [style.color]="shop === order.shopBuyer ? 'lawngreen' : 'none'"
                     class="btn btn-small grey darken-1" (click)="selectOrder(order)">
@@ -44,9 +44,9 @@
         <table class="highlight">
             <thead>
                 <tr>
-                    <th>Название</th>
-                    <th>Кол-во</th>
-                    <th>Цена</th>
+                    <th>Вид</th>
+                    <th>Объём</th>
+                    <th>Цена<br>грн.</th>
                     <th>Поставщик</th>
                 </tr>
             </thead>
@@ -55,7 +55,7 @@
                 <tr *ngFor="let item of selectedOrder.list">
                     <td>{{item.name}}</td>
                     <td>{{item.quantity}}</td>
-                    <td>{{item.cost}}грн.</td>
+                    <td>{{item.cost}}</td>
                     <td>{{item.shopSeller}}</td>
                 </tr>
             </tbody>
