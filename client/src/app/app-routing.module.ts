@@ -22,6 +22,7 @@ const routes: Routes = [
       { path: 'categories', loadChildren: () => import('./categories-page/categories.module').then(m => m.CategoriesModule) },
       { path: 'deliveries', loadChildren: () => import('./deliveries-page/deliveries.module').then(m => m.DeliveriesModule) },
       { path: 'materials', loadChildren: () => import('./materials-page/materials.module').then(m => m.MaterialsModule) },
+      { path: 'invoice', loadChildren: () => import('./invoice-page/invoice.module').then(m => m.InvoiceModule) },
       { path: '**', redirectTo: '/order' }
     ]
   }

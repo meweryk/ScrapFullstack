@@ -1,15 +1,16 @@
-import { Component, OnInit, ViewChild, ElementRef, AfterViewInit, OnDestroy, Input, OnChanges, SimpleChanges } from '@angular/core';
-import { MaterialInstance, MaterialService } from '../../classes/material.service';
+import { Component, OnInit, Input, ViewChild, ElementRef, SimpleChanges } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
+import { Delivery, Order } from '../shared/interfaces';
+import { MaterialInstance, MaterialService } from '../shared/classes/material.service';
 import { FormGroup, Validators, FormBuilder } from '@angular/forms';
-import { Order } from '../../interfaces';
-import { AuthService } from '../../services/auth.service';
+import { AuthService } from '../shared/services/auth.service';
 
 @Component({
-  selector: 'app-modal-delivery',
-  templateUrl: './modal-delivery.component.html',
-  styleUrls: ['./modal-delivery.component.css']
+  selector: 'app-invoice-page',
+  templateUrl: './invoice-page.component.html',
+  styleUrls: ['./invoice-page.component.css']
 })
-export class ModalDeliveryComponent implements OnInit, AfterViewInit, OnDestroy, OnChanges {
+export class InvoicePageComponent implements OnInit {
   @Input() deliveryOrder: Order
   @ViewChild('modal') modalRef: ElementRef
   modal: MaterialInstance

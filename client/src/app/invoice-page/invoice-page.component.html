@@ -40,14 +40,40 @@
                         class="helper-text red-text">Заполните позицию.
                     </span>
                 </div>
-
-
-
-
                 <div class="input-field col s4 m2">
                     <input formControlName="imageSrc" id="imageSrc" type="text">
                     <label for="imageSrc">Фото</label>
                 </div>
+                <div class col s12>
+                    <table class="highlight">
+                        <thead>
+                            <tr>
+                                <th>Вид</th>
+                                <th>Объём</th>
+                                <th>Цена<br>грн.</th>
+                                <th>Поставщик</th>
+                            </tr>
+                        </thead>
+
+                        <!--<tbody>
+                            <tr *ngFor="let item of deliveryOrder.list">
+                                <td>
+                                    <input formControlName="name" id="name" type="text" maxlength="15"
+                                        [ngClass]="{'invalid': form.get('name').invalid && form.get('name').touched}">
+                                    {{item.name}}
+                                </td>
+                                <td>{{item.quantity}}</td>
+                                <td>{{item.cost}}</td>
+                                <td>{{item.shopSeller}}</td>
+                            </tr>
+                        </tbody>-->
+                    </table>
+                </div>
+
+
+
+
+
             </div>
 
         </div>

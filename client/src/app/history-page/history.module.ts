@@ -7,6 +7,7 @@ import { HistoryListComponent } from './history-list/history-list.component';
 import { HistoryFilterComponent } from './history-filter/history-filter.component';
 import { ComponentModule } from '../shared/components/components.module';
 import { HistoryRoutingModule } from './history-routing.module';
+import { InvoiceModule } from '../invoice-page/invoice.module';
 
 
 @NgModule({
@@ -21,7 +22,8 @@ import { HistoryRoutingModule } from './history-routing.module';
         CommonModule,
         SharedModule,
         HistoryRoutingModule,
-        ComponentModule
+        ComponentModule,
+        InvoiceModule
     ]
 })
 
