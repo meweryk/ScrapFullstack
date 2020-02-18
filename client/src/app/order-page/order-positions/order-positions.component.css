@@ -1,25 +1,9 @@
-div.table-container {
-  max-height: 800px;
-  overflow: scroll;
-  margin: -10px;
-}
 
-thead th {
-  position: -webkit-sticky;
-  /* for Safari */
-  position: sticky;
-  top: 0;
-  color: #669;
-  padding: 10px 8px;
+
+thead th {  
   background-color: #ffeccd;
-  z-index: 200;
-}
-
-tbody th {
-  position: -webkit-sticky;
-  /* for Safari */
-  position: sticky;
-  left: 0;
+  color: #669;
+  /*padding: 10px 8px;*/  
 }
 
 tbody th,
@@ -29,3 +13,4 @@ tbody td {
   background: #fff3e0;
   color: #669;
 }
+

@@ -4,7 +4,7 @@ import { Routes, RouterModule } from '@angular/router';
 import { InvoicePageComponent } from './invoice-page.component';
 
 const invoiceRoutes: Routes = [
-    { path: '/new/:order', component: InvoicePageComponent },
+    { path: '', component: InvoicePageComponent },
 ]
 
 @NgModule({

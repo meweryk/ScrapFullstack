@@ -1,24 +1,11 @@
-div.table-container {
-  max-height: 800px;
-  overflow: scroll;
-  margin: -10px;
-}
 
-thead th {
-  position: -webkit-sticky;
-  /* for Safari */
-  position: sticky;
-  top: 0;
+
+thead th {  
   background: #a1887f;
   color: #FFF;
-  z-index: 200;
 }
 
 tbody th {
-  position: -webkit-sticky;
-  /* for Safari */
-  position: sticky;
-  left: 0;
   background: #ffcc80;
   border-right: 0px solid #CCC;
 }
@@ -40,3 +27,4 @@ th {
 .autocomplete {
   font-size: 10px;
 }
+

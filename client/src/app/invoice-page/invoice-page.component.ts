@@ -1,8 +1,7 @@
 import { Component, OnInit, Input, ViewChild, ElementRef, SimpleChanges } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
-import { Delivery, Order } from '../shared/interfaces';
+import { Order, OrderPosition } from '../shared/interfaces';
 import { MaterialInstance, MaterialService } from '../shared/classes/material.service';
-import { FormGroup, Validators, FormBuilder } from '@angular/forms';
+import { Validators, FormBuilder, FormGroup } from '@angular/forms';
 import { AuthService } from '../shared/services/auth.service';
 
 @Component({
@@ -17,6 +16,7 @@ export class InvoicePageComponent implements OnInit {
   deliveryId = null
   shop: string
   nicname: string
+  list: OrderPosition[] = []
 
   form: FormGroup = this._formBuilder.group({
     order: '',
@@ -55,9 +55,11 @@ export class InvoicePageComponent implements OnInit {
     this.modal.destroy()
   }
 
-  onAddDelivery() {
+  private onAddDelivery() {
+    this.list = this.deliveryOrder.list
     this.deliveryId = null
     this.form.reset({
+      gi
       order: this.deliveryOrder.order,
       shopSend: this.shop,
       shopHost: this.deliveryOrder.shopBuyer,
@@ -66,7 +68,6 @@ export class InvoicePageComponent implements OnInit {
       imageSrc: null
     })
     this.modal.open()
-    this.deliveryOrder = null
     MaterialService.updateTextInputs()
   }
 

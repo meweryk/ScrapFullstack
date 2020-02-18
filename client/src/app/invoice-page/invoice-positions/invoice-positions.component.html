@@ -1,0 +1,49 @@
+<div class="col s12">
+    <div class="table-container">
+        <table class="highlight">
+            <thead>
+                <tr>
+                    <th>Имя</th>
+                    <th>Фракция</th>
+                    <th>Количество</th>
+                    <th>Мера</th>
+                    <th>Засор</th>
+                    <th>% / т</th>
+                    <th>Кол-во без<br>засора</th>
+                    <th>Цена<br>грн.</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let item of list">
+                    <th>
+                        {{item.name}}
+                    </th>
+                    <td>
+                    </td>
+                    <td>
+                        {{item.quantity}}
+                    </td>
+                    <td>
+                    </td>
+                    <td></td>
+                    <td></td>
+                    <td> </td>
+                    <td>
+                        {{item.cost}}
+                    </td>
+                </tr>
+            </tbody>
+            <tfoot>
+                <th>Всего</th>
+                <th></th>
+                <th>12,8</th>
+                <th>т</th>
+                <th></th>
+                <th></th>
+                <th>12,16</th>
+                <th>25860</th>
+            </tfoot>
+        </table>
+    </div>
+
+</div>

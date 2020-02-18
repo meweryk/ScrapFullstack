@@ -5,10 +5,12 @@ import { InvoicePageComponent } from './invoice-page.component';
 import { SharedModule } from '../shared/shared.module';
 import { ComponentModule } from '../shared/components/components.module';
 import { InvoiceRoutingModule } from './invoice-routing.module';
+import { InvoicePositionsComponent } from './invoice-positions/invoice-positions.component';
 
 @NgModule({
     declarations: [
-        InvoicePageComponent
+        InvoicePageComponent,
+        InvoicePositionsComponent
     ],
     imports: [
         CommonModule,

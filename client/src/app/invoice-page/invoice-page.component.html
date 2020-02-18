@@ -3,11 +3,11 @@
         <div class="modal-content">
             <h5 class="mb1">Добавить поставку</h5>
             <div class="row">
-                <div class="input-field col s6 m4">
+                <div class="input-field col s5 m2">
                     <input formControlName="order" id="order" type="number" maxlength="9">
                     <label for="order">Заказ №</label>
                 </div>
-                <div class="input-field col s6 m4">
+                <div class="input-field col s7 m4 offset-m6">
                     <input formControlName="waybill" id="waybill" type="text" maxlength="15"
                         [ngClass]="{'invalid': form.get('waybill').invalid && form.get('waybill').touched}">
                     <label for="waybill">Накладная №</label>
@@ -16,7 +16,9 @@
                         class="helper-text red-text">Заполните позицию.
                     </span>
                 </div>
-                <div class="input-field col s12 m4">
+            </div>
+            <div class="row">
+                <div class="input-field col s12 m6 l4">
                     <input formControlName="shopSend" id="shopSend" type="text" maxlength="15"
                         [ngClass]="{'invalid': form.get('shopSend').invalid && form.get('shopSend').touched}">
                     <label for="shopSend">Отправитель</label>
@@ -24,7 +26,7 @@
                         class="helper-text red-text">Заполните позицию.
                     </span>
                 </div>
-                <div class="input-field col s12 m4">
+                <div class="input-field col s12 m6 l4">
                     <input formControlName="shopHost" id="shopHost" type="text" maxlength="15"
                         [ngClass]="{'invalid': form.get('shopHost').invalid && form.get('shopHost').touched}">
                     <label for="shopHost">Получатель</label>
@@ -32,7 +34,7 @@
                         class="helper-text red-text">Заполните позицию.
                     </span>
                 </div>
-                <div class="input-field col s12 m4">
+                <div class="input-field col s6 m6 l2">
                     <input formControlName="train" id="train" type="text" maxlength="15"
                         [ngClass]="{'invalid': form.get('train').invalid && form.get('train').touched}">
                     <label for="train">Транспорт</label>
@@ -40,41 +42,16 @@
                         class="helper-text red-text">Заполните позицию.
                     </span>
                 </div>
-                <div class="input-field col s4 m2">
+                <div class="input-field col s6 m6 l2">
                     <input formControlName="imageSrc" id="imageSrc" type="text">
                     <label for="imageSrc">Фото</label>
                 </div>
-                <div class col s12>
-                    <table class="highlight">
-                        <thead>
-                            <tr>
-                                <th>Вид</th>
-                                <th>Объём</th>
-                                <th>Цена<br>грн.</th>
-                                <th>Поставщик</th>
-                            </tr>
-                        </thead>
-
-                        <!--<tbody>
-                            <tr *ngFor="let item of deliveryOrder.list">
-                                <td>
-                                    <input formControlName="name" id="name" type="text" maxlength="15"
-                                        [ngClass]="{'invalid': form.get('name').invalid && form.get('name').touched}">
-                                    {{item.name}}
-                                </td>
-                                <td>{{item.quantity}}</td>
-                                <td>{{item.cost}}</td>
-                                <td>{{item.shopSeller}}</td>
-                            </tr>
-                        </tbody>-->
-                    </table>
-                </div>
-
-
-
-
-
             </div>
+
+            <app-invoice-positions *ngIf="deliveryOrder?._id" [list]="deliveryOrder.list">
+            </app-invoice-positions>
+
+
 
         </div>
         <div class="modal-footer">

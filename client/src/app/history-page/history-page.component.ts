@@ -88,5 +88,4 @@ export class HistoryPageComponent implements OnInit, OnDestroy, AfterViewInit {
   updateDeliveryForm(order: Order) {
     this.deliveryOrder = order
   }
-
 }

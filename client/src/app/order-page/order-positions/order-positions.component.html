@@ -10,7 +10,7 @@
                                     [(ngModel)]="searchVid" placeholder="Название">
                             </div>
                         </th>
-                        <th>Цена</th>
+                        <th>Цена<br>грн</th>
                         <th>Количество</th>
                         <th>
                             <div class="input-field" [style.margin.px]="0">
@@ -25,7 +25,7 @@
                 <tbody>
                     <tr *ngFor="let position of positions | searchV: [searchVid, searchShop]">
                         <th>{{position.name}}</th>
-                        <td>{{position.cost}} грн.</td>
+                        <td>{{position.cost}}</td>
                         <td>
                             <div class="input-field inline order-position-input">
                                 <input type="number" min="1" [(ngModel)]="position.quantity">
