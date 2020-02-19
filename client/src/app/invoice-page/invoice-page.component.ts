@@ -1,13 +1,15 @@
 import { Component, OnInit, Input, ViewChild, ElementRef, SimpleChanges } from '@angular/core';
-import { Order, OrderPosition } from '../shared/interfaces';
+import { Order, OrderPosition, DeliveryPosition, Delivery } from '../shared/interfaces';
 import { MaterialInstance, MaterialService } from '../shared/classes/material.service';
 import { Validators, FormBuilder, FormGroup } from '@angular/forms';
 import { AuthService } from '../shared/services/auth.service';
+import { InvoiceServise } from './invoice.service';
 
 @Component({
   selector: 'app-invoice-page',
   templateUrl: './invoice-page.component.html',
-  styleUrls: ['./invoice-page.component.css']
+  styleUrls: ['./invoice-page.component.css'],
+  providers: [InvoiceServise]
 })
 export class InvoicePageComponent implements OnInit {
   @Input() deliveryOrder: Order
@@ -29,7 +31,8 @@ export class InvoicePageComponent implements OnInit {
 
 
   constructor(private _formBuilder: FormBuilder,
-    private auth: AuthService) { }
+    private auth: AuthService,
+    invoice: InvoiceServise) { }
 
   ngOnInit() {
     this.shop = this.auth.getShop()
@@ -56,10 +59,8 @@ export class InvoicePageComponent implements OnInit {
   }
 
   private onAddDelivery() {
-    this.list = this.deliveryOrder.list
     this.deliveryId = null
     this.form.reset({
-      gi
       order: this.deliveryOrder.order,
       shopSend: this.shop,
       shopHost: this.deliveryOrder.shopBuyer,
