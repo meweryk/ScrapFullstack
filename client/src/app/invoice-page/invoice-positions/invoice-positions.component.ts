@@ -1,6 +1,5 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { OrderPosition, DeliveryPosition } from 'src/app/shared/interfaces';
-import { Observable } from 'rxjs';
+import { OrderPosition } from 'src/app/shared/interfaces';
 
 @Component({
   selector: 'app-invoice-positions',
@@ -10,10 +9,14 @@ import { Observable } from 'rxjs';
 export class InvoicePositionsComponent implements OnInit {
 
   @Input() list: OrderPosition[]
-  position$: Observable<OrderPosition[]>
+  positions: OrderPosition[]
 
   constructor() { }
 
-  ngOnInit() { }
+  ngOnInit() {
+    this.positions = this.list
+  }
+
+  addToInvoice() { }
 
 }

@@ -76,6 +76,11 @@ export interface Order {
 
 export interface OrderPosition {
     name: string
+    fraction?: String
+    rank?: string
+    trash?: number
+    trashStap?: string
+    quantityNoTrash?: number
     cost: number
     quantity: number
     _id?: string
@@ -147,12 +152,12 @@ export interface Delivery {
 }
 
 export interface DeliveryPosition {
-    name: String
-    fraction: String
-    quantity: Number
-    rank: String
-    trash: Number
-    trashStap: String
-    quantityNoTrash: Number
-    cost: Number
+    name: string
+    fraction?: string
+    quantity: number
+    rank?: string
+    trash?: number
+    trashStap?: string
+    quantityNoTrash: number
+    cost?: number
 }

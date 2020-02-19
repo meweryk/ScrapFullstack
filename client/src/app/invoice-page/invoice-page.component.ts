@@ -43,8 +43,7 @@ export class InvoicePageComponent implements OnInit {
     this.modal = MaterialService.initModal(this.modalRef)
   }
 
-  ngOnChanges(changes: SimpleChanges) {
-    console.log(changes)
+  ngOnChanges() {
     if (this.deliveryOrder) {
       this.onAddDelivery()
     }
@@ -60,6 +59,7 @@ export class InvoicePageComponent implements OnInit {
 
   private onAddDelivery() {
     this.deliveryId = null
+    this.list = this.deliveryOrder.list.filter(order => order.shopSeller === this.shop)
     this.form.reset({
       order: this.deliveryOrder.order,
       shopSend: this.shop,

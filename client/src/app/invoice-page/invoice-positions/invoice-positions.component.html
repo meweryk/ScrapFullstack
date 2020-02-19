@@ -11,25 +11,55 @@
                     <th>% / т</th>
                     <th>Кол-во без<br>засора</th>
                     <th>Цена<br>грн.</th>
+                    <th></th>
                 </tr>
             </thead>
             <tbody>
-                <tr *ngFor="let item of list">
+                <tr *ngFor="let position of positions">
                     <th>
-                        {{item.name}}
+                        <div class="input-fild inline order-position-input">
+                            <input type="text" [(ngModel)]="position.name">
+                        </div>
                     </th>
                     <td>
+                        <div class="input-fild inline order-position-input">
+                            <input #select1 type="text" [(ngModel)]="position.fraction">
+                        </div>
                     </td>
                     <td>
-                        {{item.quantity}}
+                        <div class="input-fild inline order-position-input">
+                            <input type="number" [(ngModel)]="position.quantity">
+                        </div>
                     </td>
                     <td>
+                        <div class="input-fild inline order-position-input">
+                            <input type="text" [(ngModel)]="position.rank">
+                        </div>
                     </td>
-                    <td></td>
-                    <td></td>
-                    <td> </td>
                     <td>
-                        {{item.cost}}
+                        <div class="input-field inline order-position-input">
+                            <input type="number" [(ngModel)]="position.trash">
+                        </div>
+                    </td>
+                    <td>
+                        <div class="input-fild inline order-position-input">
+                            <input type="text" [(ngModel)]="position.trashStap">
+                        </div>
+                    </td>
+                    <td>
+                        <div class="input-fild inline order-position-input">
+                            <input type="number" [(ngModel)]="position.quantityNoTrash">
+                        </div>
+                    </td>
+                    <td>
+                        <div class="input-fild inline order-position-input">
+                            <input type="number" [(ngModel)]="position.cost">
+                        </div>
+                    </td>
+                    <td>
+                        <button class="btn waves-effect wavers-light btn-small" (click)="addToInvoice()">
+                            <i class="material-icons">add</i>
+                        </button>
                     </td>
                 </tr>
             </tbody>
@@ -42,6 +72,7 @@
                 <th></th>
                 <th>12,16</th>
                 <th>25860</th>
+                <th></th>
             </tfoot>
         </table>
     </div>
