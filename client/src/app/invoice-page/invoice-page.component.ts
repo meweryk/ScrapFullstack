@@ -4,6 +4,7 @@ import { MaterialInstance, MaterialService } from '../shared/classes/material.se
 import { Validators, FormBuilder, FormGroup } from '@angular/forms';
 import { AuthService } from '../shared/services/auth.service';
 import { InvoiceServise } from './invoice.service';
+import { DeliveriesServise } from '../shared/services/deliveries.service';
 
 @Component({
   selector: 'app-invoice-page',
@@ -32,7 +33,8 @@ export class InvoicePageComponent implements OnInit {
 
   constructor(private _formBuilder: FormBuilder,
     private auth: AuthService,
-    invoice: InvoiceServise) { }
+    private invoice: InvoiceServise,
+    private deliveriesService: DeliveriesServise) { }
 
   ngOnInit() {
     this.shop = this.auth.getShop()
@@ -72,10 +74,23 @@ export class InvoicePageComponent implements OnInit {
     MaterialService.updateTextInputs()
   }
 
-  onSubmit() {
-    this.form.setValue
-    this.form.disable()
+  /*onSubmit() {
+    //this.form.setValue
+    //this.form.disable()
     this.modal.close()
+  }*/
+
+  submit() {
+    this.modal.close()
+
+    /*const delivery: Delivery = {
+      
+    }
+
+    this.deliveriesService.create()*/
+
   }
+
+
 
 }

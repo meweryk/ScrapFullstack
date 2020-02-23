@@ -1,14 +1,14 @@
-<div class="col s12">
+<div *ngIf="positions$ | async as positions;" class="col s12">
     <div class="table-container">
         <table class="highlight">
             <thead>
                 <tr>
                     <th>Имя</th>
                     <th>Фракция</th>
-                    <th>Количество</th>
-                    <th>Мера</th>
+                    <th>Кол-во</th>
+                    <th>Мера<br>т-шт.</th>
                     <th>Засор</th>
-                    <th>% / т</th>
+                    <th>%-т.</th>
                     <th>Кол-во без<br>засора</th>
                     <th>Цена<br>грн.</th>
                     <th></th>
@@ -18,46 +18,51 @@
                 <tr *ngFor="let position of positions">
                     <th>
                         <div class="input-fild inline order-position-input">
-                            <input type="text" [(ngModel)]="position.name">
+                            <input type="text" [(ngModel)]="position.name" [disabled]='flag'>
                         </div>
                     </th>
                     <td>
                         <div class="input-fild inline order-position-input">
-                            <input #select1 type="text" [(ngModel)]="position.fraction">
+                            <input type="text" [(ngModel)]="position.fraction" [disabled]='flag'>
                         </div>
                     </td>
                     <td>
                         <div class="input-fild inline order-position-input">
-                            <input type="number" [(ngModel)]="position.quantity">
+                            <input type="number" [(ngModel)]="position.quantity" [disabled]='flag'>
                         </div>
                     </td>
                     <td>
                         <div class="input-fild inline order-position-input">
-                            <input type="text" [(ngModel)]="position.rank">
+                            <input type="text" [(ngModel)]="position.rank" [disabled]='flag'>
                         </div>
                     </td>
                     <td>
-                        <div class="input-field inline order-position-input">
-                            <input type="number" [(ngModel)]="position.trash">
+                        <div *ngIf="position.rank === 'т'" class="input-field inline order-position-input">
+                            <input type="number" [(ngModel)]="position.trash" [disabled]='flag'>
+                        </div>
+                    </td>
+                    <td>
+                        <div *ngIf="position.rank === 'т' && position.trash"
+                            class="input-fild inline order-position-input col s1">
+                            <input type="text" [(ngModel)]="position.trashStap" [disabled]='flag'>
+                        </div>
+                    </td>
+                    <td>
+                        <div class="input-fild inline order-position-input" *ngIf="position.trashStap === '%'">
+                            {{ position.quantity * (1 - position.trash / 100)}}
+                        </div>
+                        <div class="input-fild inline order-position-input" *ngIf="position.trashStap === 'т'">
+                            {{ position.quantity - position.trash}}
                         </div>
                     </td>
                     <td>
                         <div class="input-fild inline order-position-input">
-                            <input type="text" [(ngModel)]="position.trashStap">
+                            <input type="number" [(ngModel)]="position.cost" [disabled]='flag'>
                         </div>
                     </td>
                     <td>
-                        <div class="input-fild inline order-position-input">
-                            <input type="number" [(ngModel)]="position.quantityNoTrash">
-                        </div>
-                    </td>
-                    <td>
-                        <div class="input-fild inline order-position-input">
-                            <input type="number" [(ngModel)]="position.cost">
-                        </div>
-                    </td>
-                    <td>
-                        <button class="btn waves-effect wavers-light btn-small" (click)="addToInvoice()">
+                        <button class="btn waves-effect wavers-light btn-small" (click)="addToInvoice(position)"
+                            [disabled]="!position.name || !position.quantity">
                             <i class="material-icons">add</i>
                         </button>
                     </td>

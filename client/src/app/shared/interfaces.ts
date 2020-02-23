@@ -76,7 +76,7 @@ export interface Order {
 
 export interface OrderPosition {
     name: string
-    fraction?: String
+    fraction?: string
     rank?: string
     trash?: number
     trashStap?: string
