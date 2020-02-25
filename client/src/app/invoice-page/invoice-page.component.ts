@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, ViewChild, ElementRef, SimpleChanges } from '@angular/core';
+import { Component, OnInit, Input, ViewChild, ElementRef, SimpleChanges, HostListener } from '@angular/core';
 import { Order, OrderPosition, DeliveryPosition, Delivery } from '../shared/interfaces';
 import { MaterialInstance, MaterialService } from '../shared/classes/material.service';
 import { Validators, FormBuilder, FormGroup } from '@angular/forms';
@@ -16,6 +16,7 @@ export class InvoicePageComponent implements OnInit {
   @Input() deliveryOrder: Order
   @ViewChild('modal') modalRef: ElementRef
   modal: MaterialInstance
+  width: number
   deliveryId = null
   shop: string
   nicname: string
@@ -37,8 +38,23 @@ export class InvoicePageComponent implements OnInit {
     private deliveriesService: DeliveriesServise) { }
 
   ngOnInit() {
+    if (window.innerWidth < 992) {
+      this.width = window.innerWidth * 0.9
+    } else {
+      this.width = (window.innerWidth - 250) * 0.9
+    }
     this.shop = this.auth.getShop()
     this.nicname = this.auth.getNicname()
+  }
+
+  @HostListener('window:resize', ['$event'])
+  onResize(event: any) {
+    const w = event.target.innerWidth
+    if (w < 992) {
+      this.width = 0.9 * w
+    } else {
+      this.width = 0.9 * (w - 250)
+    }
   }
 
   ngAfterViewInit() {

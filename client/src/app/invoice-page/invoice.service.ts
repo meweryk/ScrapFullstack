@@ -11,6 +11,7 @@ export class InvoiceServise {
     public weightNoTrash = 0
 
     add(position: OrderPosition) {
+
         const deliveryPosition: DeliveryPosition = Object.assign({}, {
             name: position.name,
             fraction: !position.fraction ? '' : position.fraction,

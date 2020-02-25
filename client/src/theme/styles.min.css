@@ -109,11 +109,11 @@ footer {
 
 .order-position-input {
   margin-top: 0;
-  margin-bottom: 0
+  margin-bottom: 0;
 }
 
 .order-position-input input {
-  margin-bottom: 0 !important
+  margin-bottom: 0 !important;
 }
 
 .fr {
@@ -136,7 +136,7 @@ footer {
   min-width: 110px;
   margin-right: 20px !important;
   margin-top: 0 !important;
-  margin-bottom: 0 !important
+  margin-bottom: 0 !important;
 }
 
 .fr .col.range {

@@ -15,6 +15,8 @@ export class InvoicePositionsComponent implements OnInit {
   @Input() list: OrderPosition[]
   positions$: Observable<OrderPosition[]>
   flag: boolean = false
+  fractionList: any = ['кусок', 'стружка', 'скрап', 'сепарация', 'выштамповка', 'мехпорезка']
+  rankOpt = ['', 'тонн', 'штук']
 
   constructor(private invoice: InvoiceServise) { }
 
@@ -23,10 +25,10 @@ export class InvoicePositionsComponent implements OnInit {
       map(pos => {
         return pos.map(p => {
           !p.fraction ? p.fraction = '' : p.fraction
-          !p.rank ? p.rank = 'т' : p.rank
+          !p.rank ? p.rank = '' : p.rank
           !p.trash ? p.trash = null : p.trash
-          !p.trashStap && p.rank === 'т' ? p.trashStap = '%' : p.trashStap
-          !p.quantityNoTrash ? p.quantityNoTrash = +(p.quantity * (1 - p.trash / 100)).toFixed(3) : p.quantityNoTrash
+          !p.trashStap ? p.trashStap = '' : p.trashStap
+          !p.quantityNoTrash ? p.quantityNoTrash = null : p.quantityNoTrash
           return p
         })
       }))
