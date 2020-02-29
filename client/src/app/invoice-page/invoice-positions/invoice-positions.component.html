@@ -12,12 +12,17 @@
                     <th>Количество без<br>засора</th>
                     <th>Цена<br>грн.</th>
                     <th></th>
+                    <th></th>
                 </tr>
             </thead>
             <tbody>
                 <tr *ngFor="let position of positions">
                     <th>
-                        <div class="input-fild inline order-position-input">
+                        <div *ngIf="position.flag">
+                            <a class="collection-item collection-item-icon"
+                                (click)="changeInvoice(position)">{{position.name}}</a>
+                        </div>
+                        <div *ngIf="!position.flag" class="input-fild inline order-position-input">
                             <input type="text" #name="ngModel" [(ngModel)]="position.name" maxlength="12" required
                                 style="width: 7rem;"
                                 [ngClass]="{'invalid': name.invalid && (name.dirty || name.touched)}">
@@ -26,7 +31,7 @@
                     <td>
                         <div class="input-fild inline order-position-input">
                             <input type="text" [(ngModel)]="position.fraction" maxlength="11" list="fractionList"
-                                style="cursor: pointer; width: 8rem; font-size: 1rem;" [disabled]='flag'>
+                                style="cursor: pointer; width: 8rem; font-size: 1rem;" [disabled]='position.flag'>
                             <datalist id="fractionList">
                                 <option *ngFor="let item of fractionList" [value]="item"></option>
                             </datalist>
@@ -37,14 +42,15 @@
                             <input type="number" #quantity="ngModel" [(ngModel)]="position.quantity" min="0" max="1000"
                                 pattern=".{1,7}" required
                                 [ngClass]="{'invalid': quantity.invalid && (quantity.dirty || quantity.touched) || +position.quantity <= 0}"
-                                style="width: 6rem;" [disabled]='flag'>
+                                style="width: 6rem;" [disabled]='position.flag'>
                         </div>
                     </td>
                     <td>
                         <div class="input-fild inline order-position-input">
                             <input type="text" #rank="ngModel" maxlength="2" [(ngModel)]="position.rank" maxlength="2"
-                                pattern="[шт]{1,2}" list="rankList" style="width: 3rem; font-size: 1rem;"
-                                [disabled]='flag' [ngClass]="{'invalid': rank.invalid && (rank.dirty || rank.touched)}">
+                                pattern="[шт]{1,2}" list="rankList" style="width: 3rem; font-size: 1rem;" required
+                                [disabled]='position.flag'
+                                [ngClass]="{'invalid': rank.invalid && (rank.dirty || rank.touched)}">
                             <datalist id="rankList">
                                 <option value="т"></option>
                                 <option value="шт"></option>
@@ -52,20 +58,19 @@
                         </div>
                     </td>
                     <td>
-                        <div *ngIf="position.rank === 'т'" class="input-field inline order-position-input">
+                        <div class="input-field inline order-position-input">
                             <input type="number" #trash="ngModel" pattern=".{1,5}" style="width: 4rem;" min="0" max="99"
                                 step="any" [(ngModel)]="position.trash"
                                 [ngClass]="{'invalid': trash.invalid && (trash.dirty || trash.touched) || +position.trash < 0}"
-                                [disabled]='flag'>
+                                [disabled]="position.flag || position.rank != 'т'">
                         </div>
                     </td>
                     <td style="width: 3rem; font-size: 1rem;">
-                        <div *ngIf="position.rank === 'т' && position.trash"
-                            class="input-fild inline order-position-input">
+                        <div class="input-fild inline order-position-input">
                             <input type="text" #trashStap="ngModel" maxlength="1" pattern="[%т]{1}" list="trashList"
-                                [(ngModel)]="position.trashStap" style="width: 3rem; font-size: 1rem;"
+                                [(ngModel)]="position.trashStap" style="width: 3rem; font-size: 1rem;" required
                                 [ngClass]="{'invalid': trashStap.invalid && (trashStap.dirty || trashStap.touched)}"
-                                [disabled]='flag'>
+                                [disabled]="position.flag || !position.trash">
                             <datalist id="trashList">
                                 <option value="%"></option>
                                 <option value="т"></option>
@@ -87,13 +92,18 @@
                             <input type="number" [(ngModel)]="position.cost" #cost="ngModel" min="1" pattern=".{1,7}"
                                 required
                                 [ngClass]="{'invalid': cost.invalid && (cost.dirty || cost.touched) || +position.cost <= 0}"
-                                style="width: 5rem;" [disabled]='flag'>
+                                style="width: 5rem;" [disabled]='position.flag'>
                         </div>
                     </td>
                     <td>
                         <button class="btn waves-effect wavers-light btn-small" (click)="addToInvoice(position)"
-                            [disabled]="!position.name || quantity.invalid || quantity.value <= 0">
+                            [ngClass]="{'disabled': position.flag || !position.name || quantity.invalid || quantity.value <= 0 || rank.invalid || trashStap.invalid}">
                             <i class="material-icons">add</i>
+                        </button>
+                    </td>
+                    <td>
+                        <button class="btn waves-effect wavers-light btn-small">
+                                <i class="material-icons" (click)="deleteInvoice($event, position)">delete</i>
                         </button>
                     </td>
                 </tr>
@@ -101,13 +111,12 @@
             <tfoot>
                 <th>Всего</th>
                 <th></th>
-                <th>12,8</th>
+                <th>{{allInvoice.deliveryWeight}}</th>
                 <th>т</th>
                 <th></th>
                 <th></th>
-                <th>12,16</th>
-                <th>25860</th>
-                <th></th>
+                <th>{{allInvoice.weightNoTrash}}</th>
+                <th colspan="3">Сумма {{allInvoice.price}}грн.</th>
             </tfoot>
         </table>
     </div>

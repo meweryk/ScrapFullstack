@@ -85,6 +85,7 @@ export interface OrderPosition {
     quantity: number
     _id?: string
     shopSeller?: string
+    flag?: boolean
 }
 
 export interface Filter {
@@ -160,4 +161,5 @@ export interface DeliveryPosition {
     trashStap?: string
     quantityNoTrash: number
     cost?: number
+    _id?: string
 }

@@ -6,6 +6,7 @@ import { SharedModule } from '../shared/shared.module';
 import { ComponentModule } from '../shared/components/components.module';
 import { InvoiceRoutingModule } from './invoice-routing.module';
 import { InvoicePositionsComponent } from './invoice-positions/invoice-positions.component';
+import { InvoiceServise } from './invoice.service';
 
 @NgModule({
     declarations: [
