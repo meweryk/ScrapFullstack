@@ -11,8 +11,11 @@
                     <th>%-т.</th>
                     <th>Количество без<br>засора</th>
                     <th>Цена<br>грн.</th>
-                    <th></th>
-                    <th></th>
+                    <th colspan="2">
+                        <button class="btn waves-effect wavers-light btn-small" (click)="addPosition()">
+                            + строка
+                        </button>
+                    </th>                    
                 </tr>
             </thead>
             <tbody>
@@ -103,7 +106,7 @@
                     </td>
                     <td>
                         <button class="btn waves-effect wavers-light btn-small">
-                                <i class="material-icons" (click)="deleteInvoice($event, position)">delete</i>
+                                <i class="material-icons" (click)="deleteInvoice(position)">delete</i>
                         </button>
                     </td>
                 </tr>
@@ -111,7 +114,7 @@
             <tfoot>
                 <th>Всего</th>
                 <th></th>
-                <th>{{allInvoice.deliveryWeight}}</th>
+                <th>{{allInvoice.weight}}</th>
                 <th>т</th>
                 <th></th>
                 <th></th>
