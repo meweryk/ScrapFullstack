@@ -58,8 +58,7 @@
             <button type="button" (click)="onCancel()" class="modal-action waves-effect waves-black btn-flat"
                 [disabled]="form.disabled">Отмена</button>
             <button (click)="submit()" class="modal-action btn waves-effect" type="submit"
-                [disabled]="form.invalid || form.disabled || formSave">Сохранить
-                {{allInvoice.deliveryPosList}} : : {{formSave}}</button>
+                [disabled]="form.invalid || form.disabled || formSave">Сохранить</button>
         </div>
     </div>
 </form>

@@ -15,7 +15,7 @@
                         <button class="btn waves-effect wavers-light btn-small" (click)="addPosition()">
                             + строка
                         </button>
-                    </th>                    
+                    </th>
                 </tr>
             </thead>
             <tbody>
@@ -106,7 +106,7 @@
                     </td>
                     <td>
                         <button class="btn waves-effect wavers-light btn-small">
-                                <i class="material-icons" (click)="deleteInvoice(position)">delete</i>
+                            <i class="material-icons" (click)="deleteInvoice(position)">delete</i>
                         </button>
                     </td>
                 </tr>
@@ -118,8 +118,8 @@
                 <th>т</th>
                 <th></th>
                 <th></th>
-                <th>{{allInvoice.weightNoTrash}}</th>
-                <th colspan="3">Сумма {{allInvoice.price}}грн.</th>
+                <th>{{(allInvoice.weightNoTrash).toFixed(3)}}</th>
+                <th colspan="3">Сумма {{(allInvoice.price).toFixed(3)}}грн.</th>
             </tfoot>
         </table>
     </div>

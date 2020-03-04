@@ -74,6 +74,28 @@ export class InvoicePositionsComponent implements OnInit {
     MaterialService.toast(`Позиция ${position.name} удалена`)
   }
 
-  addPosition() { }
+  addPosition() {
+    const orderPosition: OrderPosition = Object.assign({}, {
+      name: '',
+      fraction: '',
+      quantity: null,
+      rank: '',
+      trash: null,
+      trashStap: '',
+      cost: 1,
+      quantityNoTrash: null,
+      _id: '',
+      flag: false
+    })
+    this.positions$ = of(this.list)
+      .pipe(
+        map(pos => {
+          pos.push(orderPosition)
+          return pos
+        })
+      )
+    this.orderListLength++
+    this.activSave(this.invoice.deliveryPosList, this.orderListLength)
+  }
 
 }

@@ -38,7 +38,7 @@ app.use('/api/category', categoryRoutes)
 app.use('/api/materials', materialRoutes)
 app.use('/api/order', orderRoutes)
 app.use('/api/position', positionRoutes)
-app.use('/api/deliveries', deliveryRoutes)
+app.use('/api/delivery', deliveryRoutes)
 
 if (process.env.NODE_ENV === 'production') {
   app.use(express.static('client/dist/client'))

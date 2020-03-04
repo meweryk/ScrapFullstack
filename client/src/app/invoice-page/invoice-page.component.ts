@@ -1,5 +1,5 @@
 import { Component, OnInit, Input, ViewChild, ElementRef, SimpleChanges, HostListener } from '@angular/core';
-import { Order, OrderPosition } from '../shared/interfaces';
+import { Order, OrderPosition, Delivery } from '../shared/interfaces';
 import { MaterialInstance, MaterialService } from '../shared/classes/material.service';
 import { Validators, FormBuilder, FormGroup } from '@angular/forms';
 import { AuthService } from '../shared/services/auth.service';
@@ -89,14 +89,34 @@ export class InvoicePageComponent implements OnInit {
     this.formSave = formSave //активация сохранения всей формы при валидности позиций
   }
 
-  /*onSubmit() {
+  onSubmit() {
     //this.form.setValue
     //this.form.disable()
     this.modal.close()
-  }*/
+  }
 
   submit() {
-    this.modal.close()
+    const delivery: Delivery = {
+      shopHost: this.form.value.shopHost,
+      shopSend: this.form.value.shopSend,
+      train: this.form.value.train,
+      waybill: this.form.value.waybill,
+      list: this.invoice.list.map(pos => {
+        delete pos._id
+        return pos
+      })
+    }
+
+    this.deliveriesService.create(delivery).subscribe(
+      newDelivery => {
+        MaterialService.toast(`Поставка по накладной №${newDelivery.waybill} была добавлена`)
+        this.invoice.clear()
+      },
+      error => MaterialService.toast(error.error.message),
+      () => {
+        this.modal.close()
+      }
+    )
   }
 
 }

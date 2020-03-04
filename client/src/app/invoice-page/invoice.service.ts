@@ -41,7 +41,12 @@ export class InvoiceServise {
         this.computerWeightNoTrash()
     }
 
-    clear() { }
+    clear() {
+        this.list = []
+        this.price = 0
+        this.weight = 0
+        this.weightNoTrash = 0
+    }
 
     private computerPrice() {
         this.price = this.list.reduce((total, item) => {

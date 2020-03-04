@@ -47,7 +47,7 @@ const deliverySchema = new Schema({
             },
             cost: {
                 type: Number
-            }
+            },
         }
     ],
     imageSrc: {
