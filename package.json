@@ -20,7 +20,7 @@
     "express",
     "angular"
   ],
-  "author": "Pavel Ivashchenko",
+  "author": "Pavel Ivashchenko <iliya.pavlov1109@gmail.com>",
   "license": "ISC",
   "dependencies": {
     "bcryptjs": "^2.4.3",
