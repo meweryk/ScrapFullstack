@@ -35,5 +35,25 @@
         ]
       }
     }
+  ],
+  "dataGroups": [
+    {
+      "name": "api-freshness",
+      "urls": [
+        "https://champion-zp.herokuapp.com/analytics",
+        "https://champion-zp.herokuapp.com/history",
+        "https://champion-zp.herokuapp.com/order",
+        "https://champion-zp.herokuapp.com/deliveries",
+        "https://champion-zp.herokuapp.com/invoice",
+        "https://champion-zp.herokuapp.com/overview",
+        "https://champion-zp.herokuapp.com/materials"
+      ],
+      "cacheConfig": {
+        "strategy": "freshness",
+        "maxSize": 5,
+        "maxAge": "1h",
+        "timeout": "3s"
+      }
+    }
   ]
 }
