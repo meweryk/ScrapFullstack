@@ -1,7 +1,7 @@
 {
   "name": "client DSS",
   "short_name": "DSS",
-  "theme_color": "transparent",
+  "theme_color": "#ffab91",
   "background_color": "#fff3e0",
   "display": "standalone",
   "scope": "/",

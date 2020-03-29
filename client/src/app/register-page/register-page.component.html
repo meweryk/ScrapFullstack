@@ -48,3 +48,7 @@
       [disabled]="form.invalid || form.disabled">Создать</button>
   </div>
 </form>
+
+<div class="load-center" *ngIf="loader">
+  <app-loader></app-loader>
+</div>

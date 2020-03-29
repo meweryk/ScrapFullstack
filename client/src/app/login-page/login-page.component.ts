@@ -14,6 +14,7 @@ export class LoginPageComponent implements OnInit, OnDestroy {
 
   form: FormGroup
   aSub: Subscription
+  loader = false
 
   constructor(private auth: AuthService,
     private router: Router,
@@ -26,6 +27,8 @@ export class LoginPageComponent implements OnInit, OnDestroy {
       email: new FormControl(null, [Validators.required, Validators.email]),
       password: new FormControl(null, [Validators.required, Validators.minLength(6)])
     })
+
+    this.loader = false
 
     this.route.queryParams.subscribe((params: Params) => {
       if (params['registered']) {
@@ -47,12 +50,14 @@ export class LoginPageComponent implements OnInit, OnDestroy {
 
   onSubmit() {
     this.form.disable()
+    this.loader = true
 
     this.aSub = this.auth.login(this.form.value).subscribe(
       () => this.router.navigate(['/overview']),
       error => {
         MaterialService.toast(error.error.message)
         this.form.enable()
+        this.loader = false
       }
     )
   }

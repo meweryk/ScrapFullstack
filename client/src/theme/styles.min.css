@@ -1,3 +1,8 @@
+.load-center {
+  margin-top: -66px;
+  justify-content: center;
+}
+
 .a-sidenav {
   transform: translateX(1) !important;
   width: 250px !important;

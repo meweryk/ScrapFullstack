@@ -1,287 +1,286 @@
 <div class="page-title">
-    <h5>Материалы</h5>
-    <div col s6>
-        <button class="waves-effect waves-light btn btn-small" (click)="onAddMaterial()">
-            <i class="material-icons">add</i>
-        </button>
-        <span>&#160;</span>
-        <button (click)="filterVisible()" class="btn btn-small"
-            [ngClass]="{'active': isFilterVisible, 'red': isFiltered()}">
-            <i class="material-icons">filter_list</i>
-        </button>
-    </div>
+  <h5>Материалы</h5>
+  <div col s6>
+    <button class="waves-effect waves-light btn btn-small" (click)="onAddMaterial()">
+      <i class="material-icons">add</i>
+    </button>
+    <span>&#160;</span>
+    <button (click)="filterVisible()" class="btn btn-small"
+      [ngClass]="{'active': isFilterVisible, 'red': isFiltered()}">
+      <i class="material-icons">filter_list</i>
+    </button>
+  </div>
 
 </div>
 
 <app-materials-filter *ngIf="isFilterVisible" (onFilter)="applyFilter($event)" [arrClassSteel]="arrClassSteel"
-    [arrGroupSteel]="arrGroupSteel"></app-materials-filter>
+  [arrGroupSteel]="arrGroupSteel"></app-materials-filter>
 
 <div class="row" *ngIf="!loading">
-    <div *ngIf="materials.length > 0; empty">
-        <div class="col s12">
-            <div class="table-container" [style.height.px]="height">
-                <table>
-                    <thead>
-                        <tr>
-                            <th>Группа<br>отходов</th>
-                            <th>Ni%</th>
-                            <th>Cr%</th>
-                            <th>Mo%</th>
-                            <th>Cu%</th>
-                            <th>Mn%</th>
-                            <th>W%</th>
-                            <th>V%</th>
-                            <th>Co%</th>
-                            <th>Si%</th>
-                            <th>Ti%</th>
-                            <th>Al%</th>
-                            <th>Nb%</th>
-                            <th>Fe%</th>
-                            <th>P%</th>
-                            <th>S%</th>
-                            <th>C%</th>
-                            <th>Марки сталей</th>
-                            <th colspan="2">Действие</th>
-                        </tr>
-                    </thead>
-                    <tbody *ngFor="let material of materials">
-                        <tr>
-                            <th><a class="collection-item collection-item-icon"
-                                    (click)="onSelectMaterial(material)">{{material.vid}}</a></th>
-                            <td *ngIf="material.ni !== 0; else space">{{material.ni}}</td>
-                            <td *ngIf="material.cr !== 0; else space">{{material.cr}}</td>
-                            <td *ngIf="material.mo !== 0; else space">{{material.mo}}</td>
-                            <td *ngIf="material.cu !== 0; else space">{{material.cu}}</td>
-                            <td *ngIf="material.mn !== 0; else space">{{material.mn}}</td>
-                            <td *ngIf="material.w !== 0; else space">{{material.w}}</td>
-                            <td *ngIf="material.v !== 0; else space">{{material.v}}</td>
-                            <td *ngIf="material.co !== 0; else space">{{material.co}}</td>
-                            <td>{{material.si}}</td>
-                            <td *ngIf="material.ti !== 0; else space">{{material.ti}}</td>
-                            <td>{{material.al}}</td>
-                            <td>{{material.nb}}</td>
-                            <td *ngIf="material.fe !== 0; else space">{{material.fe}}</td>
-                            <td *ngIf="material.p !== 0; else space">{{material.p}}</td>
-                            <td *ngIf="material.s !== 0; else space">{{material.s}}</td>
-                            <td *ngIf="material.c !== 0; else space">{{material.c}}</td>
-                            <td>{{material.markSteel}}</td>
-                            <td>
-                                <a class="collection-item collection-item-icon">
-                                    <span>
-                                        <i class="material-icons" (click)="onSelectMaterial(material)">autorenew</i>
-                                    </span>
-                                </a>
-                            </td>
-                            <td>
-                                <a class="collection-item collection-item-icon">
-                                    <span>
-                                        <i class="material-icons"
-                                            (click)="onDeleteMaterial($event, material)">delete</i>
-                                    </span>
-                                </a>
-                            </td>
-                            <ng-template #space>
-                                <td> </td>
-                            </ng-template>
-                        </tr>
-                    </tbody>
-                </table>
-            </div>
-        </div>
+  <div *ngIf="materials.length > 0; empty">
+    <div class="col s12">
+      <div class="table-container" [style.height.px]="height">
+        <table>
+          <thead>
+            <tr>
+              <th>Группа<br>отходов</th>
+              <th>Ni%</th>
+              <th>Cr%</th>
+              <th>Mo%</th>
+              <th>Cu%</th>
+              <th>Mn%</th>
+              <th>W%</th>
+              <th>V%</th>
+              <th>Co%</th>
+              <th>Si%</th>
+              <th>Ti%</th>
+              <th>Al%</th>
+              <th>Nb%</th>
+              <th>Fe%</th>
+              <th>P%</th>
+              <th>S%</th>
+              <th>C%</th>
+              <th>Марки сталей</th>
+              <th colspan="2">Действие</th>
+            </tr>
+          </thead>
+          <tbody *ngFor="let material of materials">
+            <tr>
+              <th><a class="collection-item collection-item-icon"
+                  (click)="onSelectMaterial(material)">{{material.vid}}</a></th>
+              <td *ngIf="material.ni !== 0; else space">{{material.ni}}</td>
+              <td *ngIf="material.cr !== 0; else space">{{material.cr}}</td>
+              <td *ngIf="material.mo !== 0; else space">{{material.mo}}</td>
+              <td *ngIf="material.cu !== 0; else space">{{material.cu}}</td>
+              <td *ngIf="material.mn !== 0; else space">{{material.mn}}</td>
+              <td *ngIf="material.w !== 0; else space">{{material.w}}</td>
+              <td *ngIf="material.v !== 0; else space">{{material.v}}</td>
+              <td *ngIf="material.co !== 0; else space">{{material.co}}</td>
+              <td>{{material.si}}</td>
+              <td *ngIf="material.ti !== 0; else space">{{material.ti}}</td>
+              <td>{{material.al}}</td>
+              <td>{{material.nb}}</td>
+              <td *ngIf="material.fe !== 0; else space">{{material.fe}}</td>
+              <td *ngIf="material.p !== 0; else space">{{material.p}}</td>
+              <td *ngIf="material.s !== 0; else space">{{material.s}}</td>
+              <td *ngIf="material.c !== 0; else space">{{material.c}}</td>
+              <td>{{material.markSteel}}</td>
+              <td>
+                <a class="collection-item collection-item-icon">
+                  <span>
+                    <i class="material-icons" (click)="onSelectMaterial(material)">autorenew</i>
+                  </span>
+                </a>
+              </td>
+              <td>
+                <a class="collection-item collection-item-icon">
+                  <span>
+                    <i class="material-icons" (click)="onDeleteMaterial($event, material)">delete</i>
+                  </span>
+                </a>
+              </td>
+              <ng-template #space>
+                <td> </td>
+              </ng-template>
+            </tr>
+          </tbody>
+        </table>
+      </div>
     </div>
-    <ng-template #empty>
-        <div class="center">Материалов нет.</div>
-    </ng-template>
+  </div>
+  <ng-template #empty>
+    <div class="center">Материалов нет.</div>
+  </ng-template>
 </div>
 
 <app-loader *ngIf="loading"></app-loader>
 
 <form [formGroup]="form" (ngSubmit)="onSubmit()">
-    <div class="modal" #modal>
-        <div class="modal-content">
-            <h5 class="mb1">{{isNew ? 'Добавить' : 'Редактировать'}} материал</h5>
-            <div class="row">
-                <div class="input-field col s12 m4">
-                    <input formControlName="vid" id="mat-vid" type="text" maxlength="15"
-                        [ngClass]="{'invalid': form.get('vid').invalid && form.get('vid').touched}">
-                    <label for="mat-vid">Название</label>
-                    <span *ngIf="form.get('vid').invalid && form.get('vid').touched" class="helper-text red-text">
-                        Позиция не должна быть пустой.
-                    </span>
-                </div>
-                <div class="input-field col s12 m4">
-                    <input #autocompleteCl class="autocomplete" name="classSteel" formControlName="classSteel"
-                        id="mat-classSteel" type="text" maxlength="40"
-                        [ngClass]="{'invalid': form.get('classSteel').invalid && form.get('classSteel').touched}">
-                    <label for="mat-classSteel">Класс</label>
-                    <span *ngIf="form.controls.classSteel.invalid && form.controls.classSteel.touched"
-                        class="helper-text red-text">Позиция не должна быть пустой.
-                    </span>
-                </div>
-                <div class="input-field col s12 m4">
-                    <input #autocompleteGr class="autocomplete" formControlName="groupSteel" id="mat-groupSteel"
-                        type="text" maxlength="50">
-                    <label for="mat-groupSteel">Группа</label>
-                </div>
-                <div class="input-field col s12 m4">
-                    <input formControlName="markSteel" id="mat-markSteel" type="text" maxlength="30">
-                    <label for="mat-markSteel">марки сталей</label>
-                </div>
-
-                <div class="input-field col s4 m2">
-                    <input formControlName="ni" id="mat-ni" type="number"
-                        [ngClass]="{'invalid': form.get('ni').invalid && form.get('ni').touched}">
-                    <label for="mat-ni">Ni%</label>
-                    <span *ngIf="form.get('ni').invalid && (form.get('ni').touched || form.get('ni').dirty)"
-                        class="helper-text red-text">
-                        Минимальное значение 0, максимальное 100.
-                    </span>
-                </div>
-
-                <div class="input-field col s4 m2">
-                    <input formControlName="cr" id="mat-cr" type="number"
-                        [ngClass]="{'invalid': form.get('cr').invalid && form.get('cr').touched}">
-                    <label for="mat-cr">Cr%</label>
-                    <span *ngIf="form.get('cr').invalid && (form.get('cr').touched || form.get('cr').dirty)"
-                        class="helper-text red-text">
-                        Минимальное значение 0, максимальное 100.
-                    </span>
-                </div>
-                <div class="input-field col s4 m2">
-                    <input formControlName="mo" id="mat-mo" type="number"
-                        [ngClass]="{'invalid': form.get('mo').invalid && form.get('mo').touched}">
-                    <label for="mat-mo">Mo%</label>
-                    <span *ngIf="form.get('mo').invalid && (form.get('mo').touched || form.get('mo').dirty)"
-                        class="helper-text red-text">
-                        Минимальное значение 0, максимальное 100.
-                    </span>
-                </div>
-                <div class="input-field col s4 m2">
-                    <input formControlName="cu" id="mat-cu" type="number"
-                        [ngClass]="{'invalid': form.get('cu').invalid && form.get('cu').touched}">
-                    <label for="mat-cu">Cu%</label>
-                    <span *ngIf="form.get('cu').invalid && (form.get('cu').touched || form.get('cu').dirty)"
-                        class="helper-text red-text">
-                        Минимальное значение 0, максимальное 100.
-                    </span>
-                </div>
-                <div class="input-field col s4 m2">
-                    <input formControlName="mn" id="mat-mn" type="number"
-                        [ngClass]="{'invalid': form.get('mn').invalid && form.get('mn').touched}">
-                    <label for="mat-mn">Mn%</label>
-                    <span *ngIf="form.get('mn').invalid && (form.get('mn').touched || form.get('mn').dirty)"
-                        class="helper-text red-text">
-                        Минимальное значение 0, максимальное 100.
-                    </span>
-                </div>
-                <div class="input-field col s4 m2">
-                    <input formControlName="w" id="mat-w" type="number"
-                        [ngClass]="{'invalid': form.get('w').invalid && form.get('w').touched}">
-                    <label for="mat-w">W%</label>
-                    <span *ngIf="form.get('w').invalid && (form.get('w').touched || form.get('w').dirty)"
-                        class="helper-text red-text">
-                        Минимальное значение 0, максимальное 100.
-                    </span>
-                </div>
-                <div class="input-field col s4 m2">
-                    <input formControlName="v" id="mat-v" type="number"
-                        [ngClass]="{'invalid': form.get('v').invalid && form.get('v').touched}">
-                    <label for="mat-v">V%</label>
-                    <span *ngIf="form.get('v').invalid && (form.get('v').touched || form.get('v').dirty)"
-                        class="helper-text red-text">
-                        Минимальное значение 0, максимальное 100.
-                    </span>
-                </div>
-                <div class="input-field col s4 m2">
-                    <input formControlName="co" id="mat-co" type="number"
-                        [ngClass]="{'invalid': form.get('co').invalid && form.get('co').touched}">
-                    <label for="mat-co">Co%</label>
-                    <span *ngIf="form.get('co').invalid && (form.get('co').touched || form.get('co').dirty)"
-                        class="helper-text red-text">
-                        Минимальное значение 0, максимальное 100.
-                    </span>
-                </div>
-                <div class="input-field col s4 m2">
-                    <input formControlName="si" id="mat-si" type="text"
-                        [ngClass]="{'invalid': form.get('si').invalid && form.get('si').touched}">
-                    <label for="mat-si">Si%</label>
-                    <span *ngIf="form.get('si').invalid && (form.get('si').touched || form.get('si').dirty)"
-                        class="helper-text red-text">
-                        Минимальное значение 0, максимальное 100.
-                    </span>
-                </div>
-                <div class="input-field col s4 m2">
-                    <input formControlName="ti" id="mat-ti" type="number"
-                        [ngClass]="{'invalid': form.get('ti').invalid && form.get('ti').touched}">
-                    <label for="mat-ti">Ti%</label>
-                    <span *ngIf="form.get('ti').invalid && (form.get('ti').touched || form.get('ti').dirty)"
-                        class="helper-text red-text">
-                        Минимальное значение 0, максимальное 100.
-                    </span>
-                </div>
-                <div class="input-field col s4 m2">
-                    <input formControlName="al" id="mat-al" type="text"
-                        [ngClass]="{'invalid': form.get('al').invalid && form.get('al').touched}">
-                    <label for="mat-al">Al%</label>
-                    <span *ngIf="form.get('al').invalid && (form.get('al').touched || form.get('al').dirty)"
-                        class="helper-text red-text">
-                        Минимальное значение 0, максимальное 100.
-                    </span>
-                </div>
-                <div class="input-field col s4 m2">
-                    <input formControlName="nb" id="mat-nb" type="text"
-                        [ngClass]="{'invalid': form.get('nb').invalid && form.get('nb').touched}">
-                    <label for="mat-nb">Nb%</label>
-                    <span *ngIf="form.get('nb').invalid && (form.get('nb').touched || form.get('nb').dirty)"
-                        class="helper-text red-text">
-                        Минимальное значение 0, максимальное 100.
-                    </span>
-                </div>
-                <div class="input-field col s4 m2">
-                    <input formControlName="fe" id="mat-fe" type="number"
-                        [ngClass]="{'invalid': form.get('fe').invalid && form.get('fe').touched}">
-                    <label for="mat-fe">Fe%</label>
-                    <span *ngIf="form.get('fe').invalid && (form.get('fe').touched || form.get('flex-fill').dirty)"
-                        class="helper-text red-text">
-                        Минимальное значение 0, максимальное 100.
-                    </span>
-                </div>
-                <div class="input-field col s4 m2">
-                    <input formControlName="p" id="mat-p" type="number"
-                        [ngClass]="{'invalid': form.get('p').invalid && form.get('p').touched}">
-                    <label for="mat-p">P%</label>
-                    <span *ngIf="form.get('p').invalid && (form.get('p').touched || form.get('p').dirty)"
-                        class="helper-text red-text">
-                        Минимальное значение 0, максимальное 100.
-                    </span>
-                </div>
-                <div class="input-field col s4 m2">
-                    <input formControlName="s" id="mat-s" type="number"
-                        [ngClass]="{'invalid': form.get('s').invalid && form.get('s').touched}">
-                    <label for="mat-s">S%</label>
-                    <span *ngIf="form.get('s').invalid && (form.get('s').touched || form.get('s').dirty)"
-                        class="helper-text red-text">
-                        Минимальное значение 0, максимальное 100.
-                    </span>
-                </div>
-                <div class="input-field col s4 m2">
-                    <input formControlName="c" id="mat-c" type="number"
-                        [ngClass]="{'invalid': form.get('c').invalid && form.get('c').touched}">
-                    <label for="mat-c">C%</label>
-                    <span *ngIf="form.get('c').invalid && (form.get('c').touched || form.get('card-action').dirty)"
-                        class="helper-text red-text">
-                        Минимальное значение 0, максимальное 100.
-                    </span>
-                </div>
-
-            </div>
-
+  <div class="modal" #modal>
+    <div class="modal-content">
+      <h5 class="mb1">{{isNew ? 'Добавить' : 'Редактировать'}} материал</h5>
+      <div class="row">
+        <div class="input-field col s12 m4">
+          <input formControlName="vid" id="mat-vid" type="text" maxlength="15"
+            [ngClass]="{'invalid': form.get('vid').invalid && form.get('vid').touched}">
+          <label for="mat-vid">Название</label>
+          <span *ngIf="form.get('vid').invalid && form.get('vid').touched" class="helper-text red-text">
+            Позиция не должна быть пустой.
+          </span>
         </div>
-        <div class="modal-footer">
-            <button type="button" (click)="onCancel()" class="modal-action waves-effect waves-black btn-flat"
-                [disabled]="form.disabled">Отмена</button>
-            <button class="modal-action btn waves-effect" type="submit"
-                [disabled]="form.invalid || form.disabled">Сохранить</button>
+        <div class="input-field col s12 m4">
+          <input #autocompleteCl class="autocomplete" name="classSteel" formControlName="classSteel" id="mat-classSteel"
+            type="text" maxlength="40"
+            [ngClass]="{'invalid': form.get('classSteel').invalid && form.get('classSteel').touched}">
+          <label for="mat-classSteel">Класс</label>
+          <span *ngIf="form.controls.classSteel.invalid && form.controls.classSteel.touched"
+            class="helper-text red-text">Позиция не должна быть пустой.
+          </span>
         </div>
+        <div class="input-field col s12 m4">
+          <input #autocompleteGr class="autocomplete" formControlName="groupSteel" id="mat-groupSteel" type="text"
+            maxlength="50">
+          <label for="mat-groupSteel">Группа</label>
+        </div>
+        <div class="input-field col s12 m4">
+          <input formControlName="markSteel" id="mat-markSteel" type="text" maxlength="30">
+          <label for="mat-markSteel">марки сталей</label>
+        </div>
+
+        <div class="input-field col s4 m2">
+          <input formControlName="ni" id="mat-ni" type="number"
+            [ngClass]="{'invalid': form.get('ni').invalid && form.get('ni').touched}">
+          <label for="mat-ni">Ni%</label>
+          <span *ngIf="form.get('ni').invalid && (form.get('ni').touched || form.get('ni').dirty)"
+            class="helper-text red-text">
+            Минимальное значение 0, максимальное 100.
+          </span>
+        </div>
+
+        <div class="input-field col s4 m2">
+          <input formControlName="cr" id="mat-cr" type="number"
+            [ngClass]="{'invalid': form.get('cr').invalid && form.get('cr').touched}">
+          <label for="mat-cr">Cr%</label>
+          <span *ngIf="form.get('cr').invalid && (form.get('cr').touched || form.get('cr').dirty)"
+            class="helper-text red-text">
+            Минимальное значение 0, максимальное 100.
+          </span>
+        </div>
+        <div class="input-field col s4 m2">
+          <input formControlName="mo" id="mat-mo" type="number"
+            [ngClass]="{'invalid': form.get('mo').invalid && form.get('mo').touched}">
+          <label for="mat-mo">Mo%</label>
+          <span *ngIf="form.get('mo').invalid && (form.get('mo').touched || form.get('mo').dirty)"
+            class="helper-text red-text">
+            Минимальное значение 0, максимальное 100.
+          </span>
+        </div>
+        <div class="input-field col s4 m2">
+          <input formControlName="cu" id="mat-cu" type="number"
+            [ngClass]="{'invalid': form.get('cu').invalid && form.get('cu').touched}">
+          <label for="mat-cu">Cu%</label>
+          <span *ngIf="form.get('cu').invalid && (form.get('cu').touched || form.get('cu').dirty)"
+            class="helper-text red-text">
+            Минимальное значение 0, максимальное 100.
+          </span>
+        </div>
+        <div class="input-field col s4 m2">
+          <input formControlName="mn" id="mat-mn" type="number"
+            [ngClass]="{'invalid': form.get('mn').invalid && form.get('mn').touched}">
+          <label for="mat-mn">Mn%</label>
+          <span *ngIf="form.get('mn').invalid && (form.get('mn').touched || form.get('mn').dirty)"
+            class="helper-text red-text">
+            Минимальное значение 0, максимальное 100.
+          </span>
+        </div>
+        <div class="input-field col s4 m2">
+          <input formControlName="w" id="mat-w" type="number"
+            [ngClass]="{'invalid': form.get('w').invalid && form.get('w').touched}">
+          <label for="mat-w">W%</label>
+          <span *ngIf="form.get('w').invalid && (form.get('w').touched || form.get('w').dirty)"
+            class="helper-text red-text">
+            Минимальное значение 0, максимальное 100.
+          </span>
+        </div>
+        <div class="input-field col s4 m2">
+          <input formControlName="v" id="mat-v" type="number"
+            [ngClass]="{'invalid': form.get('v').invalid && form.get('v').touched}">
+          <label for="mat-v">V%</label>
+          <span *ngIf="form.get('v').invalid && (form.get('v').touched || form.get('v').dirty)"
+            class="helper-text red-text">
+            Минимальное значение 0, максимальное 100.
+          </span>
+        </div>
+        <div class="input-field col s4 m2">
+          <input formControlName="co" id="mat-co" type="number"
+            [ngClass]="{'invalid': form.get('co').invalid && form.get('co').touched}">
+          <label for="mat-co">Co%</label>
+          <span *ngIf="form.get('co').invalid && (form.get('co').touched || form.get('co').dirty)"
+            class="helper-text red-text">
+            Минимальное значение 0, максимальное 100.
+          </span>
+        </div>
+        <div class="input-field col s4 m2">
+          <input formControlName="si" id="mat-si" type="text"
+            [ngClass]="{'invalid': form.get('si').invalid && form.get('si').touched}">
+          <label for="mat-si">Si%</label>
+          <span *ngIf="form.get('si').invalid && (form.get('si').touched || form.get('si').dirty)"
+            class="helper-text red-text">
+            Минимальное значение 0, максимальное 100.
+          </span>
+        </div>
+        <div class="input-field col s4 m2">
+          <input formControlName="ti" id="mat-ti" type="number"
+            [ngClass]="{'invalid': form.get('ti').invalid && form.get('ti').touched}">
+          <label for="mat-ti">Ti%</label>
+          <span *ngIf="form.get('ti').invalid && (form.get('ti').touched || form.get('ti').dirty)"
+            class="helper-text red-text">
+            Минимальное значение 0, максимальное 100.
+          </span>
+        </div>
+        <div class="input-field col s4 m2">
+          <input formControlName="al" id="mat-al" type="text"
+            [ngClass]="{'invalid': form.get('al').invalid && form.get('al').touched}">
+          <label for="mat-al">Al%</label>
+          <span *ngIf="form.get('al').invalid && (form.get('al').touched || form.get('al').dirty)"
+            class="helper-text red-text">
+            Минимальное значение 0, максимальное 100.
+          </span>
+        </div>
+        <div class="input-field col s4 m2">
+          <input formControlName="nb" id="mat-nb" type="text"
+            [ngClass]="{'invalid': form.get('nb').invalid && form.get('nb').touched}">
+          <label for="mat-nb">Nb%</label>
+          <span *ngIf="form.get('nb').invalid && (form.get('nb').touched || form.get('nb').dirty)"
+            class="helper-text red-text">
+            Минимальное значение 0, максимальное 100.
+          </span>
+        </div>
+        <div class="input-field col s4 m2">
+          <input formControlName="fe" id="mat-fe" type="number"
+            [ngClass]="{'invalid': form.get('fe').invalid && form.get('fe').touched}">
+          <label for="mat-fe">Fe%</label>
+          <span *ngIf="form.get('fe').invalid && (form.get('fe').touched || form.get('flex-fill').dirty)"
+            class="helper-text red-text">
+            Минимальное значение 0, максимальное 100.
+          </span>
+        </div>
+        <div class="input-field col s4 m2">
+          <input formControlName="p" id="mat-p" type="number"
+            [ngClass]="{'invalid': form.get('p').invalid && form.get('p').touched}">
+          <label for="mat-p">P%</label>
+          <span *ngIf="form.get('p').invalid && (form.get('p').touched || form.get('p').dirty)"
+            class="helper-text red-text">
+            Минимальное значение 0, максимальное 100.
+          </span>
+        </div>
+        <div class="input-field col s4 m2">
+          <input formControlName="s" id="mat-s" type="number"
+            [ngClass]="{'invalid': form.get('s').invalid && form.get('s').touched}">
+          <label for="mat-s">S%</label>
+          <span *ngIf="form.get('s').invalid && (form.get('s').touched || form.get('s').dirty)"
+            class="helper-text red-text">
+            Минимальное значение 0, максимальное 100.
+          </span>
+        </div>
+        <div class="input-field col s4 m2">
+          <input formControlName="c" id="mat-c" type="number"
+            [ngClass]="{'invalid': form.get('c').invalid && form.get('c').touched}">
+          <label for="mat-c">C%</label>
+          <span *ngIf="form.get('c').invalid && (form.get('c').touched || form.get('card-action').dirty)"
+            class="helper-text red-text">
+            Минимальное значение 0, максимальное 100.
+          </span>
+        </div>
+
+      </div>
+
     </div>
+    <div class="modal-footer">
+      <button type="button" (click)="onCancel()" class="modal-action waves-effect waves-black btn-flat"
+        [disabled]="form.disabled">Отмена</button>
+      <button class="modal-action btn waves-effect" type="submit"
+        [disabled]="form.invalid || form.disabled">Сохранить</button>
+    </div>
+  </div>
 </form>
