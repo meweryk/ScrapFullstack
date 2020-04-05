@@ -1,7 +1,7 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { AuthService } from '../shared/services/auth.service';
-import { Router, ActivatedRoute } from '@angular/router';
+import { Router } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { MaterialService } from '../shared/classes/material.service';
 
@@ -17,8 +17,7 @@ export class RegisterPageComponent implements OnInit, OnDestroy {
   loader = false
 
   constructor(private auth: AuthService,
-    private router: Router,
-    private route: ActivatedRoute) {
+    private router: Router) {
 
   }
 

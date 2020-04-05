@@ -15,7 +15,9 @@ const userSchema = new Schema({
     type: String,
     required: true
   },
-  shop: String
+  shop: {
+    type: String
+  }
 })
 
 module.exports = mongoose.model('users', userSchema)
