@@ -1,6 +1,9 @@
 const Category = require('../models/Category')
 const Position = require('../models/Position')
 const errorHandler = require('../utils/errorHandler')
+const fs = require('fs')
+const { promisify } = require('util')
+const unlinkAsync = promisify(fs.unlink)
 
 module.exports.getAll = async function (req, res) {
   try {
@@ -27,7 +30,10 @@ module.exports.remove = async function (req, res) {
   const elseShop = await Position.findOne({ category: req.params.id, shop: { $ne: req.user.shop } }, { shop: 1 })
 
   if ((category.user == req.user.id) && !elseShop) {
-    //если категория создана пльзователем и уё не используют позиций с других складов-магазинов
+    //если категория создана пльзователем и её не используют позиций с других складов-магазинов
+    if (category.imageSrc) {
+      await unlinkAsync(category.imageSrc) //удаление фото
+    }
     try {
       await Category.remove({
         _id: req.params.id
@@ -36,15 +42,14 @@ module.exports.remove = async function (req, res) {
         category: req.params.id,
         shop: req.user.shop
       })
+
       res.status(200).json({
         message: 'Категория удалена'
       })
     } catch (e) {
       errorHandler(res, e)
     }
-
   } else {
-
     try {
       await Position.remove({
         category: req.params.id,
@@ -66,7 +71,7 @@ module.exports.create = async function (req, res) {
   if (newcategory) {
     // Категория существует, нужно отправить ошибку
     res.status(409).json({
-      message: 'Категория уже существует. Войдите и добавьте позиции.'
+      message: 'Категория уже существует. Войдите и добавьте свои позиции.'
     })
   } else {
     try {
@@ -93,6 +98,9 @@ module.exports.update = async function (req, res) {
 
     if (req.file) {
       updated.imageSrc = req.file.path
+      if (upcategory.imageSrc) {
+        await unlinkAsync(upcategory.imageSrc) //удаление старого фото
+      }
     }
     try {
       const category = await Category.findOneAndUpdate({
