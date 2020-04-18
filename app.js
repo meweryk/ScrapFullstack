@@ -4,6 +4,7 @@ const mongoose = require('mongoose')
 const passport = require('passport')
 const path = require('path')
 const bodyParser = require('body-parser')
+
 const authRoutes = require('./routes/auth')
 const analyticsRoutes = require('./routes/analytics')
 const categoryRoutes = require('./routes/category')
@@ -11,6 +12,7 @@ const materialRoutes = require('./routes/material')
 const orderRoutes = require('./routes/order')
 const positionRoutes = require('./routes/position')
 const deliveryRoutes = require('./routes/delivery')
+
 const keys = require('./config/keys')
 const app = express()
 
@@ -44,16 +46,16 @@ app.use('/api/delivery', deliveryRoutes)
 
 if (process.env.NODE_ENV === 'production') {
   app.use(express.static('client/dist/client',
-  {
+    {
       etag: true, // Just being explicit about the default.
       lastModified: true,  // Just being explicit about the default.
       setHeaders: (res, path) => {
-          if (path.endsWith('.html')) {
-              // All of the project's HTML files end in .html
-              res.setHeader('Cache-Control', 'no-cache');
-          }
+        if (path.endsWith('.html')) {
+          // All of the project's HTML files end in .html
+          res.setHeader('Cache-Control', 'no-cache');
+        }
       },
-  }))
+    }))
 
   app.get('*', (req, res) => {
     res.sendFile(

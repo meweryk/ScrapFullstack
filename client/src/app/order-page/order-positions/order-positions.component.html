@@ -1,52 +1,52 @@
 <div *ngIf="positions$ | async as positions; else loader">
-    <div class="col s12">
-        <div class="table-container" [style.height.px]="height">
-            <table class="highlight" *ngIf="positions.length !== 0; else empty">
-                <thead>
-                    <tr>
-                        <th>
-                            <div class="input-field" [style.margin.px]="0">
-                                <input type="text" style="cursor: pointer; width: 5rem; color: #669;"
-                                    [(ngModel)]="searchVid" placeholder="Название">
-                            </div>
-                        </th>
-                        <th>Цена<br>грн</th>
-                        <th>Количество</th>
-                        <th>
-                            <div class="input-field" [style.margin.px]="0">
-                                <input type="text" style="cursor: pointer; width: 6rem; color: #669;"
-                                    [(ngModel)]="searchShop" placeholder="Поставщик">
-                            </div>
-                        </th>
-                        <th></th>
-                    </tr>
-                </thead>
+  <div class="col s12">
+    <div class="table-container" [style.maxHeight.px]="height">
+      <table class="highlight" *ngIf="positions.length !== 0; else empty">
+        <thead>
+          <tr>
+            <th>
+              <div class="input-field" [style.margin.px]="0">
+                <input type="text" style="cursor: pointer; width: 5rem; color: #669;" [(ngModel)]="searchVid"
+                  placeholder="Название">
+              </div>
+            </th>
+            <th>Цена<br>грн</th>
+            <th colspan="2">Количество</th>
+            <th>
+              <div class="input-field" [style.margin.px]="0">
+                <input type="text" style="cursor: pointer; width: 6rem; color: #669;" [(ngModel)]="searchShop"
+                  placeholder="Поставщик">
+              </div>
+            </th>
+            <th></th>
+          </tr>
+        </thead>
 
-                <tbody>
-                    <tr *ngFor="let position of positions | searchV: [searchVid, searchShop]">
-                        <th>{{position.name}}</th>
-                        <td>{{position.cost}}</td>
-                        <td>
-                            <div class="input-field inline order-position-input">
-                                <input type="number" min="1" [(ngModel)]="position.quantity">
-                            </div>
-                        </td>
-                        <td>{{position.shop}}</td>
-                        <td>
-                            <button class="waves-effect wavers-light btn-small" (click)="addToOrder(position)"
-                                [disabled]="!position.quantity || position.quantity < 0"><i
-                                    class="material-icons">add</i></button>
-                        </td>
-                    </tr>
-                </tbody>
-            </table>
-        </div>
+        <tbody>
+          <tr *ngFor="let position of positions | searchV: [searchVid, searchShop]">
+            <th>{{position.name}}</th>
+            <td>{{position.cost}}</td>
+            <td>
+              <div class="input-field inline order-position-input">
+                <input type="number" min="1" max="9999" [(ngModel)]="position.quantity">
+              </div>
+            </td>
+            <td>{{position.rank}}</td>
+            <td>{{position.shop}}</td>
+            <td>
+              <button class="waves-effect waves-light btn-small" (click)="addToOrder(position)"
+                [disabled]="!position.quantity || position.quantity < 0"><i class="material-icons">add</i></button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
     </div>
-    <ng-template #empty>
-        <div class="center">В данной категории пока нет позиций</div>
-    </ng-template>
+  </div>
+  <ng-template #empty>
+    <div class="center">В данной категории пока нет позиций</div>
+  </ng-template>
 </div>
 
 <ng-template #loader>
-    <app-loader></app-loader>
+  <app-loader></app-loader>
 </ng-template>
