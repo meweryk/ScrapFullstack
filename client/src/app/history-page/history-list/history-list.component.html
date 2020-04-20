@@ -72,10 +72,18 @@
       </div>
     </div>
 
-    <div class="order-summary">
-      <p>Общее количество <strong>{{computeWeight(selectedOrder)}} т.</strong><br>Общая стоимость
-        <strong>{{computePrice(selectedOrder)}} грн.</strong></p>
-    </div>
+    <ul class="row grey-text text-darken-1">
+      <li class="valign-wrapper"><i class="material-icons">score</i>&nbsp;<span>Общее
+          количество &nbsp;<strong>{{computeWeight(selectedOrder)}}</strong></span>
+      </li>
+      <li class="valign-wrapper"><i class="material-icons">monetization_on</i>&nbsp;<span>Общая
+          стоимость &nbsp;<strong>{{computePrice(selectedOrder)}}&nbsp;</strong>грн.</span>
+      </li>
+      <!--<li *ngIf="selectedOrder.comment" class="valign-wrapper pb5"><i
+          class="material-icons">mode_edit</i>&nbsp;Комментарий:&nbsp;{{selectedOrder.comment}}
+      </li>-->
+    </ul>
+
   </div>
   <div class="modal-footer" *ngIf="selectedOrder">
     <button class="modal-action waves-effect waves-black btn-flat" [disabled]="!workOrder">Просмотр</button>

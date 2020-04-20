@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, ViewChild, ElementRef, SimpleChanges, HostListener } from '@angular/core';
+import { Component, OnInit, Input, ViewChild, ElementRef, HostListener, OnDestroy, OnChanges } from '@angular/core';
 import { Order, OrderPosition, Delivery } from '../shared/interfaces';
 import { MaterialInstance, MaterialService } from '../shared/classes/material.service';
 import { Validators, FormBuilder, FormGroup } from '@angular/forms';
@@ -13,7 +13,7 @@ import { InvoiceServise } from './invoice.service';
   styleUrls: ['./invoice-page.component.css'],
   providers: [InvoiceServise]
 })
-export class InvoicePageComponent implements OnInit {
+export class InvoicePageComponent implements OnInit, OnChanges, OnDestroy {
   @Input() deliveryOrder: Order
   @ViewChild('modal') modalRef: ElementRef
   modal: MaterialInstance

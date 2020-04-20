@@ -241,17 +241,23 @@ thead th:first-child {
 }
 
 tbody th,
-tbody td {
+tbody td,
+tfoot th {
   position: -webkit-sticky; /* for Safari */
   position: sticky;
   padding: 0.4em;
-  background: rgba(255, 224, 178, 0.95);
+  background: rgba(255, 224, 178, 0.90);
   border: 1px solid transparent;
   color: rgb(65, 65, 95);
   transition: .3s linear;
 }
 
+tfoot th {
+  background: #bcaaa4;
+}
+
 tbody th,
+tfoot th:first-child,
 tbody td:first-child {
   left: 0;
   z-index: 199;

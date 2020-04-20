@@ -4,7 +4,6 @@ import { Observable, of } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { InvoiceServise } from '../invoice.service';
 import { MaterialService } from 'src/app/shared/classes/material.service';
-;
 
 @Component({
   selector: 'app-invoice-positions',
@@ -22,6 +21,7 @@ export class InvoicePositionsComponent implements OnInit {
   fractionList: any = ['кусок', 'стружка', 'скрап', 'сепарация', 'выштамповка', 'мехпорезка']
   rankOpt = ['', 'тонн', 'штук']
   orderListLength: number //количество позиций в заказе
+
   constructor(private invoice: InvoiceServise) { }
 
   ngOnInit() {
@@ -56,7 +56,6 @@ export class InvoicePositionsComponent implements OnInit {
   private activSave(deliveryPosList: number, orderListLength: number) {
     let formSave: boolean = (deliveryPosList != orderListLength) || (deliveryPosList === 0)
     this.updateSave.emit(formSave)
-    console.log(formSave)
   }
 
   deleteInvoice(position: OrderPosition) {
