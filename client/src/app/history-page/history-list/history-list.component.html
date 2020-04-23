@@ -62,7 +62,7 @@
             <tbody>
               <tr *ngFor="let item of selectedOrder.list">
                 <td>{{item.name}}</td>
-                <td>{{item.quantity}}</td>
+                <td>{{item.quantity}}&nbsp;{{item.rank}}</td>
                 <td>{{item.cost}}</td>
                 <td>{{item.shopSeller}}</td>
               </tr>
@@ -80,7 +80,7 @@
           стоимость &nbsp;<strong>{{computePrice(selectedOrder)}}&nbsp;</strong>грн.</span>
       </li>
       <!--<li *ngIf="selectedOrder.comment" class="valign-wrapper pb5"><i
-          class="material-icons">mode_edit</i>&nbsp;Комментарий:&nbsp;{{selectedOrder.comment}}
+          class="material-icons">mode_edit</i>&nbsp;Комментарий: &nbsp;{{selectedOrder.comment}}
       </li>-->
     </ul>
 

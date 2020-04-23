@@ -16,6 +16,4 @@ router.patch('/:id', passport.authenticate('jwt', {
 }), controller.update)
 
 
-
-
 module.exports = router
