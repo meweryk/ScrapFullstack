@@ -6,13 +6,20 @@ const deliverySchema = new Schema({
         type: Date,
         default: Date.now
     },
-    shopHost: {
+    shopBuyer: {
         type: String,
         required: true
     },
-    shopSend: {
+    shop: {
         type: String,
         required: true
+    },
+    orderId: {
+        ref: 'orders',
+        type: Schema.Types.ObjectId
+    },
+    order: {
+        type: Number
     },
     train: {
         type: String,
@@ -27,14 +34,14 @@ const deliverySchema = new Schema({
             name: {
                 type: String
             },
-            fraction: {
-                type: String
-            },
             quantity: {
                 type: Number
             },
             rank: {
                 type: String
+            },
+            cost: {
+                type: Number
             },
             trash: {
                 type: Number
@@ -45,9 +52,9 @@ const deliverySchema = new Schema({
             quantityNoTrash: {
                 type: Number
             },
-            cost: {
-                type: Number
-            },
+            fraction: {
+                type: String
+            }
         }
     ],
     imageSrc: {

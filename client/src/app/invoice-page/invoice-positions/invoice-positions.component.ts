@@ -1,5 +1,5 @@
 import { Component, OnInit, Input, EventEmitter, Output } from '@angular/core';
-import { OrderPosition } from 'src/app/shared/interfaces';
+import { OrderPosition, DeliveryPosition } from 'src/app/shared/interfaces';
 import { Observable, of } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { InvoiceServise } from '../invoice.service';
@@ -13,14 +13,14 @@ import { MaterialService } from 'src/app/shared/classes/material.service';
 export class InvoicePositionsComponent implements OnInit {
 
   @Output() updateSave = new EventEmitter<any>()
-  @Input() list: OrderPosition[]
-  @Input() allInvoice: any
+  @Input() list: any[]
 
-  positions$: Observable<OrderPosition[]>
+  positions$: Observable<DeliveryPosition[]>
   flag: boolean = false
   fractionList: any = ['кусок', 'стружка', 'скрап', 'сепарация', 'выштамповка', 'мехпорезка']
   rankOpt = ['', 'тонн', 'штук']
   orderListLength: number //количество позиций в заказе
+  allInvoice: any
 
   constructor(private invoice: InvoiceServise) { }
 
@@ -28,25 +28,28 @@ export class InvoicePositionsComponent implements OnInit {
     this.positions$ = of(this.list).pipe(
       map(pos => {
         return pos.map(p => {
-          !p.fraction ? p.fraction = '' : p.fraction
+          p.quantity = p.quantity
+          p.fraction = ''
           !p.rank ? p.rank = '' : p.rank
-          !p.trash ? p.trash = null : p.trash
-          !p.trashStap ? p.trashStap = '' : p.trashStap
-          !p.quantityNoTrash ? p.quantityNoTrash = null : p.quantityNoTrash
+          p.trash = null
+          p.trashStap = ''
+          p.quantityNoTrash = null
+          p.flag = false
           return p
         })
       }))
     this.orderListLength = this.list.length
+    this.allInvoice = this.invoice
   }
 
-  addToInvoice(position: OrderPosition) {
+  addToInvoice(position: DeliveryPosition) {
     this.invoice.add(position)
     position.flag = true
     this.activSave(this.invoice.deliveryPosList, this.orderListLength)
     MaterialService.toast(`Добавлено x${position.quantity}${position.rank}`)
   }
 
-  changeInvoice(position: OrderPosition) {
+  changeInvoice(position: DeliveryPosition) {
     this.invoice.remove(position)
     position.flag = false
     this.activSave(this.invoice.deliveryPosList, this.orderListLength)
@@ -58,12 +61,12 @@ export class InvoicePositionsComponent implements OnInit {
     this.updateSave.emit(formSave)
   }
 
-  deleteInvoice(position: OrderPosition) {
+  deleteInvoice(position: DeliveryPosition) {
     position.flag ? this.invoice.remove(position) : position.flag = false
 
     this.positions$ = of(this.list).pipe(
       map(pos => {
-        const idx = pos.findIndex(p => p._id === position._id)
+        const idx = pos.findIndex(p => p._id === position._id && p.name === position.name)
         pos.splice(idx, 1)
         return pos
       }))
@@ -74,22 +77,22 @@ export class InvoicePositionsComponent implements OnInit {
   }
 
   addPosition() {
-    const orderPosition: OrderPosition = Object.assign({}, {
+    const deliveryPosition: DeliveryPosition = Object.assign({}, {
       name: '',
-      fraction: '',
       quantity: null,
       rank: '',
+      cost: 1,
+      _id: '',
+      flag: false,
+      fraction: '',
       trash: null,
       trashStap: '',
-      cost: 1,
-      quantityNoTrash: null,
-      _id: '',
-      flag: false
+      quantityNoTrash: null
     })
     this.positions$ = of(this.list)
       .pipe(
         map(pos => {
-          pos.push(orderPosition)
+          pos.push(deliveryPosition)
           return pos
         })
       )

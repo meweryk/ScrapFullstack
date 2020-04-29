@@ -15,6 +15,13 @@ const orderSchema = new Schema({
       name: {
         type: String
       },
+      exposition: {
+        type: String
+      },
+      imageSrc: {
+        type: String,
+        default: ''
+      },
       quantity: {
         type: Number
       },
@@ -24,9 +31,22 @@ const orderSchema = new Schema({
       cost: {
         type: Number
       },
-      shopSeller: String
+      shopSeller: {
+        type: String
+      },
+      userSeller: {
+        ref: 'users',
+        type: Schema.Types.ObjectId
+      }
     }
   ],
+  comment: {
+    type: String
+  },
+  userfirstSeller: {
+    ref: 'users',
+    type: Schema.Types.ObjectId
+  },
   user: {
     ref: 'users',
     type: Schema.Types.ObjectId
@@ -45,6 +65,13 @@ const orderSchema = new Schema({
   },
   got: {
     type: Date
+  },
+  deliveryId: {
+    ref: 'deliveries',
+    type: Schema.Types.ObjectId
+  },
+  waybill: {
+    type: String
   }
 })
 

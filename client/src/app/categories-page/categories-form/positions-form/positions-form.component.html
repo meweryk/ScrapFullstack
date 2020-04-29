@@ -1,7 +1,7 @@
 <div class="row">
   <div class="col s12">
     <div class="page-subtitle">
-      <h5>Позиции:</h5>
+      <h5 class="brown-text text-lighten-5">Позиции:</h5>
       <button class="waves-effect waves-light btn-small" (click)="onAddPosition()"><i
           class="material-icons">add</i></button>
     </div>
@@ -9,10 +9,11 @@
       <div *ngIf="positions.length !== 0; else empty">
         <div class="col s12">
           <div class="table-container" [style.maxHeight.px]="height">
-            <table class="highlight">
+            <table class="highlight brown-text text-lighten-5">
               <thead>
                 <tr>
                   <th>Материал</th>
+                  <th>Фото</th>
                   <th colspan="2">Запас</th>
                   <th>Цена</th>
                   <th>Действие</th>
@@ -22,6 +23,9 @@
                 <tr *ngFor="let position of positions">
                   <th><a class="collection-item collection-item-icon"
                       (click)="onSelectPosition(position)">{{position.name}}</a></th>
+                  <td class="center">
+                    <img [src]="position.imageSrc" class="responsive-img h30">
+                  </td>
                   <td>{{position.stock}}</td>
                   <td>{{position.rank}}</td>
                   <td>{{position.cost}}грн.</td>
@@ -42,7 +46,7 @@
         </div>
       </div>
       <ng-template #empty>
-        <div class="center">В категории позиций нет</div>
+        <div class="center brown-text text-lighten-5">В категории позиций нет</div>
       </ng-template>
     </div>
     <ng-template #loader>
@@ -53,7 +57,8 @@
 </div>
 
 <form [formGroup]="form" (ngSubmit)="onSubmit()">
-  <div class="modal" #modal>
+  <label for="pos-name">Название</label>
+  <div class="modal card-position" #modal>
     <div class="modal-content">
       <h4 class="mb1">Добавить позицию</h4>
       <div class="row">
@@ -65,15 +70,17 @@
             Позиция не должна быть пустой.
           </span>
         </div>
+
         <div class="input-field col s9 m3">
           <input formControlName="stock" id="pos-stock" type="number" maxlength="8"
             [ngClass]="{'invalid': form.get('stock').invalid && form.get('stock').touched}">
           <label for="pos-stock">количество</label>
           <span *ngIf="form.get('stock').invalid && (form.get('stock').touched || form.get('stock').dirty)"
             class="helper-text red-text">
-            Введите корректный запас. Минимальное значение 0.
+            Введите корректный запас (min = 0).
           </span>
         </div>
+
         <div class="input-field col s3 m2">
           <select formControlName="rank" #select name="rank"
             [ngClass]="{'invalid': form.get('rank').invalid && form.get('rank').touched}">
@@ -84,17 +91,51 @@
           </select>
           <label>Мера</label>
         </div>
+
         <div class="input-field col s12 m3">
           <input formControlName="cost" id="pos-cost" type="number" maxlength=8
             [ngClass]="{'invalid': form.get('cost').invalid && form.get('cost').touched}">
           <label for="pos-cost">Цена</label>
           <span *ngIf="form.get('cost').invalid && form.get('cost').touched" class="helper-text red-text">
-            Введите корректную цену. Минимальное значение 1.
+            Введите корректную цену (min = 1).
           </span>
         </div>
-      </div>
 
+        <div class="col s12 center">
+          <img class="responsive-img h120" [src]="imagePreview" *ngIf="imagePreview">
+        </div>
+
+        <div class="input-field col s12 center">
+          <input formControlName="imageSrc" id="imageSrc" name="imageSrc" class="dn" type="file" #input
+            (change)="onFileUpload($event)">
+
+          <button (click)="triggerClick()" [disabled]="form.disabled" type="button"
+            class="waves-effect waves-light btn-small orange lighten-2 brown-text text-lighten-1">
+            <i class="material-icons left">backup</i>
+            Загрузить изображение
+          </button>
+        </div>
+
+        <div class="row">
+          <div class="input-field col s12">
+            <i class="material-icons prefix">mode_edit</i>
+            <textarea formControlName="exposition" id="exposition" name="exposition" type="text"
+              class="materialize-textarea"
+              [ngClass]="{'invalid': form.get('exposition').invalid && (form.get('exposition').touched || form.get('exposition').dirty)}"></textarea>
+            <label for="exposition">Описание</label>
+            <span class="helper-text" *ngIf="form.get('exposition').dirty">
+              <span [ngStyle]="{color: form.get('exposition').invalid ? '#f44336 ' : '#4db6ac'}">Не
+                больше 400 символов.</span>
+              <span class="red-text"
+                *ngIf="form.get('exposition').invalid && (form.get('exposition').touched || form.get('exposition').dirty)">
+                Сейчас {{form.get('exposition').errors['maxlength']['actualLength']}}
+              </span>
+            </span>
+          </div>
+        </div>
+      </div>
     </div>
+
     <div class="modal-footer">
       <button type="button" (click)="onCancel()" class="modal-action waves-effect waves-black btn-flat"
         [disabled]="form.disabled">Отмена</button>

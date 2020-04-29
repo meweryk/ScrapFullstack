@@ -47,7 +47,6 @@ export class LoginPageComponent implements OnInit, OnDestroy {
     }
   }
 
-
   onSubmit() {
     this.form.disable()
     this.loader = true

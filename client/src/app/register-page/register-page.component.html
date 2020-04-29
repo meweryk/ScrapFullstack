@@ -2,6 +2,7 @@
   <div class="card-content">
     <span class="card-title">Создать аккаунт</span>
     <div class="input-field">
+      <i class="material-icons prefix">markunread</i>
       <input formControlName="email" id="email" type="email"
         [ngClass]="{invalid: form.get('email').invalid && form.get('email').touched}">
       <label for="email">Email:</label>
@@ -10,7 +11,9 @@
         <span *ngIf="form.get('email').errors['email']">Введите корректный email адрес</span>
       </span>
     </div>
+
     <div class="input-field">
+      <i class="material-icons prefix">vpn_key</i>
       <input formControlName="password" id="password" type="password"
         [ngClass]="{invalid: form.get('password').invalid && (form.get('password').touched || form.get('password').dirty)}">
       <label for="password">Пароль:</label>
@@ -26,6 +29,7 @@
     </div>
 
     <div class="input-field">
+      <i class="material-icons prefix">account_circle</i>
       <input formControlName="nicname" id="nicname" type="text"
         [ngClass]="{invalid: form.get('nicname').invalid && form.get('nicname').touched}">
       <label for="nicname">Ф.И.О:</label>
@@ -35,6 +39,7 @@
     </div>
 
     <div class="input-field">
+      <i class="material-icons prefix">local_offer</i>
       <input formControlName="shop" id="shop" type="text"
         [ngClass]="{invalid: form.get('shop').invalid && form.get('shop').touched}">
       <label for="shop">Управление, отдел, цех, склад:</label>
@@ -42,6 +47,18 @@
         <span *ngIf="form.get('shop').errors['required']">Поле не должно быть пустым</span>
       </span>
     </div>
+
+    <div class="input-field">
+      <i class="material-icons prefix">local_phone</i>
+      <input formControlName="phone" id="phone" type="text" maxlength="15" pattern="^[0-9]+(?!.)"
+        [ngClass]="{invalid: form.get('phone').invalid && (form.get('phone').touched || form.get('phone').dirty)}">
+      <label for="phone">Телефон</label>
+      <span class="helper-text red-text"
+        *ngIf="form.get('phone').invalid && (form.get('phone').touched || form.get('phone').dirty)">
+        <span *ngIf="form.get('phone').errors['pattern']">Введите корректный номер, только цифры.</span>
+      </span>
+    </div>
+
   </div>
   <div class="card-action">
     <button type="submit" class="modal-action btn waves-effect"

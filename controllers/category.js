@@ -26,9 +26,22 @@ module.exports.getById = async function (req, res) {
 }
 
 module.exports.remove = async function (req, res) {
+  //удаление файлов, если они есть
+  const thisShop = await Position.find({ category: req.params.id, shop: req.user.shop })
+  if (thisShop) {
+    for (let position of thisShop) {
+      if (position.imageSrc) {
+        try {
+          await unlinkAsync(position.imageSrc)//удаление фото//удаление фото позиций
+        } catch (e) {
+          console.log(res, e)
+        }
+      }
+    }
+  }
   const category = await Category.findOne({ _id: req.params.id })
   const elseShop = await Position.findOne({ category: req.params.id, shop: { $ne: req.user.shop } }, { shop: 1 })
-
+  //проверяем права пользователя на категорию и присутствие других магазинов
   if ((category.user == req.user.id) && !elseShop) {
     //если категория создана пльзователем и её не используют позиций с других складов-магазинов
     if (category.imageSrc) {
@@ -37,7 +50,6 @@ module.exports.remove = async function (req, res) {
       } catch (e) {
         console.log(res, e)
       }
-
     }
     try {
       await Category.remove({
@@ -54,6 +66,7 @@ module.exports.remove = async function (req, res) {
     } catch (e) {
       errorHandler(res, e)
     }
+
   } else {
     try {
       await Position.remove({
@@ -79,13 +92,13 @@ module.exports.create = async function (req, res) {
       message: 'Категория уже существует. Войдите и добавьте свои позиции.'
     })
   } else {
+    //создаём новую категорию
+    const category = new Category({
+      name: req.body.name,
+      user: req.user.id,
+      imageSrc: req.file ? req.file.path : ''
+    })
     try {
-      //создаём новую категорию
-      const category = new Category({
-        name: req.body.name,
-        user: req.user.id,
-        imageSrc: req.file ? req.file.path : ''
-      })
       await category.save()
       res.status(201).json(category)
     } catch (e) {

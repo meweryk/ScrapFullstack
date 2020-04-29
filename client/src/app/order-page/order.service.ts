@@ -15,8 +15,11 @@ export class OrderService {
       cost: +(position.cost).toFixed(2),
       quantity: +(position.quantity).toFixed(3),
       rank: position.rank,
+      exposition: position.exposition,
+      imageSrc: position.imageSrc,
       _id: position._id,
-      shopSeller: position.shop
+      shopSeller: position.shop,
+      userSeller: position.user
     })
 
     const candidate = this.list.find(p => p._id === orderPosition._id)

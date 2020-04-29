@@ -17,6 +17,9 @@ const userSchema = new Schema({
   },
   shop: {
     type: String
+  },
+  phone: {
+    type: String
   }
 })
 

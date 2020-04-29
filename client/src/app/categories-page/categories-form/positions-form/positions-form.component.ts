@@ -13,6 +13,7 @@ import { MaterialsService } from 'src/app/shared/services/materials.service';
   styleUrls: ['./positions-form.component.css']
 })
 export class PositionsFormComponent implements OnInit, AfterViewInit, OnDestroy {
+  @ViewChild('input') innputRef: ElementRef
   @Input('categoryId') categoryId: string
   shop: string
   mSub: Subscription
@@ -33,6 +34,8 @@ export class PositionsFormComponent implements OnInit, AfterViewInit, OnDestroy 
   autocomplete: MaterialAutocomplete
 
   data = {}
+  image: File
+  imagePreview = ''
 
   form: FormGroup
   height: number
@@ -43,7 +46,6 @@ export class PositionsFormComponent implements OnInit, AfterViewInit, OnDestroy 
 
   ngOnInit() {
     const params = Object.assign({}, this.filter)
-
     this.height = 0.5 * window.innerHeight
     this.shop = this.auth.getShop()
 
@@ -52,6 +54,8 @@ export class PositionsFormComponent implements OnInit, AfterViewInit, OnDestroy 
       cost: new FormControl(null, [Validators.required, Validators.min(1)]),
       stock: new FormControl(null, [Validators.required, Validators.min(0)]),
       rank: new FormControl(null, Validators.required),
+      exposition: new FormControl(null, Validators.maxLength(400)),
+      imageSrc: new FormControl(null)
     })
     this.loading = true
     this.positionsService.fetch(this.categoryId).subscribe(positions => {
@@ -110,8 +114,10 @@ export class PositionsFormComponent implements OnInit, AfterViewInit, OnDestroy 
       name: position.name,
       cost: position.cost,
       stock: position.stock,
-      rank: position.rank
+      rank: position.rank,
+      exposition: position.exposition
     })
+    this.imagePreview = position.imageSrc
     this.modal.open()
     MaterialService.updateTextInputs()
     this.update()
@@ -123,8 +129,10 @@ export class PositionsFormComponent implements OnInit, AfterViewInit, OnDestroy 
       name: null,
       cost: 1,
       stock: 0,
-      rank: ''
+      rank: '',
+      exposition: ''
     })
+    this.imagePreview = null
     this.modal.open()
     MaterialService.updateTextInputs()
     this.update()
@@ -159,14 +167,15 @@ export class PositionsFormComponent implements OnInit, AfterViewInit, OnDestroy 
       cost: (this.form.value.cost).toFixed(2),
       stock: (this.form.value.stock).toFixed(3),
       rank: this.form.value.rank,
+      exposition: this.form.value.exposition,
+      imageSrc: this.form.value.imageSrc,
       category: this.categoryId
     }
-
-    console.log(newPosition.stock)
 
     const completed = () => {
       this.modal.close()
       this.form.enable()
+      this.image = null
     }
 
     if (this.positionId) {
@@ -196,8 +205,26 @@ export class PositionsFormComponent implements OnInit, AfterViewInit, OnDestroy 
         MaterialService.toast(`Позиция "${newPosition.name}" уже существует`)
         this.modal.close()
         this.form.enable()
+        this.image = null
       }
     }
+  }
+
+  onFileUpload(event: any) {
+    const file = event.target.files[0]
+    this.image = file
+
+    const reader = new FileReader()
+
+    reader.onload = () => {
+      this.imagePreview = reader.result as string
+    }
+
+    reader.readAsDataURL(file)
+  }
+
+  triggerClick() {
+    this.innputRef.nativeElement.click()
   }
 
 }

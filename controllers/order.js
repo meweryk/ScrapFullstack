@@ -45,9 +45,7 @@ module.exports.getAll = async function (req, res) {
   try {
     const orders = await Order
       .find(query)
-      .sort({
-        date: -1
-      })
+      .sort({ date: -1 })
       .skip(+req.query.offset)
       .limit(+req.query.limit)
     res.status(200).json(orders)
@@ -58,19 +56,21 @@ module.exports.getAll = async function (req, res) {
 }
 
 module.exports.create = async function (req, res) {
+  const userfirstSeller = req.body.list[0]['userSeller']
 
   try {
     const lastOrder = await Order
-      .findOne({ user: req.user.id })
+      .findOne({ userfirstSeller: userfirstSeller })
       .sort({ date: -1 })
-
     const maxOrder = lastOrder ? lastOrder.order : 0
 
     const order = await new Order({
       list: req.body.list,
-      user: req.user.id,
+      comment: req.body.comment,
+      userfirstSeller: userfirstSeller,
       shopBuyer: req.user.shop,
       nicname: req.user.nicname,
+      user: req.user.id,
       order: maxOrder + 1
     }).save()
 
@@ -82,16 +82,28 @@ module.exports.create = async function (req, res) {
 
 module.exports.update = async function (req, res) {
   const updated = {}
-  if (req.body.view) {
+  if (req.body.deliveryId) {
+    updated.deliveryId = req.body.deliveryId
+  }
+
+  if (req.body.view === 'f') {
     updated.view = moment().tz(zone)
   }
 
-  if (req.body.send) {
+  if (req.body.send === 'f') {
     updated.send = moment().tz(zone)
   }
 
-  if (req.body.got) {
+  if (req.body.got === 'f') {
     updated.got = moment().tz(zone)
+  }
+
+  if (req.body.waybill) {
+    updated.waybill = req.body.waybill
+  }
+
+  if (req.body.order) {
+    updated.order = req.body.order
   }
 
   try {

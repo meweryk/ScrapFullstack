@@ -1,6 +1,9 @@
 const Position = require('../models/Position')
 const User = require('../models/User')
 const errorHandler = require('../utils/errorHandler')
+const fs = require('fs')
+const { promisify } = require('util')
+const unlinkAsync = promisify(fs.unlink)
 
 module.exports.getByCategoryIdAllShop = async function (req, res) {
   try {
@@ -35,7 +38,9 @@ module.exports.create = async function (req, res) {
       category: req.body.category,
       user: req.user.id,
       shop: req.user.shop,
-      nicname: req.user.nicname
+      nicname: req.user.nicname,
+      exposition: req.body.exposition,
+      imageSrc: req.file ? req.file.path : ''
     }).save()
     res.status(201).json(position)
   } catch (e) {
@@ -44,6 +49,14 @@ module.exports.create = async function (req, res) {
 }
 
 module.exports.remove = async function (req, res) {
+  const position = await Position.findById(req.params.id)
+  if (position.imageSrc) {
+    try {
+      await unlinkAsync(position.imageSrc) //удаление фото            
+    } catch (e) {
+      console.log(res, e)
+    }
+  }
   try {
     await Position.remove({ _id: req.params.id })
     res.status(200).json({
@@ -55,14 +68,34 @@ module.exports.remove = async function (req, res) {
 }
 
 module.exports.update = async function (req, res) {
+  const upposition = await Position.findOne({ _id: req.params.id })
+  const updated = {
+    name: req.body.name,
+    stock: req.body.stock,
+    rank: req.body.rank,
+    cost: req.body.cost,
+    category: req.body.category,
+    user: req.user.id,
+    shop: req.user.shop,
+    nicname: req.user.name,
+    exposition: req.body.exposition
+  }
+
+  if (req.file) {
+    updated.imageSrc = req.file.path
+    if (upposition.imageSrc) {
+      try {
+        await unlinkAsync(upposition.imageSrc)//удаление старого фото
+      } catch (e) {
+        console.log(res, e)
+      }
+    }
+  }
+
   try {
     const position = await Position.findOneAndUpdate(
       { _id: req.params.id },
-      {
-        $set: req.body,
-        user: req.user.id,
-        nicname: req.user.nicname
-      },
+      { $set: updated },
       { new: true }
     )
     res.status(200).json(position)

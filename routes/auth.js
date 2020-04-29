@@ -9,4 +9,8 @@ router.post('/login', controller.login)
 // localhost:5000/api/auth/register
 router.post('/register', controller.register)
 
+router.get('/:id', passport.authenticate('jwt', {
+    session: false
+}), controller.getById)
+
 module.exports = router

@@ -12,6 +12,13 @@ const positionSchema = new Schema({
   rank: {
     type: String
   },
+  exposition: {
+    type: String
+  },
+  imageSrc: {
+    type: String,
+    default: ''
+  },
   cost: {
     type: Number,
     required: true
