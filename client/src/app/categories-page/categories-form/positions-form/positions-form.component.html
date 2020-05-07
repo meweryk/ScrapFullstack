@@ -1,7 +1,7 @@
 <div class="row">
   <div class="col s12">
     <div class="page-subtitle">
-      <h5 class="brown-text text-lighten-5">Позиции:</h5>
+      <h5 class="brown-text text-darken-3">Позиции:</h5>
       <button class="waves-effect waves-light btn-small" (click)="onAddPosition()"><i
           class="material-icons">add</i></button>
     </div>
@@ -46,7 +46,7 @@
         </div>
       </div>
       <ng-template #empty>
-        <div class="center brown-text text-lighten-5">В категории позиций нет</div>
+        <div class="center brown-text text-darken-3">В категории позиций нет</div>
       </ng-template>
     </div>
     <ng-template #loader>
@@ -57,7 +57,6 @@
 </div>
 
 <form [formGroup]="form" (ngSubmit)="onSubmit()">
-  <label for="pos-name">Название</label>
   <div class="modal card-position" #modal>
     <div class="modal-content">
       <h4 class="mb1">Добавить позицию</h4>
