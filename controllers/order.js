@@ -20,7 +20,7 @@ module.exports.getAll = async function (req, res) {
       }
     ]
   } else {
-    query.user = req.user.id
+    query.userBuyer = req.user.id
   }
 
   //дата старта
@@ -70,7 +70,7 @@ module.exports.create = async function (req, res) {
       userfirstSeller: userfirstSeller,
       shopBuyer: req.user.shop,
       nicname: req.user.nicname,
-      user: req.user.id,
+      userBuyer: req.user.id,
       order: maxOrder + 1
     }).save()
 

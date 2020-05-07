@@ -64,7 +64,7 @@
       <div class="row">
         <div class="input-field col s12 m4">
           <input #autocomplete class="autocomplete" name="name" formControlName="name" id="pos-name" type="text"
-            maxlength="15" [ngClass]="{'invalid': form.get('name').invalid && form.get('name').touched}">
+            maxlength="30" [ngClass]="{'invalid': form.get('name').invalid && form.get('name').touched}">
           <label for="pos-name">Название</label>
           <span *ngIf="form.get('name').invalid && form.get('name').touched" class="helper-text red-text">
             Позиция не должна быть пустой.

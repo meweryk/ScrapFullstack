@@ -69,15 +69,17 @@ export class HistoryListComponent implements OnInit, OnDestroy, AfterViewInit {
   selectOrder(order: Order) {
     this.selectedOrder = order
     //если на странце покупателя берём номер поставщика
-    if (this.selectedOrder.user === this.id) {
-
-    } else {
-      //берём номер покупателя
-      this.auth.getById(this.selectedOrder.user).subscribe(user => {
+    if (this.selectedOrder.userfirstSeller === this.id) {
+      this.auth.getById(this.selectedOrder.userfirstSeller).subscribe(user => {
         this.phone = user.phone
         this.email = user.email
       })
-
+    } else {
+      //если на странице поставщика б берём номер покупателя
+      this.auth.getById(this.selectedOrder.userBuyer).subscribe(user => {
+        this.phone = user.phone
+        this.email = user.email
+      })
     }
 
     this.workOrder = (this.selectedOrder.shopBuyer === this.shop) //true если магазин покупает: кнопка "обработать" отключена

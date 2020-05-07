@@ -24,7 +24,11 @@
 
         <tbody>
           <tr *ngFor="let position of positions | searchV: [searchVid, searchShop]">
-            <th>{{position.name}}</th>
+            <th>
+              {{position.name}}
+              <span *ngIf="position.exposition"><i class="material-icons pointer"
+                  (click)="openInfo(position.exposition)">info_outline</i></span>
+            </th>
             <td>{{position.cost}}</td>
             <td>
               <div class="input-field inline order-position-input">
@@ -50,3 +54,10 @@
 <ng-template #loader>
   <app-loader></app-loader>
 </ng-template>
+
+<div class="tap-target" data-target="menu" #tapTarget>
+  <div class="tap-target-content">
+    <h5>Описание позиции</h5>
+    <p>{{comments}}.</p>
+  </div>
+</div>

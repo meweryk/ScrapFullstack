@@ -4,6 +4,7 @@ import { AuthService } from '../shared/services/auth.service';
 import { Router } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { MaterialService } from '../shared/classes/material.service';
+import { Meta, Title } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-register-page',
@@ -17,8 +18,14 @@ export class RegisterPageComponent implements OnInit, OnDestroy {
   loader = false
 
   constructor(private auth: AuthService,
-    private router: Router) {
-
+    private router: Router,
+    private title: Title,
+    private meta: Meta) {
+    title.setTitle('Регистрация')
+    meta.addTags([
+      { name: 'keywords', content: 'регистрация' },
+      { name: 'description', content: 'Страница для регистрации в системе' }
+    ])
   }
 
   ngOnInit() {

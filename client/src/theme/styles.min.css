@@ -323,3 +323,9 @@ html {
   margin: 10px;
 }
 
+.bold {
+  text-transform: uppercase;
+  /*font-weight: bold;*/
+  font-variant: small-caps;
+  color: #757575;
+}

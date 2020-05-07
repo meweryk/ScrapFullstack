@@ -50,7 +50,7 @@ export class PositionsFormComponent implements OnInit, AfterViewInit, OnDestroy 
     this.shop = this.auth.getShop()
 
     this.form = new FormGroup({
-      name: new FormControl(null, [Validators.required, Validators.maxLength(15)]),
+      name: new FormControl(null, [Validators.required, Validators.maxLength(30)]),
       cost: new FormControl(null, [Validators.required, Validators.min(1)]),
       stock: new FormControl(null, [Validators.required, Validators.min(0)]),
       rank: new FormControl(null, Validators.required),
