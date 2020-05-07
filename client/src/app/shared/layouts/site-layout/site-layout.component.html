@@ -35,15 +35,15 @@
   </li>
 
 
-  <li class="bold" routerLinkActive="active" *ngFor="let link of links">
+  <li routerLinkActive="active" *ngFor="let link of links">
     <a [routerLink]="[link.url]" class="waves-effect waves-orange" (click)="closeSidenav()">
       {{link.name}}
     </a>
   </li>
 
-  <li class="bold">
+  <li>
     <a #dropdown class="dropdown-trigger waves-effect waves-orange" data-target="dropdown1">
-      Выплавка<i class="material-icons right">arrow_drop_down</i>
+      <i class="material-icons right">arrow_drop_down</i>Выплавка
     </a>
   </li>
 
