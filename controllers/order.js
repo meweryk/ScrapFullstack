@@ -71,6 +71,8 @@ module.exports.create = async function (req, res) {
       shopBuyer: req.user.shop,
       nicname: req.user.nicname,
       userBuyer: req.user.id,
+      phoneBuyer: req.user.phone ? req.user.phone : null,
+      emailBuyer: req.user.email,
       order: maxOrder + 1
     }).save()
 

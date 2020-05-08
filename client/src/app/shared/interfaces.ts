@@ -61,6 +61,8 @@ export interface Position {
   shop?: string
   exposition?: string
   imageSrc?: string
+  phone?: string
+  email?: string
 }
 
 export interface Order {
@@ -75,6 +77,8 @@ export interface Order {
 
   userBuyer?: string
   shopBuyer?: string
+  phoneBuyer?: string
+  emailBuyer?: string
   nicname?: string
 
   view?: Date
@@ -94,6 +98,8 @@ export interface OrderPosition {
   _id?: string
   shopSeller?: string
   userSeller?: string
+  phoneSeller?: string
+  emailSeller?: string
   flag?: boolean
 
   fraction?: string

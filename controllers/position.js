@@ -40,7 +40,9 @@ module.exports.create = async function (req, res) {
       shop: req.user.shop,
       nicname: req.user.nicname,
       exposition: req.body.exposition,
-      imageSrc: req.file ? req.file.path : ''
+      imageSrc: req.file ? req.file.path : '',
+      phone: req.user.phone,
+      email: req.user.email
     }).save()
     res.status(201).json(position)
   } catch (e) {
@@ -78,7 +80,9 @@ module.exports.update = async function (req, res) {
     user: req.user.id,
     shop: req.user.shop,
     nicname: req.user.name,
-    exposition: req.body.exposition
+    exposition: req.body.exposition,
+    phone: req.user.phone,
+    email: req.user.email
   }
 
   if (req.file) {
