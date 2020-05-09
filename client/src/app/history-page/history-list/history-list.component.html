@@ -5,8 +5,18 @@
         <thead>
           <tr>
             <th>№</th>
-            <th class="hide-on-small-only">Заказчик</th>
-            <th class="hide-on-small-only">Исполнитель</th>
+            <th class="hide-on-small-only">
+              <div class="input-field" [style.margin.px]="0">
+                <input type="text" style="cursor: pointer; width: 6rem; color: #669;" [(ngModel)]="castomer"
+                  placeholder="Поставщик">
+              </div>
+            </th>
+            <th class="hide-on-small-only">
+              <div class="input-field" [style.margin.px]="0">
+                <input type="text" style="cursor: pointer; width: 6rem; color: #669;" [(ngModel)]="executor"
+                  placeholder="Исполнитель">
+              </div>
+            </th>
             <th>Дата / Время</th>
             <th>Количество</th>
             <th class="hide-on-small-only">Сумма<br>грн.</th>
@@ -26,7 +36,8 @@
         </thead>
 
         <tbody>
-          <tr style="text-transform: lowercase;" *ngFor="let order of gsorders | searchO: [searchOrd, shop]"
+          <tr style="text-transform: lowercase;"
+            *ngFor="let order of gsorders | searchO: [searchOrd, shop] | searchShop: [castomer, executor] "
             [ngStyle]="{backgroundColor: shop === order.shopBuyer ? '#eaffd5b0' : 'none'}" [class.bold]="!order.view">
             <th>{{order.order}}</th>
             <td class="hide-on-small-only">{{order.shopBuyer}}</td>
