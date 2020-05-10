@@ -71,6 +71,7 @@ module.exports.remove = async function (req, res) {
 
 module.exports.update = async function (req, res) {
   const upposition = await Position.findOne({ _id: req.params.id })
+  console.log(req.user.nicname)
   const updated = {
     name: req.body.name,
     stock: req.body.stock,
@@ -79,7 +80,7 @@ module.exports.update = async function (req, res) {
     category: req.body.category,
     user: req.user.id,
     shop: req.user.shop,
-    nicname: req.user.name,
+    nicname: req.user.nicname,
     exposition: req.body.exposition,
     phone: req.user.phone,
     email: req.user.email

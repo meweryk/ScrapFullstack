@@ -8,13 +8,13 @@
             <th class="hide-on-small-only">
               <div class="input-field" [style.margin.px]="0">
                 <input type="text" style="cursor: pointer; width: 6rem; color: #669;" [(ngModel)]="castomer"
-                  placeholder="Поставщик">
+                  placeholder="Заказ от:">
               </div>
             </th>
             <th class="hide-on-small-only">
               <div class="input-field" [style.margin.px]="0">
                 <input type="text" style="cursor: pointer; width: 6rem; color: #669;" [(ngModel)]="executor"
-                  placeholder="Исполнитель">
+                  placeholder="Поставщик">
               </div>
             </th>
             <th>Дата / Время</th>
@@ -36,7 +36,7 @@
         </thead>
 
         <tbody>
-          <tr style="text-transform: lowercase;"
+          <tr style="text-transform: lowercase; font-variant: small-caps"
             *ngFor="let order of gsorders | searchO: [searchOrd, shop] | searchShop: [castomer, executor] "
             [ngStyle]="{backgroundColor: shop === order.shopBuyer ? '#eaffd5b0' : 'none'}" [class.bold]="!order.view">
             <th>{{order.order}}</th>
@@ -70,9 +70,14 @@
         style="font-size: 14px;">{{selectedOrder.date | date:'от dd.MM.yy - HH:mm'}}</span></h5>
     <ul class="row grey-text text-darken-1">
       <li class="valign-wrapper pb5">
-        <span class="bold">Заказчик:</span>&nbsp;<span>{{selectedOrder.shopBuyer}} -
-          {{selectedOrder.nicname}}</span>
+        <b>Заказчик:&nbsp;</b>{{selectedOrder.shopBuyer}} - {{selectedOrder.nicname}}&nbsp;<a
+          *ngIf="selectedOrder.phoneBuyer" class="collection-item collection-item-icon" href="tel: {{phone}}">
+          <i class="material-icons">phone</i></a>&nbsp;<a *ngIf="selectedOrder.emailBuyer"
+          class="collection-item collection-item-icon"
+          href="mailto:{{email}}?subject=по заказу {{selectedOrder.order}} от {{selectedOrder.date | date:'dd.MM.yyyy'}}">
+          <i class="material-icons">email</i></a>
       </li>
+
       <li class="valign-wrapper pb5" *ngIf="selectedOrder.view">
         <span class="bold">Просмотрен:</span>&nbsp;{{selectedOrder.view | date:' dd.MM.yy - HH:mm'}}
       </li>
@@ -96,7 +101,7 @@
                 <th>Вид</th>
                 <th>Кол-во</th>
                 <th>Цена<br>грн.</th>
-                <th>Поставщик</th>
+                <th colspan="3">Поставщик</th>
               </tr>
             </thead>
 
@@ -105,7 +110,18 @@
                 <td>{{item.name}}</td>
                 <td>{{item.quantity}}&nbsp;{{item.rank}}</td>
                 <td>{{item.cost}}</td>
-                <td>{{item.shopSeller}}</td>
+                <td style="white-space: nowrap;">
+                  {{item.shopSeller}}&nbsp;&nbsp;
+                </td>
+                <td>
+                  <a *ngIf="item.emailSeller" class="collection-item collection-item-icon"
+                    href="mailto:{{email}}?subject=по заказу {{selectedOrder.order}} от {{selectedOrder.date | date:'dd.MM.yyyy'}}">
+                    <i class="material-icons">email</i></a>
+                </td>
+                <td>
+                  <a *ngIf="item.phoneSeller" class="collection-item collection-item-icon" href="tel: {{phone}}"><i
+                      class="material-icons">phone</i></a>
+                </td>
               </tr>
             </tbody>
           </table>
@@ -114,7 +130,7 @@
     </div>
 
     <ul class="row grey-text text-darken-1">
-      <li class="valign-wrapper"><i class="material-icons">score</i>&nbsp;<span>Общее
+      <li *ngIf="selectedOrder.comment" class="valign-wrapper"><i class="material-icons">score</i>&nbsp;<span>Общее
           количество &nbsp;<strong>{{computeWeight(selectedOrder)}}</strong></span>
       </li>
       <li class="valign-wrapper"><i class="material-icons">monetization_on</i>&nbsp;<span>Общая
@@ -122,17 +138,6 @@
       </li>
       <li *ngIf="selectedOrder.comment" class="valign-wrapper pb5"><i
           class="material-icons">mode_edit</i>&nbsp;<span>Комментарий: &nbsp;{{selectedOrder.comment}}.</span>
-      </li>
-      <hr>
-      <li *ngIf="phone" class="valign-wrapper pb5"><i class="material-icons">phone</i>&nbsp;<span><a class="pulse"
-            href="tel: {{phone}}">
-            Позвонить
-          </a></span>
-      </li>
-      <li *ngIf="email" class="valign-wrapper pb5"><i class="material-icons">email</i>&nbsp;<span><a class="pulse"
-            href="mailto:{{email}}?subject=по заказу {{selectedOrder.order}} от {{selectedOrder.date | date:'dd.MM.yyyy'}}">
-            Отправить письмо
-          </a></span>
       </li>
     </ul>
   </div>

@@ -324,7 +324,6 @@ html {
 }
 
 .bold {
-  text-transform: uppercase;
   /*font-weight: bold;*/
   font-variant: small-caps;
   color: #757575;
