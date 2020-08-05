@@ -39,7 +39,7 @@
     "socket.io": "^2.3.0"
   },
   "devDependencies": {
-    "concurrently": "^4.1.2",
-    "nodemon": "^1.19.4"
+    "concurrently": "^5.2.0",
+    "nodemon": "^2.0.4"
   }
 }
