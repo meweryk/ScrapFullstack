@@ -186,3 +186,13 @@ export interface DeliveryPosition {
   fraction?: string
   flag?: boolean
 }
+
+export interface Fuse {
+  _id?: string
+  fuse?: string
+  fuseCard?: string
+  alloy?: string
+  shop?: string
+  user?: string
+  date?: Date
+}

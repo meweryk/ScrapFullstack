@@ -16,7 +16,7 @@ import { SharedModule } from './shared/shared.module';
   declarations: [
     AppComponent,
     AuthLayoutComponent,
-    SiteLayoutComponent,
+    SiteLayoutComponent
   ],
 
   imports: [
