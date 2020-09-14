@@ -40,14 +40,14 @@
     {
       "name": "api-freshness",
       "urls": [
-        "https://crmscrapfullstack.herokuapp.com/history",
-        "https://crmscrapfullstack.herokuapp.com/order",
-        "https://crmscrapfullstack.herokuapp.com/deliveries",
-        "https://crmscrapfullstack.herokuapp.com/materials"
+        "/history",
+        "/order",
+        "/deliveries",
+        "/materials"
       ],
       "cacheConfig": {
         "strategy": "freshness",
-        "maxSize": 5,
+        "maxSize": 20,
         "maxAge": "1h",
         "timeout": "3s"
       }
