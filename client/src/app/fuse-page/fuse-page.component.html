@@ -1,10 +1,94 @@
 <div class="page-title">
   <h5>Выплавка</h5>
-  <button class="waves-effect waves-light btn-small" onclick="showPopup1()"><i
+  <button class="waves-effect waves-light btn-small" routerLink="/fuse/new"><i
       class="material-icons left">add</i>плавка</button>
 </div>
 
+<div class="row" *ngIf="fuses$ | async as fuses; else loader">
+  <div class="col s12">
+    <div class="collection" *ngIf="fuses.length !== 0; else empty">
+      <a *ngFor="let fuse of fuses" [routerLink]="['/fuse', fuse._id]" class="collection-item">
+        {{fuse.date | date:"dd.MM.yy" }}г {{fuse.fuse}} {{fuse.alloy}} п.к.{{fuse.fuseCard}}
+      </a>
+    </div>
+    <ng-template #empty>
+      <div class="center">
+        У вас нет ни одной плавки.
+      </div>
+    </ng-template>
+  </div>
+</div>-->
+
 <!---------1--Форма Ввод номера и даты плавки-------------------------------------->
+<section>
+  <button class="leg" onclick="showPopup1();">Идентификатор плавки</button>
+</section>
+<div class="row popup" id="plavka">
+  <div class="popup_bg" id="plavka_bg"></div>
+  <div class="form">
+    <form id="add_plavka"
+      oninput="pl_id.value=pl_number.value+'&nbsp &nbsp &nbsp'+steel.value+'&nbsp &nbsp &nbsp'+pl_date.value+'&nbsp &nbsp &nbsp'+plk_number.value">
+      <div class="legend">Идентификатор плавки</div>
+      <div class="plavka"><input type="text" id="pl_number" name="pl_number" autofocus /> Номер плавки</div>
+      <div class="plavka"><input type="text" id="steel" name="steel" /> марка стали</div>
+      <div class="plavka"><input type="date" id="pl_date" name="pl_date" /> дата плавки</div>
+      <div class="plavka"><input type="text" id="plk_number" name="plk_number" /> № плав. карты</div>
+    </form>
+  </div>
+</div>
+
+<!------------------Рассчёт количества шихты на выплавку--------->
+<section>
+  <button class="leg" onclick="showPopup2();">Расчёт массы шихты</button>
+</section>
+<div class="row popup" id="kanav">
+  <div class="popup_bg" id="kanav_bg"></div>
+  <div class="form">
+    <img class="close_ready" src="img/close.png">
+    <form name="kanava" id="add_kanava" action="scrap.js" autocomplete="on" method="post"
+      onsubmit="teor(); return false;">
+      <div class="legend">Расчёт массы шихты</div>
+      <div class="add">
+        <b>Годное:</b><br>
+        <input name="god" type="number" step="any" min="0.1" max="100" placeholder="вес" value="" style="width: 7em"
+          required autofocus>масса годного, т<br>
+        <hr>
+      </div>
+      <div class="add"><b>Изложницы</b></div>
+      <div class="izl">
+        <div>Развес <input name="iz1" type="number" step="any" min="0" max="15" placeholder="вес" value="3.5">т</div>
+        <div><input name="izk1" type="number" min="0" max="20" placeholder="шт." value="">шт</div>
+        <div>Развес <input name="iz2" type="number" step="any" min="0" max="15" placeholder="вес" value="4.3">т</div>
+        <div><input name="izk2" type="number" min="0" max="20" placeholder="шт." value="">шт</div>
+        <div>Развес <input name="iz3" type="number" step="any" min="0" max="15" placeholder="вес" value="6.2">т</div>
+        <div><input name="izk3" type="number" min="0" max="20" placeholder="шт." value="">шт</div>
+      </div>
+      <div class="add">
+        <b><span id="kanava"></span></b><br>
+        <hr>
+      </div>
+      <div class="add"><b> Отходы, кг/т годного: </b></div>
+      <div class="add"><input name="nedol" type="number" step="any" min="0" max="100" placeholder="Масса, кг"
+          value="30">НЕДОЛИВОК<b id="nedol"></b></div>
+      <div class="add"><input name="litn" type="number" onechange="total()" step="any" min="0" max="50"
+          placeholder="Масса, кг" value="16">ЛИТНИКИ<b id="litn"></b></div>
+      <div class="add"><input name="scrap_r" type="number" step="any" min="0" max="50" placeholder="Масса, кг"
+          value="3">СКРАП разливки
+        <b id="scrap_r"></b></div>
+      <div class="add"><input name="scrap_sh" type="number" step="any" min="0" max="100" placeholder="Масса, кг"
+          value="14">СКРАП из шлака<b id="scrap_sh"></b></div>
+      <div class="add"><input name="ugar" type="number" step="1" min="0" max="500" placeholder="Масса, кг"
+          value="100">УГАР<b id="ugar"></b></div>
+      <div class="add">
+        <b><span id="resume"></span></b>
+      </div>
+      <div class="chami">
+        <div class="cham"><input type="reset" name="res" class="sub" value="Очистить" /></div>
+        <div class="cham"><input type="submit" name="subm" class="sub" value="Рассчёт" /></div>
+      </div>
+    </form>
+  </div>
+</div>
 
 
 <!--<div class="row" *ngIf="categories$ | async as categories; else loader">

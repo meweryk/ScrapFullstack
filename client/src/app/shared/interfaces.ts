@@ -194,5 +194,7 @@ export interface Fuse {
   alloy?: string
   shop?: string
   user?: string
-  date?: Date
+  nicname?: string
+  date?: Date,
+  update?: Date
 }

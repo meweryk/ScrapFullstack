@@ -42,14 +42,17 @@
       "urls": [
         "/history",
         "/order",
+        "/order/**",
         "/deliveries",
-        "/materials"
+        "/materials",
+        "/categories",
+        "/categories/**"
       ],
       "cacheConfig": {
         "strategy": "freshness",
         "maxSize": 20,
         "maxAge": "1h",
-        "timeout": "3s"
+        "timeout": "2s"
       }
     }
   ]

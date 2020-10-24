@@ -6,6 +6,10 @@ const fuseSchema = new Schema({
         type: Date,
         default: Date.now
     },
+    update: {
+        type: Date,
+        default: Date.now
+    },
     fuse: {
         type: String,
         required: true
@@ -21,6 +25,14 @@ const fuseSchema = new Schema({
     shop: {
         type: String
     },
+    user: {
+        ref: 'users',
+        type: Schema.Types.ObjectId
+    },
+    nicname: {
+        type: String
+    },
+
     /*list: [
         {
             name: {

@@ -1,0 +1,54 @@
+<div class="page-title">
+  <h5>
+    <a routerLink="/fuse">Выплавка</a>
+    <i class="tiny material-icons">keyboard_arrow_right</i>
+    {{isNew ? 'Добавить': 'Редактировать'}} плавку
+  </h5>
+  <span>
+    <button *ngIf="!isNew" class="btn btn-small red" (click)="deleteFuse()">
+      <i class="material-icons">delete</i>
+    </button>
+  </span>
+</div>
+
+<div class="row">
+  <form class="col s12 m6" [formGroup]="form" (ngSubmit)="onSubmit()">
+    <div class="input-field">
+      <input formControlName="fuse" id="fuse" type="text"
+        [ngClass]="{'invalid': form.get('fuse').invalid && form.get('fuse').touched}">
+      <label for="fuse">Номер плавки</label>
+      <span class="helper-text red-text" *ngIf="form.get('fuse').invalid && form.get('fuse').touched">
+        <span *ngIf="form.get('fuse').errors['required']">
+          Номер плавки не может быть пустым.
+        </span>
+      </span>
+    </div>
+    <div class="input-field">
+      <input formControlName="fuseCard" id="fuseCard" type="text"
+        [ngClass]="{'invalid': form.get('fuseCard').invalid && form.get('fuseCard').touched}">
+      <label for="fuseCard">Номер плавильной карты</label>
+      <span class="helper-text red-text" *ngIf="form.get('fuseCard').invalid && form.get('fuseCard').touched">
+        <span *ngIf="form.get('fuseCard').errors['required']">
+          Введите номер плавильной карты, поле не может быть пустым.
+        </span>
+      </span>
+    </div>
+    <div class="input-field">
+      <input formControlName="alloy" id="alloy" type="text"
+        [ngClass]="{'invalid': form.get('alloy').invalid && form.get('alloy').touched}">
+      <label for="fuseCard">Марка стали</label>
+      <span class="helper-text red-text" *ngIf="form.get('alloy').invalid && form.get('alloy').touched">
+        <span *ngIf="form.get('alloy').errors['required']">
+          Введите марку выплавляемой стали, поле не может быть пустым.
+        </span>
+      </span>
+    </div>
+
+    <div>
+      <button type="submit" [disabled]="form.invalid || form.disabled" class="waves-effect waves-light btn-small right">
+        <span><i class="material-icons">save</i></span>
+      </button>
+    </div>
+  </form>
+
+</div>
