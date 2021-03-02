@@ -15,6 +15,7 @@ const routes: Routes = [
   },
   {
     path: '', component: SiteLayoutComponent, canActivate: [AuthGuard], children: [
+      { path: 'setting', loadChildren: () => import('./setting-page/setting.module').then(m => m.SettingModule) },
       { path: 'overview', loadChildren: () => import('./overview-page/overview.module').then(m => m.OverviewModule) },
       { path: 'analytics', loadChildren: () => import('./analytics-page/analytics.module').then(m => m.AnalyticsModule) },
       { path: 'history', loadChildren: () => import('./history-page/history.module').then(m => m.HistoryModule) },

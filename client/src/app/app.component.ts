@@ -35,6 +35,11 @@ export class AppComponent implements OnInit {
       this.auth.setPhone(thisPhone)
     }
 
+    const thisRole = localStorage.getItem('my-role')
+    if (thisRole !== null) {
+      this.auth.setRole(thisRole)
+    }
+
     const thisId = localStorage.getItem('my-id')
     if (thisId !== null) {
       this.auth.setId(thisId)

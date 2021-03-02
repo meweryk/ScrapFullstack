@@ -4,6 +4,7 @@ export interface User {
   nicname: string
   shop: string
   phone?: string
+  role?: string
 }
 
 export interface Message {

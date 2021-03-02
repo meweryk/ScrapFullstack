@@ -20,6 +20,7 @@ module.exports.login = async function (req, res) {
       const shop = candidate.shop
       const email = candidate.email
       const phone = candidate.phone
+      const role = candidate.role
       const id = candidate._id
 
       res.status(200).json({
@@ -28,6 +29,7 @@ module.exports.login = async function (req, res) {
         shop: shop,
         email: email,
         phone: phone,
+        role: role,
         id: id
       })
     } else {
@@ -48,6 +50,7 @@ module.exports.login = async function (req, res) {
 module.exports.register = async function (req, res) {
   // email password
   const candidate = await User.findOne({ email: req.body.email })
+  const candiShop = await User.findOne({ shop: req.body.shop })
 
   if (candidate) {
     // Пользователь существует, нужно отправить ошибку
@@ -63,7 +66,8 @@ module.exports.register = async function (req, res) {
       password: bcrypt.hashSync(password, salt),
       nicname: req.body.nicname,
       shop: req.body.shop,
-      phone: req.body.phone
+      phone: req.body.phone,
+      role: candiShop ? 'worker' : 'boss'
     })
 
     try {

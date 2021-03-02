@@ -13,6 +13,7 @@ const orderRoutes = require('./routes/order')
 const positionRoutes = require('./routes/position')
 const deliveryRoutes = require('./routes/delivery')
 const fuseRoutes = require('./routes/fuse')
+const coeffRoutes = require('./routes/coeff')
 
 const keys = require('./config/keys')
 const app = express()
@@ -45,6 +46,7 @@ app.use('/api/order', orderRoutes)
 app.use('/api/position', positionRoutes)
 app.use('/api/delivery', deliveryRoutes)
 app.use('/api/fuse', fuseRoutes)
+app.use('/api/coefficient', coeffRoutes)
 
 if (process.env.NODE_ENV === 'production') {
   app.use(express.static('client/dist/client',

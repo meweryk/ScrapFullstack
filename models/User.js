@@ -20,6 +20,10 @@ const userSchema = new Schema({
   },
   phone: {
     type: String
+  },
+  role: {
+    type: String,
+    default: 'worker' // may be ['admin', 'boss', 'master', 'worker']
   }
 })
 

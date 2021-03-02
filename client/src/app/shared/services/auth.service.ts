@@ -14,6 +14,7 @@ export class AuthService {
   private myShop = null
   private myEmail = null
   private myPhone = null
+  private myRole = null
   private myId = null
 
   constructor(private http: HttpClient) { }
@@ -22,11 +23,11 @@ export class AuthService {
     return this.http.post<User>('/api/auth/register', user)
   }
 
-  login(user: User): Observable<{ token: string, nicname: string, shop: string, email: string, phone: string, id: string }> {
-    return this.http.post<{ token: string, nicname: string, shop: string, email: string, phone: string, id: string }>('/api/auth/login', user)
+  login(user: User): Observable<{ token: string, nicname: string, shop: string, email: string, phone: string, role: string, id: string }> {
+    return this.http.post<{ token: string, nicname: string, shop: string, email: string, phone: string, role: string, id: string }>('/api/auth/login', user)
       .pipe(
         tap(
-          ({ token, nicname, shop, email, phone, id }) => {
+          ({ token, nicname, shop, email, phone, role, id }) => {
             localStorage.setItem('auth-token', token)
             this.setToken(token)
             localStorage.setItem('my-nicname', nicname)
@@ -37,6 +38,8 @@ export class AuthService {
             this.setEmail(email)
             localStorage.setItem('my-phone', phone)
             this.setPhone(phone)
+            localStorage.setItem('my-role', role)
+            this.setRole(role)
             localStorage.setItem('my-id', id)
             this.setId(id)
           }
@@ -64,6 +67,10 @@ export class AuthService {
     this.myPhone = phone
   }
 
+  setRole(role: string) {
+    this.myRole = role
+  }
+
   setId(id: string) {
     this.myId = id
   }
@@ -88,6 +95,10 @@ export class AuthService {
     return this.myPhone
   }
 
+  getRole(): string {
+    return this.myRole
+  }
+
   getId(): string {
     return this.myId
   }
@@ -102,6 +113,7 @@ export class AuthService {
     this.setShop(null)
     this.setEmail(null)
     this.setPhone(null)
+    this.setRole(null)
     this.setId(null)
     localStorage.clear()
   }
