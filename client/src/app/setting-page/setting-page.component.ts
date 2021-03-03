@@ -9,6 +9,8 @@ import { AuthService } from '../shared/services/auth.service';
 })
 export class SettingPageComponent implements OnInit {
   form: FormGroup
+  loader = false
+  open = false
 
   phone: string = ''
   nicname: string = ''
@@ -34,9 +36,15 @@ export class SettingPageComponent implements OnInit {
       shop: new FormControl(this.shop, [Validators.required]),
       phone: new FormControl(this.phone, [Validators.pattern('^[0-9]+(?!.)')])
     })
+
+    this.form.disable()
   }
 
   changeSetting() {
+    this.open = true
+    this.form.enable()
   }
+
+  onSubmit() { }
 
 }
