@@ -37,7 +37,6 @@ export class SiteLayoutComponent implements OnInit, AfterViewInit, OnDestroy {
 
   ngOnInit() {
     this.width = window.innerWidth
-
     this.nicname = this.auth.getNicname()
     this.shop = this.auth.getShop()
   }

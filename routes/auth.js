@@ -9,6 +9,14 @@ router.post('/login', controller.login)
 // localhost:5000/api/auth/register
 router.post('/register', controller.register)
 
+router.patch('/update/:id', passport.authenticate('jwt', {
+    session: false
+}), controller.update)
+
+router.delete('/:id', passport.authenticate('jwt', {
+    session: false
+}), controller.remove)
+
 router.get('/:id', passport.authenticate('jwt', {
     session: false
 }), controller.getById)

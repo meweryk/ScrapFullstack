@@ -5,6 +5,7 @@ export interface User {
   shop: string
   phone?: string
   role?: string
+  _id?: string
 }
 
 export interface Message {

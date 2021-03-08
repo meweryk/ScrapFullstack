@@ -13,7 +13,7 @@
       <i class="material-icons prefix">markunread</i>
       <input formControlName="email" id="email" type="email" [readOnly]='!open'
         [ngClass]="{invalid: form.get('email').invalid && form.get('email').touched}">
-      <label for="email" [ngStyle]="{display: form.get('email').touched ? 'block' : 'none'}">Email:</label>
+      <label for="email" [ngStyle]="{display: (form.get('email').touched && open) ? 'block' : 'none'}">Email:</label>
       <span class="helper-text red-text" *ngIf="form.get('email').invalid && form.get('email').touched">
         <span *ngIf="form.get('email').errors['required']">Email не должун быть пустым</span>
         <span *ngIf="form.get('email').errors['email']">Введите корректный email адрес</span>
@@ -24,10 +24,11 @@
       <i class="material-icons prefix">vpn_key</i>
       <input formControlName="password" id="password" type="password"
         [ngClass]="{invalid: form.get('password').invalid && (form.get('password').touched || form.get('password').dirty)}">
-      <label for="password">Пароль:</label>
+      <label for="password"
+        [ngStyle]="{display: (form.get('password').touched && open) ? 'block' : 'none'}">Пароль:</label>
       <span class="helper-text red-text"
         *ngIf="form.get('password').invalid && (form.get('password').touched || form.get('password').dirty)">
-        <span *ngIf="form.get('password').errors['required']">Пароль не должун быть пустым</span>
+        <span *ngIf="form.get('password').errors['required']">Пароль не должен быть пустым</span>
         <span
           *ngIf="form.get('password').errors['minlength'] && form.get('password').errors['minlength']['requiredLength']">
           Пароль должен быть больше {{form.get('password').errors['minlength']['requiredLength']}} символов.
@@ -40,7 +41,8 @@
       <i class="material-icons prefix">account_circle</i>
       <input formControlName="nicname" id="nicname" type="text" [readOnly]='!open'
         [ngClass]="{invalid: form.get('nicname').invalid && form.get('nicname').touched}">
-      <label for="nicname" [ngStyle]="{display: form.get('nicname').touched ? 'block' : 'none'}">Ф.И.О:</label>
+      <label for="nicname"
+        [ngStyle]="{display: (form.get('nicname').touched  && open) ? 'block' : 'none'}">Ф.И.О:</label>
       <span class="helper-text red-text" *ngIf="form.get('nicname').invalid && form.get('nicname').touched">
         <span *ngIf="form.get('nicname').errors['required']">Поле не должно быть пустым</span>
       </span>
@@ -50,7 +52,8 @@
       <i class="material-icons prefix">local_offer</i>
       <input formControlName="shop" id="shop" type="text" [readOnly]='!open'
         [ngClass]="{invalid: form.get('shop').invalid && form.get('shop').touched}">
-      <label for="shop" [ngStyle]="{display: form.get('shop').touched ? 'block' : 'none'}">Управление, отдел, цех,
+      <label for="shop" [ngStyle]="{display: (form.get('shop').touched  && open) ? 'block' : 'none'}">Управление, отдел,
+        цех,
         склад:</label>
       <span class="helper-text red-text" *ngIf="form.get('shop').invalid && form.get('shop').touched">
         <span *ngIf="form.get('shop').errors['required']">Поле не должно быть пустым</span>
@@ -61,7 +64,7 @@
       <i class="material-icons prefix">local_phone</i>
       <input formControlName="phone" id="phone" type="text" maxlength="15" [readOnly]='!open' pattern="^[0-9]+(?!.)"
         [ngClass]="{invalid: form.get('phone').invalid && (form.get('phone').touched || form.get('phone').dirty)}">
-      <label for="phone" [ngStyle]="{display: form.get('phone').touched ? 'block' : 'none'}">Телефон</label>
+      <label for="phone" [ngStyle]="{display: (form.get('phone').touched  && open) ? 'block' : 'none'}">Телефон</label>
       <span class="helper-text red-text"
         *ngIf="form.get('phone').invalid && (form.get('phone').touched || form.get('phone').dirty)">
         <span *ngIf="form.get('phone').errors['pattern']">Введите корректный номер, только цифры.</span>
@@ -69,9 +72,9 @@
     </div>
 
   </div>
-  <div class="card-action" *ngIf="open">
+  <div class="card-action right-align" *ngIf="open">
+    <button class="modal-action waves-effect waves-black btn-flat" (click)="chancel()">Отмена</button>
     <button type="submit" class="modal-action btn waves-effect"
       [disabled]="form.invalid || form.disabled">Сохранить</button>
-    <button class="modal-action btn waves-effect">Отмена</button>
   </div>
 </form>
