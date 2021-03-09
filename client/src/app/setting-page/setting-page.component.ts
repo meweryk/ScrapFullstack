@@ -77,10 +77,6 @@ export class SettingPageComponent implements OnInit, OnDestroy {
     }
   }
 
-  /*change(incriased: any) {
-    this.onChanged.emit(incriased)
-  }*/
-
   onSubmit() {
     this.form.setValue
     this.form.disable()
@@ -102,10 +98,10 @@ export class SettingPageComponent implements OnInit, OnDestroy {
       this.sSub = this.auth.update(user).subscribe(
         () => {
           MaterialService.toast('Изменения сохранены')
-          //this.router.navigate(['/setting'])
-          //this.fatch()
-          //this.open = false
-          window.location.reload()
+          this.router.navigate(['/setting'])
+          this.fatch()
+          this.open = false
+          //window.location.reload()
         },
         error => {
           MaterialService.toast(error.error.message)
@@ -113,6 +109,24 @@ export class SettingPageComponent implements OnInit, OnDestroy {
           this.loader = false
         }
       )
+    } else {
+      this.fatch()
+      this.open = false
+    }
+  }
+
+  userDel(event: Event) {
+    //event.stopPropagation()
+    const desision = window.confirm(`${this.nicname} - удалить профиль? Вы будете перенаправлены на страницу регистрацию.`)
+    if (desision) {
+      this.sSub = this.auth.delete(this.id).subscribe(
+        response => MaterialService.toast(response.message),
+        error => MaterialService.toast(error.error.message),
+        () => this.router.navigate(['/register'])
+      )
+    } else {
+      this.fatch()
+      this.open = false
     }
   }
 
