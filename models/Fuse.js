@@ -6,6 +6,10 @@ const fuseSchema = new Schema({
         type: Date,
         default: Date.now
     },
+    fuseDate: {
+        type: Date,
+        default: null
+    },
     update: {
         type: Date,
         default: Date.now
@@ -20,7 +24,7 @@ const fuseSchema = new Schema({
     },
     fuseCard: {
         type: String,
-        required: true
+        default: null
     },
     shop: {
         type: String

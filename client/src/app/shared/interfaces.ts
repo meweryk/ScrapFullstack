@@ -192,6 +192,7 @@ export interface DeliveryPosition {
 export interface Fuse {
   _id?: string
   fuse?: string
+  fuseDate?: Date
   fuseCard?: string
   alloy?: string
   shop?: string

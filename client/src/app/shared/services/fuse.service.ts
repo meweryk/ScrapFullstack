@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Fuse, Message } from '../interfaces';
 import { Observable } from 'rxjs';
+import { formatDate } from '@angular/common';
 
 
 @Injectable({
@@ -24,11 +25,12 @@ export class FuseService {
   }
 
   update(fuse: Fuse): Observable<Fuse> {
-    const fd = new FormData();
+    /*const fd = new FormData();
     fd.append('fuse', fuse.fuse)
     fd.append('fuseCard', fuse.fuseCard)
     fd.append('alloy', fuse.alloy)
-    return this.http.patch<Fuse>(`/api/fuse/${fuse._id}`, fd);
+    fd.append('fuseDate', fuse.fuseDate)*/
+    return this.http.patch<Fuse>(`/api/fuse/${fuse._id}`, fuse);
   }
 
   delete(id: string): Observable<Message> {

@@ -85,6 +85,7 @@ module.exports.create = async function (req, res) {
     const fuse = new Fuse({
       fuse: req.body.fuse,
       fuseCard: req.body.fuseCard,
+      fuseDate: req.body.fuseDate,
       alloy: req.body.alloy,
       user: req.user.id,
       shop: req.user.shop,
@@ -105,6 +106,7 @@ module.exports.update = async function (req, res) {
     const updated = {
       fuse: req.body.fuse,
       fuseCard: req.body.fuseCard,
+      fuseDate: req.body.fuseDate,
       alloy: req.body.alloy,
       user: req.user.id,
       shop: req.user.shop,
