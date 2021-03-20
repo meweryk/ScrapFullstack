@@ -3,6 +3,7 @@ import { LoaderComponent } from './loader/loader.component';
 import { SearchPipe } from './pipes/search.pipe';
 import { SearchShopPipe } from './pipes/searchshop.pipe';
 import { HistoryListPipe } from './pipes/history-list.pipe';
+import { FuseFilterPipe } from './pipes/fuse-filter.pipe'
 import { ReactiveFormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 
@@ -11,7 +12,8 @@ import { CommonModule } from '@angular/common';
     LoaderComponent,
     SearchPipe,
     HistoryListPipe,
-    SearchShopPipe
+    SearchShopPipe,
+    FuseFilterPipe
   ],
   imports: [
     CommonModule,
@@ -21,7 +23,8 @@ import { CommonModule } from '@angular/common';
     LoaderComponent,
     SearchPipe,
     HistoryListPipe,
-    SearchShopPipe
+    SearchShopPipe,
+    FuseFilterPipe
   ]
 })
 export class ComponentModule { }

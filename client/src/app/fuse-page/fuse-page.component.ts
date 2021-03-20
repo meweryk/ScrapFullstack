@@ -10,6 +10,8 @@ import { FuseService } from '../shared/services/fuse.service'
 })
 export class FusePageComponent implements OnInit {
   fuses$: Observable<Fuse[]>
+  searchFuse: string = ''
+  searchFuseDate: Date
 
   constructor(private fuseService: FuseService) { }
 

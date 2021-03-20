@@ -5,11 +5,24 @@
 </div>
 
 <div class="row" *ngIf="fuses$ | async as fuses; else loader">
-  <div class="col s12">
+  <div class="col l4 m6 s12 input-field" [style.margin.px]="0">
+    <i class="material-icons prefix">search</i>
+    <input type="text" style="cursor: pointer; color: #669;" [(ngModel)]="searchFuse"
+      placeholder="Марка стали или номер плавки">
+  </div>
+  <div class="col l4 m6 s12 input-field" [style.margin.px]="0">
+    <i class="material-icons prefix">date_range</i>
+    <input type="date" [(ngModel)]="searchFuseDate">
+  </div>
+
+  <div class="col s12" style="padding: 0rem;">
     <div class="collection" *ngIf="fuses.length !== 0; else empty">
-      <a *ngFor="let fuse of fuses" [routerLink]="['/fuse', fuse._id]" class="collection-item">
-        {{fuse.fuse}}, марка {{fuse.alloy}}, п.к.{{fuse.fuseCard}}, дата
-        {{fuse.fuseDate | date:"dd.MM.yy" }}
+      <a style="padding: 0.2rem;"
+        *ngFor="let fuse of fuses | fuseFilter: [searchFuse, searchFuseDate | date:'yyyy-MM-dd']"
+        [routerLink]="['/fuse', fuse._id]" class="collection-item">
+        <span style="padding: 0rem;" class="col s8 left-align">{{fuse.fuseDate | date:"dd.MM.yy" }} - пл.{{fuse.fuse}}
+          ({{fuse.fuseCard}})</span>
+        <span style="padding: 0rem;">{{fuse.alloy}}</span>
       </a>
     </div>
     <ng-template #empty>

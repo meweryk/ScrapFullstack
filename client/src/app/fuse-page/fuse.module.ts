@@ -8,7 +8,9 @@ import { FusePageComponent } from "./fuse-page.component";
 import { FuseCardComponent } from './fuse-card/fuse-card.component';
 
 @NgModule({
-  declarations: [FusePageComponent, FuseCardComponent],
+  declarations: [
+    FusePageComponent, FuseCardComponent
+  ],
   imports: [
     CommonModule,
     SharedModule,
