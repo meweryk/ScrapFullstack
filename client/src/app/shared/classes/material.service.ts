@@ -72,9 +72,10 @@ export class MaterialService {
     })
   }
 
-  static initDropdown(ref: ElementRef): MaterialInstance {
+  static initDropdown(ref: ElementRef, constrainWidth?, coverTrigger?): MaterialInstance {
     return M.Dropdown.init(ref.nativeElement, {
-      coverTrigger: false
+      constrainWidth: constrainWidth,
+      coverTrigger: coverTrigger
     })
   }
 }

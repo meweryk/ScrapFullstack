@@ -18,12 +18,16 @@ export class FuseCardComponent implements OnInit, AfterViewInit, OnDestroy {
   @ViewChild('input') innputRef: ElementRef
   @ViewChild('modalId') modalIdRef: ElementRef
   @ViewChild('start') startRef: ElementRef
+  @ViewChild('dropdown') dropdownRef: ElementRef
+
+  modalId: MaterialInstance
+  start: MaterialDatepicker
+  dropdown: MaterialInstance
+
   form: FormGroup
   isNew = true //ввод новой плавки
   fuse: Fuse
-  start: MaterialDatepicker
   fusepl: string = ''
-  modalId: MaterialInstance
   isValid = true
   open = false //неактивные кнопки сохранить, активная кнопка изменить
 
@@ -68,6 +72,8 @@ export class FuseCardComponent implements OnInit, AfterViewInit, OnDestroy {
   ngAfterViewInit() {
     this.modalId = MaterialService.initModal(this.modalIdRef)
     this.start = MaterialService.initDatepicker(this.startRef, this.validate.bind(this))
+    this.dropdown = MaterialService.initDropdown(this.dropdownRef, false, true)
+    this.dropdown.open()
   }
 
   validate() {
@@ -81,6 +87,7 @@ export class FuseCardComponent implements OnInit, AfterViewInit, OnDestroy {
   ngOnDestroy() {
     this.modalId.destroy()
     this.start.destroy()
+    this.dropdown.destroy()
   }
 
   onAddFuseId() {
@@ -117,6 +124,7 @@ export class FuseCardComponent implements OnInit, AfterViewInit, OnDestroy {
 
   onCancel() {
     this.modalId.close()
+    this.dropdown.open()
   }
 
   onSubmit() {
@@ -141,6 +149,7 @@ export class FuseCardComponent implements OnInit, AfterViewInit, OnDestroy {
         this.fuse = fuse
         MaterialService.toast('Изменения сохранены.')
         this.onCancel()
+        this.dropdown.open()
         this.fusepl = fuse.fuse
         this.isNew = false
       },

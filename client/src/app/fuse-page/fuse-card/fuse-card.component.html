@@ -1,8 +1,9 @@
-<div class="page-title">
+<div class="page-title" style="padding: 0;">
   <h5>
     <a routerLink="/fuse">Выплавка</a>
     <i class="tiny material-icons">keyboard_arrow_right</i>
-    {{isNew ? 'Добавить плавку': 'Редактировать плавку '}} {{fusepl}}
+    <span style="font-size: 1.2rem;">{{isNew ? 'Добавить плавку': 'Редактировать плавку '}}
+      {{fusepl}}</span>
   </h5>
   <span>
     <button *ngIf="!isNew" class="btn btn-small red" (click)="deleteFuse()">
@@ -11,22 +12,24 @@
   </span>
 </div>
 
-<nav class="nav">
-  <div class="nav-vrapper">
-    <ul class="tabs tabs-transparent">
-      <li class="tab"><a (click)="onAddFuseId()">Идентификатор плавки</a></li>
-      <li class="tab"><a class="active" fuseIdd>Расчёт массы шихты</a></li>
-      <li class="tab disabled"><a href="#test3">Шихтовые материалы</a></li>
-      <li class="tab"><a href="#test4">Расчёт ферросплавов</a></li>
-    </ul>
-  </div>
-</nav>
+<div class="row">
+  <a #dropdown class="dropdown-trigger" data-target="dropdownFuse" style="color: #243946">
+    <i class="small material-icons center">list</i>
+  </a>
+  <ul id='dropdownFuse' class='dropdown-content'>
+    <li><a (click)="onAddFuseId()"><i class="tiny material-icons right">keyboard_arrow_right</i>Идентификатор плавки</a>
+    </li>
+    <li class="divider" tabindex="-1"></li>
+    <li><a class="active" href="#test2"><i class="tiny material-icons right">keyboard_arrow_right</i>Расчёт массы
+        шихты</a></li>
+    <li class="divider" tabindex="-1"></li>
+    <li><a href="#test3"><i class="tiny material-icons right">keyboard_arrow_right</i>Шихтовые материалы</a></li>
+    <li class="divider" tabindex="-1"></li>
+    <li><a href="#test4"><i class="tiny material-icons right">keyboard_arrow_right</i>Расчёт ферросплавов</a></li>
+  </ul>
+</div>
 
-<ul class="sidenav" id="mobile-demo">
-  <li><a href="sass.html">Sass</a></li>
-  <li><a href="badges.html">Components</a></li>
-  <li><a href="collapsible.html">JavaScript</a></li>
-</ul>
+
 
 <div class="col s12">
   <form class="col s12 m6" [formGroup]="form" (ngSubmit)="onSubmit()">
@@ -88,6 +91,3 @@
     </div>
   </form>
 </div>
-<div id="test2" class="col s12">Test 2</div>
-<div id="test3" class="col s12">Test 3</div>
-<div id="test4" class="col s12">Test 4</div>

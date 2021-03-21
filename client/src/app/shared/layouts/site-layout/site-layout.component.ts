@@ -49,7 +49,7 @@ export class SiteLayoutComponent implements OnInit, AfterViewInit, OnDestroy {
   ngAfterViewInit(): void {
     MaterialService.initializeFloatingButton(this.floatingRef)
     this.sidenav = MaterialService.initSidenav(this.sidenavRef)
-    this.dropdown = MaterialService.initDropdown(this.dropdownRef)
+    this.dropdown = MaterialService.initDropdown(this.dropdownRef, true, false)
   }
 
   logout(event: Event) {
