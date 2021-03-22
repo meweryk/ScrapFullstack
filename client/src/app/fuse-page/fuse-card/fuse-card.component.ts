@@ -28,6 +28,7 @@ export class FuseCardComponent implements OnInit, AfterViewInit, OnDestroy {
   isNew = true //ввод новой плавки
   fuse: Fuse
   fusepl: string = ''
+  fuseD: string = ''
   isValid = true
   open = false //неактивные кнопки сохранить, активная кнопка изменить
 
@@ -63,6 +64,7 @@ export class FuseCardComponent implements OnInit, AfterViewInit, OnDestroy {
           if (fuse) {
             this.fuse = fuse
             this.fusepl = fuse.fuse
+            this.fuseD = formatDate(this.fuse.fuseDate, 'dd.MM.yyyy', 'en')
           }
         },
         error => MaterialService.toast(error.error.message)
@@ -151,6 +153,7 @@ export class FuseCardComponent implements OnInit, AfterViewInit, OnDestroy {
         this.onCancel()
         this.dropdown.open()
         this.fusepl = fuse.fuse
+        this.fuseD = formatDate(this.fuse.fuseDate, 'dd.MM.yyyy', 'en')
         this.isNew = false
       },
       (error: {
