@@ -19,7 +19,6 @@ export class MaterialsFilterComponent implements OnInit, AfterViewInit, OnDestro
   select1: MaterialInstance
   select2: MaterialInstance
 
-
   vid: string
   classSteel: string
   groupSteel: string

@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Message, User } from '../interfaces';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { tap } from 'rxjs/operators';
 
@@ -120,6 +120,14 @@ export class AuthService {
 
   getById(id: string): Observable<User> {
     return this.http.get<User>(`api/auth/${id}`)
+  }
+
+  getByShop(params: any = {}): Observable<User[]> {
+    return this.http.get<User[]>('/api/auth', {
+      params: new HttpParams({
+        fromObject: params
+      })
+    })
   }
 
   update(user: User): Observable<{ token: string, nicname: string, shop: string, email: string, phone: string, role: string, id: string }> {

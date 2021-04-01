@@ -24,6 +24,14 @@ const userSchema = new Schema({
   role: {
     type: String,
     default: 'worker' // may be ['admin', 'boss', 'master', 'worker']
+  },
+  flagRead: {
+    type: Boolean,
+    default: false
+  },
+  flagWrite: {
+    type: Boolean,
+    default: false
   }
 })
 

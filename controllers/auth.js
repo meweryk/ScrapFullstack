@@ -66,7 +66,9 @@ module.exports.register = async function (req, res) {
       nicname: req.body.nicname,
       shop: req.body.shop,
       phone: req.body.phone,
-      role: candiShop ? 'worker' : 'boss'
+      role: candiShop ? 'worker' : 'boss',
+      flagRead: candiShop ? false : true,
+      flagWrite: candiShop ? false : true
     })
 
     try {
@@ -82,6 +84,30 @@ module.exports.getById = async function (req, res) {
   try {
     const user = await User.findById(req.params.id, { email: true, phone: true })
     res.status(200).json(user)
+  } catch (e) {
+    errorHandler(res, e)
+  }
+}
+
+module.exports.getByShop = async function (req, res) {
+  const query = {}
+  query._id = { $ne: req.query._id }
+
+  if (req.query.role === "admin") {
+
+  } else if (req.query.role === "boss" || req.query.role === "master") {
+    if (req.query.shop) {
+      query.shop = req.query.shop
+    }
+  } else {
+    res.status(409).json({
+      message: 'Нет прав просмотра штатного расписания.'
+    })
+  }
+
+  try {
+    const users = await User.find(query, { password: 0 }).sort({ shop: 1 })
+    res.status(200).json(users)
   } catch (e) {
     errorHandler(res, e)
   }

@@ -75,7 +75,9 @@ export class FuseCardComponent implements OnInit, AfterViewInit, OnDestroy {
     this.modalId = MaterialService.initModal(this.modalIdRef)
     this.start = MaterialService.initDatepicker(this.startRef, this.validate.bind(this))
     this.dropdown = MaterialService.initDropdown(this.dropdownRef, false, true)
-    this.dropdown.open()
+    if (this.isNew) {
+      this.dropdown.open()
+    }
   }
 
   validate() {
@@ -126,7 +128,9 @@ export class FuseCardComponent implements OnInit, AfterViewInit, OnDestroy {
 
   onCancel() {
     this.modalId.close()
-    this.dropdown.open()
+    if (this.isNew) {
+      this.dropdown.open()
+    }
   }
 
   onSubmit() {
@@ -150,11 +154,10 @@ export class FuseCardComponent implements OnInit, AfterViewInit, OnDestroy {
       (fuse: Fuse) => {
         this.fuse = fuse
         MaterialService.toast('Изменения сохранены.')
+        this.isNew = false
         this.onCancel()
-        this.dropdown.open()
         this.fusepl = fuse.fuse
         this.fuseD = formatDate(this.fuse.fuseDate, 'dd.MM.yyyy', 'en')
-        this.isNew = false
       },
       (error: {
         error: {

@@ -78,7 +78,7 @@ export class HistoryListComponent implements OnInit, OnDestroy, AfterViewInit {
         this.email = user.email
       })
     } else {
-      //если на странице поставщика б берём номер покупателя
+      //если на странице поставщика берём номер покупателя
       this.auth.getById(this.selectedOrder.userBuyer).subscribe(user => {
         this.phone = user.phone
         this.email = user.email

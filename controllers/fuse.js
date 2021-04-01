@@ -74,11 +74,15 @@ module.exports.getById = async function (req, res) {
 
 module.exports.create = async function (req, res) {
   const newfuse = await Fuse.findOne({ fuse: req.body.fuse })
-
+  const newfuseCard = await Fuse.findOne({ fuseCard: req.body.fuseCard })
   if (newfuse) {
     // плавка существует, нужно отправить ошибку
     res.status(409).json({
       message: 'Плавка уже существует. Войдите и добавьте свои позиции.'
+    })
+  } else if (newfuseCard) {
+    res.status(409).json({
+      message: 'Плавильная карта уже существует. Войдите и добавьте свои позиции.'
     })
   } else {
     //создаём новую плавку

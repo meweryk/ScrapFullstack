@@ -21,4 +21,8 @@ router.get('/:id', passport.authenticate('jwt', {
     session: false
 }), controller.getById)
 
+router.get('/', passport.authenticate('jwt', {
+    session: false
+}), controller.getByShop)
+
 module.exports = router

@@ -1,0 +1,14 @@
+tbody th,
+tbody td {
+    padding: 0.4em;
+    transition: .3s linear;
+    border-bottom: 1px solid grey
+}
+
+[type="checkbox"]:not(:checked), [type="checkbox"]:checked {
+  position: absolute;
+  opacity: 1;
+  pointer-events: visible;
+}
+
+

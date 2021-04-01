@@ -1,0 +1,155 @@
+<div class="row card z-depth-3" [ngStyle]="{backgroundColor: '#fff3e0'}">
+  <div class="card-content">
+
+    <span class="card-title center-align" *ngIf="users.length != 0">Персонал</span>
+
+    <div class="row" *ngIf="!loading; else loader">
+      <div>
+        <div class="col s12">
+          <div class="table-container" [style.maxHeight.px]="height">
+            <table class="highlight brown-text text-lighten-5">
+              <thead>
+                <tr>
+                  <th>Подразделение</th>
+                  <th>Email</th>
+                  <th>Имя</th>
+                  <th>Телефон</th>
+                  <th>Роль</th>
+                  <th>Чтение</th>
+                  <th>Запись</th>
+                  <th>Действие</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let user of users">
+                  <td>{{user.shop}}</td>
+                  <td>{{user.email}}</td>
+                  <td>{{user.nicname}}</td>
+                  <td>{{user.phone}}</td>
+                  <td>
+                    <div class="input-fild inline order-position-input" (click)="onChangeRole(user)">
+                      <input type="text" #role="ngModel" [(ngModel)]="user.role" maxlength="11" list="profiList"
+                        style="cursor: pointer; width: 8rem; font-size: 1rem;">
+                      <datalist id="profiList">
+                        <option *ngFor="let item of profiList" [value]="item"></option>
+                      </datalist>
+                    </div>
+                  </td>
+                  <td class="center">
+                    <input #flagRead="ngModel" type="checkbox" [(ngModel)]="user.flagRead" value="{{user.flagRead}}"
+                      (change)="isAllSelected()">
+                  </td>
+                  <td class="center">
+                    <input #flagWrite="ngModel" type="checkbox" [(ngModel)]="user.flagWrite" value="{{user.flagWrite}}"
+                      (change)="isAllSelected()">
+                  </td>
+                  <td class="center">
+                    <a class="collection-item collection-item-icon">
+                      <span class="valign-wrapper">
+                        <i class="material-icons" (click)="onDeleteUser($event, user)">delete</i>
+                      </span>
+                    </a>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+      <ng-template #empty>
+        <div class="center brown-text text-darken-3"></div>
+      </ng-template>
+    </div>
+    <ng-template #loader>
+      <app-loader></app-loader>
+    </ng-template>
+  </div>
+</div>
+
+<!--<form [formGroup]="form" (ngSubmit)="onSubmit()">
+  <div class="modal card-position" #modal>
+    <div class="modal-content">
+      <h4 class="mb1">Добавить позицию</h4>
+      <div class="row">
+        <div class="input-field col s12 m4">
+          <input #autocomplete class="autocomplete" name="name" formControlName="name" id="pos-name" type="text"
+            maxlength="30" [ngClass]="{'invalid': form.get('name').invalid && form.get('name').touched}">
+          <label for="pos-name">Название</label>
+          <span *ngIf="form.get('name').invalid && form.get('name').touched" class="helper-text red-text">
+            Позиция не должна быть пустой.
+          </span>
+        </div>
+
+        <div class="input-field col s9 m3">
+          <input formControlName="stock" id="pos-stock" type="number" maxlength="8"
+            [ngClass]="{'invalid': form.get('stock').invalid && form.get('stock').touched}">
+          <label for="pos-stock">количество</label>
+          <span *ngIf="form.get('stock').invalid && (form.get('stock').touched || form.get('stock').dirty)"
+            class="helper-text red-text">
+            Введите корректный запас (min = 0).
+          </span>
+        </div>
+
+        <div class="input-field col s3 m2">
+          <select formControlName="rank" #select name="rank"
+            [ngClass]="{'invalid': form.get('rank').invalid && form.get('rank').touched}">
+            <option value="" disabled><span style="font-size: 14px"></span>
+            </option>
+            <option value="т">т</option>
+            <option value="шт">шт</option>
+          </select>
+          <label>Мера</label>
+        </div>
+
+        <div class="input-field col s12 m3">
+          <input formControlName="cost" id="pos-cost" type="number" maxlength=8
+            [ngClass]="{'invalid': form.get('cost').invalid && form.get('cost').touched}">
+          <label for="pos-cost">Цена</label>
+          <span *ngIf="form.get('cost').invalid && form.get('cost').touched" class="helper-text red-text">
+            Введите корректную цену (min = 1).
+          </span>
+        </div>
+
+        <div class="col s12 center">
+          <img class="responsive-img h120" [src]="imagePreview" *ngIf="imagePreview">
+        </div>
+
+        <div class="input-field col s12 center">
+          <input formControlName="imageSrc" id="imageSrc" name="imageSrc" class="dn" type="file" #input
+            (change)="onFileUpload($event)">
+
+          <button (click)="triggerClick()" [disabled]="form.disabled" type="button"
+            class="waves-effect waves-light btn-small orange lighten-2 brown-text text-lighten-1">
+            <i class="material-icons left">backup</i>
+            Загрузить изображение
+          </button>
+        </div>
+
+        <div class="row">
+          <div class="input-field col s12">
+            <i class="material-icons prefix">mode_edit</i>
+            <textarea formControlName="exposition" id="exposition" name="exposition" type="text"
+              class="materialize-textarea"
+              [ngClass]="{'invalid': form.get('exposition').invalid && (form.get('exposition').touched || form.get('exposition').dirty)}"></textarea>
+            <label for="exposition">Описание</label>
+            <span class="helper-text" *ngIf="form.get('exposition').dirty">
+              <span [ngStyle]="{color: form.get('exposition').invalid ? '#f44336 ' : '#4db6ac'}">Не
+                больше 400 символов.</span>
+              <span class="red-text"
+                *ngIf="form.get('exposition').invalid && (form.get('exposition').touched || form.get('exposition').dirty)">
+                Сейчас {{form.get('exposition').errors['maxlength']['actualLength']}}
+              </span>
+            </span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="modal-footer">
+      <button type="button" (click)="onCancel()" class="modal-action waves-effect waves-black btn-flat"
+        [disabled]="form.disabled">Отмена</button>
+      <button class="modal-action btn waves-effect" type="submit"
+        [disabled]="form.invalid || form.disabled">Сохранить</button>
+    </div>
+  </div>
+</form>-->

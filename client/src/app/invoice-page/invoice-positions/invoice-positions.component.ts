@@ -1,5 +1,5 @@
 import { Component, OnInit, Input, EventEmitter, Output } from '@angular/core';
-import { OrderPosition, DeliveryPosition } from 'src/app/shared/interfaces';
+import { DeliveryPosition } from 'src/app/shared/interfaces';
 import { Observable, of } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { InvoiceServise } from '../invoice.service';

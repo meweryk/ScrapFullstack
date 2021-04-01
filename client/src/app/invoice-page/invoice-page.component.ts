@@ -83,7 +83,7 @@ export class InvoicePageComponent implements OnInit, OnChanges, OnDestroy {
     this.deliveryId = null
     this.newOrder = null
 
-    //создание гдубокой копии массива позиций для автономной работы
+    //создание глубокой копии массива позиций для автономной работы
     let newlist = this.deliveryOrder.list.filter(order => order.shopSeller === this.shop)
     let key: string | number
     for (key in newlist) {
