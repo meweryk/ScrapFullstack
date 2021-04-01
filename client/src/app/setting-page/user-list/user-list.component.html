@@ -28,8 +28,8 @@
                   <td>{{user.phone}}</td>
                   <td>
                     <div class="input-fild inline order-position-input" (click)="onChangeRole(user)">
-                      <input type="text" #role="ngModel" [(ngModel)]="user.role" maxlength="11" list="profiList"
-                        style="cursor: pointer; width: 8rem; font-size: 1rem;">
+                      <input type="text" #role="ngModel" [(ngModel)]="user.role" maxlength="7" list="profiList"
+                        style="cursor: pointer; width: 5rem; font-size: 1rem;">
                       <datalist id="profiList">
                         <option *ngFor="let item of profiList" [value]="item"></option>
                       </datalist>
