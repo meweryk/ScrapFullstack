@@ -27,21 +27,25 @@
                   <td>{{user.nicname}}</td>
                   <td>{{user.phone}}</td>
                   <td>
-                    <div class="input-fild inline order-position-input" (click)="onChangeRole(user)">
-                      <input type="text" #role="ngModel" [(ngModel)]="user.role" maxlength="7" list="profiList"
-                        style="cursor: pointer; width: 5rem; font-size: 1rem;">
-                      <datalist id="profiList">
-                        <option *ngFor="let item of profiList" [value]="item"></option>
-                      </datalist>
+                    <div class="input-fild">
+                      <select type="text" name="role" #role="ngModel" [(ngModel)]="user.role"
+                        (click)="onChangeRole(user)">
+                        <option value="admin">админ</option>
+                        <option value="boss">руководитель</option>
+                        <option value="master">мастер</option>
+                        <option value="worker">рабочий</option>
+                      </select>
                     </div>
                   </td>
-                  <td class="center">
-                    <input #flagRead="ngModel" type="checkbox" [(ngModel)]="user.flagRead" value="{{user.flagRead}}"
-                      (change)="isAllSelected()">
+                  <td>
+                    <div class="valign-wrapper hoverable">
+                      <input type="checkbox" [(ngModel)]="user.flagRead" (change)="isReadSelected()">
+                    </div>
                   </td>
-                  <td class="center">
-                    <input #flagWrite="ngModel" type="checkbox" [(ngModel)]="user.flagWrite" value="{{user.flagWrite}}"
-                      (change)="isAllSelected()">
+                  <td>
+                    <div class="valign-wrapper hoverable">
+                      <input type="checkbox" [(ngModel)]="user.flagWrite" (change)="isWriteSelected()">
+                    </div>
                   </td>
                   <td class="center">
                     <a class="collection-item collection-item-icon">

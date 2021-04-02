@@ -61,7 +61,7 @@ module.exports.create = async function (req, res) {
 
 module.exports.update = async function (req, res) {
     const upmaterial = await Material.findOne({ _id: req.params.id })
-    if ((upmaterial.user == req.user.id) || (req.user.id === "5d83890013edd119b4d510b0")) {
+    if ((upmaterial.user == req.user.id) || (req.user.id === "5eb458293068951650f026d3")) {
         try {
             const material = await Material.findOneAndUpdate(
                 { _id: req.params.id },
@@ -81,7 +81,7 @@ module.exports.update = async function (req, res) {
 
 module.exports.remove = async function (req, res) {
     const upmaterial = await Material.findOne({ _id: req.params.id })
-    if ((upmaterial.user == req.user.id) || (req.user.id === "5d83890013edd119b4d510b0")) {
+    if ((upmaterial.user == req.user.id) || (req.user.id === "5eb458293068951650f026d3")) {
         try {
             await Material.remove({
                 _id: req.params.id

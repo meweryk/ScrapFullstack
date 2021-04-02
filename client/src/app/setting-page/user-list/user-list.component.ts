@@ -17,13 +17,17 @@ export class UserListComponent implements OnInit, OnDestroy {
 
   uSub: Subscription
   users: User[] = []
-  profiList: any = ['админ', 'руководитель', 'мастер', 'рабочий']
+
+  masterSelected: boolean
+  checkedList: any
 
   role: string
   loading = false
   height: number
 
-  constructor(private auth: AuthService) { }
+  constructor(private auth: AuthService) {
+    this.masterSelected = false;
+  }
 
   ngOnInit(): void {
     this.height = 0.5 * window.innerHeight
@@ -44,8 +48,28 @@ export class UserListComponent implements OnInit, OnDestroy {
     this.height = 0.5 * event.target.innerHeight
   }
 
-  isAllSelected() {
+  isReadSelected() {
+    this.masterSelected = this.users.every(function (item: any) {
+      return item.flagRead == true
+    })
+    this.getCheckedItemList();
+  }
 
+  isWriteSelected() {
+    this.masterSelected = this.users.every(function (item: any) {
+      return item.flagWrite == true
+    })
+    this.getCheckedItemList();
+  }
+
+  getCheckedItemList() {
+    this.checkedList = [];
+    for (var i = 0; i < this.users.length; i++) {
+      if ((this.users[i].flagRead || this.users[i].flagWrite) && (this.users[i].role != 'admin')) {
+        this.checkedList.push(this.users[i])
+        console.log(this.users[i].flagRead)
+      }
+    }
   }
 
   onChangeRole(user) { }
