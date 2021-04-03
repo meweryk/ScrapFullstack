@@ -1,7 +1,12 @@
 <div class="row card z-depth-3" [ngStyle]="{backgroundColor: '#fff3e0'}">
   <div class="card-content">
 
-    <span class="card-title center-align" *ngIf="users.length != 0">Персонал</span>
+    <span class="card-title center-align" style="margin-bottom: 20px;" *ngIf="users.length != 0">
+      Персонал
+      <button class="btn btn-small waves-effect waves-red teal" (click)="saveAll($event)" [disabled]="saveCheckedList">
+        <i class="material-icons">save</i>
+      </button>
+    </span>
 
     <div class="row" *ngIf="!loading; else loader">
       <div>
@@ -28,23 +33,22 @@
                   <td>{{user.phone}}</td>
                   <td>
                     <div class="input-fild">
-                      <select type="text" name="role" #role="ngModel" [(ngModel)]="user.role"
-                        (click)="onChangeRole(user)">
+                      <select type="text" name="role" #role="ngModel" [(ngModel)]="user.role" (click)="onChange(user)">
                         <option value="admin">админ</option>
                         <option value="boss">руководитель</option>
-                        <option value="master">мастер</option>
+                        <option value="master">ИТР</option>
                         <option value="worker">рабочий</option>
                       </select>
                     </div>
                   </td>
                   <td>
                     <div class="valign-wrapper hoverable">
-                      <input type="checkbox" [(ngModel)]="user.flagRead" (change)="isReadSelected()">
+                      <input type="checkbox" [(ngModel)]="user.flagRead" (change)="onChange(user)">
                     </div>
                   </td>
                   <td>
                     <div class="valign-wrapper hoverable">
-                      <input type="checkbox" [(ngModel)]="user.flagWrite" (change)="isWriteSelected()">
+                      <input type="checkbox" [(ngModel)]="user.flagWrite" (change)="onChange(user)">
                     </div>
                   </td>
                   <td class="center">

@@ -1,6 +1,6 @@
 import { Component, HostListener, Input, OnDestroy, OnInit, } from '@angular/core';
-import { Observable, of, Subscription } from 'rxjs';
-import { map, switchMap } from 'rxjs/operators';
+import { Subscription } from 'rxjs';
+import { UserService } from '../user.service';
 import { MaterialService } from 'src/app/shared/classes/material.service';
 import { User } from 'src/app/shared/interfaces';
 import { AuthService } from 'src/app/shared/services/auth.service';
@@ -18,15 +18,16 @@ export class UserListComponent implements OnInit, OnDestroy {
   uSub: Subscription
   users: User[] = []
 
-  masterSelected: boolean
-  checkedList: any
+  saveCheckedList: boolean
+  list: any[]
 
   role: string
   loading = false
   height: number
 
-  constructor(private auth: AuthService) {
-    this.masterSelected = false;
+  constructor(private auth: AuthService,
+    private usersCh: UserService) {
+    this.saveCheckedList = true;
   }
 
   ngOnInit(): void {
@@ -35,6 +36,7 @@ export class UserListComponent implements OnInit, OnDestroy {
     const params = Object.assign({}, { role: this.userRole, shop: this.userShop, _id: this.userId })
     this.uSub = this.auth.getByShop(params).subscribe(users => {
       this.users = users
+      this.list = JSON.parse(JSON.stringify(users))
       this.loading = false
     })
   }
@@ -45,34 +47,22 @@ export class UserListComponent implements OnInit, OnDestroy {
 
   @HostListener('window:resize', ['$event'])
   onResize(event: any) {
-    this.height = 0.5 * event.target.innerHeight
+    this.height = 0.8 * event.target.innerHeight
   }
 
-  isReadSelected() {
-    this.masterSelected = this.users.every(function (item: any) {
-      return item.flagRead == true
-    })
-    this.getCheckedItemList();
-  }
+  onChange(user: User) {
+    const candidate = this.usersCh.checkedList.find(p => p._id === user._id)
+    const oldUser = this.list.find(p => p._id === user._id)
+    let hot = JSON.stringify(user) === JSON.stringify(oldUser) // сравниваем два объекта
 
-  isWriteSelected() {
-    this.masterSelected = this.users.every(function (item: any) {
-      return item.flagWrite == true
-    })
-    this.getCheckedItemList();
-  }
-
-  getCheckedItemList() {
-    this.checkedList = [];
-    for (var i = 0; i < this.users.length; i++) {
-      if ((this.users[i].flagRead || this.users[i].flagWrite) && (this.users[i].role != 'admin')) {
-        this.checkedList.push(this.users[i])
-        console.log(this.users[i].flagRead)
-      }
+    if (candidate && hot) {
+      this.usersCh.remove(user._id)
     }
+    if (!hot) {
+      this.usersCh.add(user, candidate)
+    }
+    this.saveCheckedList = this.usersCh.checkedList.length === 0
   }
-
-  onChangeRole(user) { }
 
   onDeleteUser(event: Event, user: User) {
     event.stopPropagation()
@@ -89,5 +79,7 @@ export class UserListComponent implements OnInit, OnDestroy {
       )
     }
   }
+
+  saveAll($event) { }
 
 }
