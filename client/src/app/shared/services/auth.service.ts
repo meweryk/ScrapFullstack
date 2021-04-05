@@ -158,5 +158,9 @@ export class AuthService {
     return this.http.delete<Message>(`/api/auth/${id}`)
   }
 
+  change(usersChangeList: any = []): Observable<Message> {
+    return this.http.patch<Message>('/api/auth/change', usersChangeList)
+  }
+
 
 }

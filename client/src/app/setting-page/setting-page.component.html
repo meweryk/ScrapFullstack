@@ -86,9 +86,5 @@
   </div>
 </form>
 
-<div>
-  <input type="checkbox" checked>
-</div>
-
 <app-user-list [userRole]="role" [userShop]="shop" [userId]="id"
   *ngIf="((role === 'boss') || (role === 'admin') || (role === 'master')) "></app-user-list>

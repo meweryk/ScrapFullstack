@@ -180,3 +180,29 @@ module.exports.remove = async function (req, res) {
     errorHandler(res, e)
   }
 }
+
+module.exports.change = async function (req, res) {
+  try {
+    for (let val of req.body) {
+      const updated = {
+        role: val.role,
+        flagRead: val.flagRead,
+        flagWrite: val.flagWrite
+      }
+      try {
+        const user = await User.findOneAndUpdate(
+          { _id: val._id },
+          { $set: updated },
+          { new: true }
+        )
+      } catch (e) {
+        console.log(e)
+      }
+    }
+    res.status(200).json({
+      message: 'Изменения сохранены.'
+    })
+  } catch (e) {
+    errorHandler(res, e)
+  }
+}

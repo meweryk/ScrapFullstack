@@ -13,6 +13,10 @@ router.patch('/update/:id', passport.authenticate('jwt', {
     session: false
 }), controller.update)
 
+router.patch('/change', passport.authenticate('jwt', {
+    session: false
+}), controller.change)
+
 router.delete('/:id', passport.authenticate('jwt', {
     session: false
 }), controller.remove)

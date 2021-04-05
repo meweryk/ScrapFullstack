@@ -26,17 +26,16 @@ export class UserListComponent implements OnInit, OnDestroy {
   height: number
 
   constructor(private auth: AuthService,
-    private usersCh: UserService) {
-    this.saveCheckedList = true;
-  }
+    private usersCh: UserService) { }
 
   ngOnInit(): void {
     this.height = 0.5 * window.innerHeight
+    this.saveCheckedList = true
     this.loading = true
     const params = Object.assign({}, { role: this.userRole, shop: this.userShop, _id: this.userId })
     this.uSub = this.auth.getByShop(params).subscribe(users => {
       this.users = users
-      this.list = JSON.parse(JSON.stringify(users))
+      this.list = JSON.parse(JSON.stringify(users))//создание копии массива объектов User[] ( неизменяемая копия для сравнения)
       this.loading = false
     })
   }
@@ -80,6 +79,23 @@ export class UserListComponent implements OnInit, OnDestroy {
     }
   }
 
-  saveAll($event) { }
+  saveAll($event) {
+    const usersChangeList = this.usersCh.checkedList
+    this.uSub = this.auth.change(usersChangeList).subscribe(
+      response => {
+
+        MaterialService.toast(response.message)
+        this.list = JSON.parse(JSON.stringify(this.users))
+        this.usersCh.clear()
+        this.saveCheckedList = true;
+      },
+      error => {
+        MaterialService.toast(error.error.message)
+        this.saveCheckedList = false
+      }
+    )
+  }
 
 }
+
+

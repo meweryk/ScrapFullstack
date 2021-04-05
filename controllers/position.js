@@ -1,5 +1,4 @@
 const Position = require('../models/Position')
-const User = require('../models/User')
 const errorHandler = require('../utils/errorHandler')
 const fs = require('fs')
 const { promisify } = require('util')
