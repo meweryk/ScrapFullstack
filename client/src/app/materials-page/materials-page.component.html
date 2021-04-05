@@ -65,16 +65,16 @@
               <td *ngIf="material.s !== 0; else space">{{material.s}}</td>
               <td *ngIf="material.c !== 0; else space">{{material.c}}</td>
               <td>{{material.markSteel}}</td>
-              <td>
+              <td class="center">
                 <a class="collection-item collection-item-icon">
-                  <span>
+                  <span class="valign-wrapper">
                     <i class="material-icons" (click)="onSelectMaterial(material)">autorenew</i>
                   </span>
                 </a>
               </td>
-              <td>
+              <td class="center">
                 <a class="collection-item collection-item-icon">
-                  <span>
+                  <span class="valign-wrapper">
                     <i class="material-icons" (click)="onDeleteMaterial($event, material)">delete</i>
                   </span>
                 </a>

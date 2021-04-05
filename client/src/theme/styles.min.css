@@ -221,6 +221,7 @@ div.table-container {
 
 table {
   border-collapse: collapse;
+
 }
 
 thead th {
@@ -245,9 +246,10 @@ tbody td,
 tfoot th {
   position: -webkit-sticky; /* for Safari */
   position: sticky;
-  padding: 0.4em;
+  padding: 0.3em;
   background: rgba(255, 224, 178, 0.90);
-  border: 1px solid transparent;
+  border-bottom: 1px solid #acacac;
+  border-right: 1px solid #c7c7c7;
   color: rgb(65, 65, 95);
   transition: .3s linear;
 }

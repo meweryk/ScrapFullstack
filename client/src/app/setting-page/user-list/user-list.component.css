@@ -1,10 +1,3 @@
-tbody th,
-tbody td {
-    padding: 0.4em;
-    transition: .3s linear;
-    border: 1px solid #acacac
-}
-
 [type="checkbox"]:not(:checked), [type="checkbox"]:checked {
   position: absolute;
   opacity: 1;
