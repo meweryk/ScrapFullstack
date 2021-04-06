@@ -29,9 +29,16 @@
               <tbody>
                 <tr *ngFor="let user of users">
                   <td>{{user.shop}}</td>
-                  <td>{{user.email}}</td>
+                  <td>
+                    <a class="btn-flat brown-text text-lighten-3"
+                      href="mailto:user.email?subject=web app crmscrapfullstack.herokuapp" [title]="user.email"><i
+                        class="small material-icons">markunread</i></a>
+                  </td>
                   <td>{{user.nicname}}</td>
-                  <td>{{user.phone}}</td>
+                  <td>
+                    <a *ngIf="user.phone" class="btn-flat grey-text text-darken-4" href="tel: user.phone"
+                      [title]="user.phone"><i class="small material-icons">phone</i></a>
+                  </td>
                   <td *ngIf="userRole != 'master'">
                     <div class="input-fild">
                       <select type="text" name="role" #role="ngModel" [(ngModel)]="user.role" (click)="onChange(user)">
