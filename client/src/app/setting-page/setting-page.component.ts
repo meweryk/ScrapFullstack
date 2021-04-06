@@ -66,7 +66,6 @@ export class SettingPageComponent implements OnInit, OnDestroy {
 
   exitPage(noSave: boolean) {
     this.exit = noSave //если false - есть несохранённые параметры
-    console.log(this.exit)
   }
 
   canDeactivate(): Observable<boolean> | boolean {
