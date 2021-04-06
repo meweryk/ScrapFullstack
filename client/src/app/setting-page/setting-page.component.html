@@ -86,5 +86,5 @@
   </div>
 </form>
 
-<app-user-list [userRole]="role" [userShop]="shop" [userId]="id"
+<app-user-list [userRole]="role" [userShop]="shop" [userId]="id" (noSave)="exitPage($event)"
   *ngIf="((role === 'boss') || (role === 'admin') || (role === 'master')) "></app-user-list>

@@ -1,4 +1,4 @@
-import { Component, HostListener, Input, OnDestroy, OnInit, } from '@angular/core';
+import { Component, EventEmitter, HostListener, Input, OnDestroy, OnInit, Output, } from '@angular/core';
 import { Subscription } from 'rxjs';
 import { UserService } from '../user.service';
 import { MaterialService } from 'src/app/shared/classes/material.service';
@@ -14,6 +14,7 @@ export class UserListComponent implements OnInit, OnDestroy {
   @Input('userRole') userRole: string
   @Input('userShop') userShop: string
   @Input('userId') userId: string
+  @Output() noSave = new EventEmitter<boolean>()
 
   uSub: Subscription
   users: User[] = []
@@ -61,6 +62,7 @@ export class UserListComponent implements OnInit, OnDestroy {
       this.usersCh.add(user, candidate)
     }
     this.saveCheckedList = this.usersCh.checkedList.length === 0
+    this.noSave.emit(this.saveCheckedList)
   }
 
   onDeleteUser(event: Event, user: User) {
@@ -79,7 +81,7 @@ export class UserListComponent implements OnInit, OnDestroy {
     }
   }
 
-  saveAll($event) {
+  saveAll() {
     const usersChangeList = this.usersCh.checkedList
     this.uSub = this.auth.change(usersChangeList).subscribe(
       response => {

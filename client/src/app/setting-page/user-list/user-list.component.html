@@ -3,7 +3,8 @@
 
     <span class="card-title center-align" style="margin-bottom: 20px;" *ngIf="users.length != 0">
       Персонал
-      <button class="btn btn-small waves-effect waves-red teal" (click)="saveAll($event)" [disabled]="saveCheckedList">
+      <button *ngIf="userRole != 'master'" class="btn btn-small waves-effect waves-red teal" (click)="saveAll()"
+        [disabled]="saveCheckedList">
         <i class="material-icons">save</i>
       </button>
     </span>
@@ -19,10 +20,10 @@
                   <th>Email</th>
                   <th>Имя</th>
                   <th>Телефон</th>
-                  <th>Роль</th>
+                  <th *ngIf="userRole != 'master'">Роль</th>
                   <th>Чтение</th>
                   <th>Запись</th>
-                  <th>Действие</th>
+                  <th *ngIf="userRole != 'master'">Действие</th>
                 </tr>
               </thead>
               <tbody>
@@ -31,7 +32,7 @@
                   <td>{{user.email}}</td>
                   <td>{{user.nicname}}</td>
                   <td>{{user.phone}}</td>
-                  <td>
+                  <td *ngIf="userRole != 'master'">
                     <div class="input-fild">
                       <select type="text" name="role" #role="ngModel" [(ngModel)]="user.role" (click)="onChange(user)">
                         <option value="admin">админ</option>
@@ -43,15 +44,17 @@
                   </td>
                   <td>
                     <div class="valign-wrapper hoverable">
-                      <input type="checkbox" [(ngModel)]="user.flagRead" (change)="onChange(user)">
+                      <input type="checkbox" [(ngModel)]="user.flagRead" (change)="onChange(user)"
+                        [disabled]='userRole === "master"'>
                     </div>
                   </td>
                   <td>
                     <div class="valign-wrapper hoverable">
-                      <input type="checkbox" [(ngModel)]="user.flagWrite" (change)="onChange(user)">
+                      <input type="checkbox" [(ngModel)]="user.flagWrite" (change)="onChange(user)"
+                        [disabled]='userRole === "master"'>
                     </div>
                   </td>
-                  <td class="center">
+                  <td class="center" *ngIf="userRole != 'master'">
                     <a class="collection-item collection-item-icon">
                       <span class="valign-wrapper">
                         <i class="material-icons" (click)="onDeleteUser($event, user)">delete</i>

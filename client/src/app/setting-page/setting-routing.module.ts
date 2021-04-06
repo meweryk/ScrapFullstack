@@ -1,9 +1,10 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { SettingPageComponent } from './setting-page.component';
+import { CanDeactivateGuard } from './can-deactivate.guard'
 
 const settingRoutes: Routes = [
-  { path: '', component: SettingPageComponent }
+  { path: '', component: SettingPageComponent, canDeactivate: [CanDeactivateGuard] }
 ]
 
 @NgModule({

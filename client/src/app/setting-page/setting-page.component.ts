@@ -1,10 +1,12 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import { Subscription } from 'rxjs';
+import { Observable, Subscription } from 'rxjs';
 import { MaterialService } from '../shared/classes/material.service';
 import { User } from '../shared/interfaces';
 import { AuthService } from '../shared/services/auth.service';
+import { DialogService } from './dialog.service'
+
 
 @Component({
   selector: 'app-setting-page',
@@ -16,6 +18,7 @@ export class SettingPageComponent implements OnInit, OnDestroy {
   sSub: Subscription
   loader = false
   open = false
+  exit = true
 
   phone: string = ''
   nicname: string = ''
@@ -25,7 +28,8 @@ export class SettingPageComponent implements OnInit, OnDestroy {
   id: string = ''
 
   constructor(private auth: AuthService,
-    private router: Router) { }
+    private router: Router,
+    private dialogService: DialogService) { }
 
   ngOnInit(): void {
     this.loader = false
@@ -58,6 +62,21 @@ export class SettingPageComponent implements OnInit, OnDestroy {
       phone: this.phone
     })
     MaterialService.updateTextInputs()
+  }
+
+  exitPage(noSave: boolean) {
+    this.exit = noSave //если false - есть несохранённые параметры
+    console.log(this.exit)
+  }
+
+  canDeactivate(): Observable<boolean> | boolean {
+    // Allow synchronous navigation (`true`) if no crisis or the crisis is unchanged
+    if (this.exit) {
+      return true;
+    }
+    // Otherwise ask the user with the dialog service and return its
+    // observable which resolves to true or false when the user decides
+    return this.dialogService.confirm('Отменить изменения?')
   }
 
   changeSetting() {
