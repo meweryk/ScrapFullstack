@@ -31,12 +31,12 @@
                   <td>{{user.shop}}</td>
                   <td>
                     <a class="btn-flat brown-text text-lighten-3"
-                      href="mailto:user.email?subject=web app crmscrapfullstack.herokuapp" [title]="user.email"><i
-                        class="small material-icons">markunread</i></a>
+                      [href]="'mailto:'+user.email+'?subject=web app crmscrapfullstack.herokuapp'"
+                      [title]="user.email"><i class="small material-icons">markunread</i></a>
                   </td>
                   <td>{{user.nicname}}</td>
                   <td>
-                    <a *ngIf="user.phone" class="btn-flat grey-text text-darken-4" href="tel: user.phone"
+                    <a *ngIf="user.phone" class="btn-flat grey-text text-darken-4" [href]="'tel:'+user.phone"
                       [title]="user.phone"><i class="small material-icons">phone</i></a>
                   </td>
                   <td *ngIf="userRole != 'master'">
