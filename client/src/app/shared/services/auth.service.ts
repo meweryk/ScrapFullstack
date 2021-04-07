@@ -16,6 +16,9 @@ export class AuthService {
   private myPhone = null
   private myRole = null
   private myId = null
+  private myFlagRead = null
+  private myFlagWrite = null
+
 
   constructor(private http: HttpClient) { }
 
@@ -23,11 +26,11 @@ export class AuthService {
     return this.http.post<User>('/api/auth/register', user)
   }
 
-  login(user: User): Observable<{ token: string, nicname: string, shop: string, email: string, phone: string, role: string, id: string }> {
-    return this.http.post<{ token: string, nicname: string, shop: string, email: string, phone: string, role: string, id: string }>('/api/auth/login', user)
+  login(user: User): Observable<{ token: string, nicname: string, shop: string, email: string, phone: string, role: string, id: string, flagRead: boolean, flagWrite: boolean }> {
+    return this.http.post<{ token: string, nicname: string, shop: string, email: string, phone: string, role: string, id: string, flagRead: boolean, flagWrite: boolean }>('/api/auth/login', user)
       .pipe(
         tap(
-          ({ token, nicname, shop, email, phone, role, id }) => {
+          ({ token, nicname, shop, email, phone, role, id, flagRead, flagWrite }) => {
             localStorage.setItem('auth-token', token)
             this.setToken(token)
             localStorage.setItem('my-nicname', nicname)
@@ -42,6 +45,10 @@ export class AuthService {
             this.setRole(role)
             localStorage.setItem('my-id', id)
             this.setId(id)
+            localStorage.setItem('my-flagRead', String(flagRead))
+            this.setFlagRead(flagRead)
+            localStorage.setItem('my-flagWrite', String(flagWrite))
+            this.setFlagWrite(flagWrite)
           }
         )
       )
@@ -75,6 +82,15 @@ export class AuthService {
     this.myId = id
   }
 
+  setFlagRead(flagRead: boolean) {
+    this.myFlagRead = flagRead
+    console.log(typeof (this.myFlagRead))
+  }
+
+  setFlagWrite(flagWrite: boolean) {
+    this.myFlagWrite = flagWrite
+  }
+
   getToken(): string {
     return this.token
   }
@@ -103,6 +119,14 @@ export class AuthService {
     return this.myId
   }
 
+  getFlagRead(): boolean {
+    return this.myFlagRead
+  }
+
+  getFlagWrite(): boolean {
+    return this.myFlagWrite
+  }
+
   isAuthenticated(): boolean {
     return !!this.token
   }
@@ -115,6 +139,8 @@ export class AuthService {
     this.setPhone(null)
     this.setRole(null)
     this.setId(null)
+    this.setFlagRead(null)
+    this.setFlagWrite(null)
     localStorage.clear()
   }
 
@@ -130,11 +156,11 @@ export class AuthService {
     })
   }
 
-  update(user: User): Observable<{ token: string, nicname: string, shop: string, email: string, phone: string, role: string, id: string }> {
-    return this.http.patch<{ token: string, nicname: string, shop: string, email: string, phone: string, role: string, id: string }>(`api/auth/update/${user._id}`, user)
+  update(user: User): Observable<{ token: string, nicname: string, shop: string, email: string, phone: string, role: string, id: string, flagRead: boolean, flagWrite: boolean }> {
+    return this.http.patch<{ token: string, nicname: string, shop: string, email: string, phone: string, role: string, id: string, flagRead: boolean, flagWrite: boolean }>(`api/auth/update/${user._id}`, user)
       .pipe(
         tap(
-          ({ token, nicname, shop, email, phone, role, id }) => {
+          ({ token, nicname, shop, email, phone, role, id, flagRead, flagWrite }) => {
             localStorage.setItem('auth-token', token)
             this.setToken(token)
             localStorage.setItem('my-nicname', nicname)
@@ -149,6 +175,10 @@ export class AuthService {
             this.setRole(role)
             localStorage.setItem('my-id', id)
             this.setId(id)
+            localStorage.setItem('my-flagRead', String(flagRead))
+            this.setFlagRead(flagRead)
+            localStorage.setItem('my-flagWrite', String(flagWrite))
+            this.setFlagWrite(flagWrite)
           }
         )
       )

@@ -22,6 +22,8 @@ module.exports.login = async function (req, res) {
       const phone = candidate.phone
       const role = candidate.role
       const id = candidate._id
+      const flagRead = candidate.flagRead
+      const flagWrite = candidate.flagWrite
 
       res.status(200).json({
         token: `Bearer ${token}`,
@@ -30,7 +32,9 @@ module.exports.login = async function (req, res) {
         email: email,
         phone: phone,
         role: role,
-        id: id
+        id: id,
+        flagRead: flagRead,
+        flagWrite: flagWrite
       })
     } else {
       // Пароли не совпали

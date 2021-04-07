@@ -6,9 +6,17 @@ const zone = "Europe/Zaporozhye"
 
 //localhost:5000/api/fuse?offset=2&limit=5
 module.exports.getAll = async function (req, res) {
+
+  const param = () => {
+    if (req.user.role === 'admin' || req.user.role === 'boss') {
+      return null
+    } else {
+      return req.user.shop
+    }
+  }
   try {
     const fuses = await Fuse.find({
-      shop: req.user.shop
+      param
     })
     res.status(200).json(fuses)
   } catch (e) {
