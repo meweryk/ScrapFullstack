@@ -1,7 +1,7 @@
 import { Component, ViewChild, ElementRef, AfterViewInit, OnDestroy } from '@angular/core';
 import { AnalyticsService } from '../shared/services/analytics.service';
 import { AnalyticsPage } from '../shared/interfaces';
-import { Chart } from 'chart.js'
+import { Chart, registerables } from 'chart.js';
 import { Subscription } from 'rxjs';
 import { MaterialInstance, MaterialService } from '../shared/classes/material.service';
 
@@ -24,7 +24,9 @@ export class AnalyticsPageComponent implements AfterViewInit, OnDestroy {
   pending = true
 
   //инжектирование сервиса при помощи которого делается бэк запрос
-  constructor(private service: AnalyticsService) { }
+  constructor(private service: AnalyticsService) {
+    Chart.register(...registerables)
+  }
 
   ngAfterViewInit() {
     this.tapTarget = MaterialService.initTapTarget(this.tapTargetRef)
@@ -103,8 +105,30 @@ export class AnalyticsPageComponent implements AfterViewInit, OnDestroy {
       const orderCtx = this.orderImportRef.nativeElement.getContext('2d')
       gainCtx.canvas.height = '305px'
       orderCtx.canvas.height = '325px'
-      new Chart(gainCtx, createChartConfig(gainConfig))
-      new Chart(orderCtx, createChartConfig(orderConfig))
+      new Chart(gainCtx,
+        {
+          type: 'line',
+          options: {
+            responsive: true
+          },
+          data: {
+            labels: gainConfig.labels,
+            datasets: gainConfig.datasets
+          }
+        }
+      )
+      new Chart(orderCtx,
+        {
+          type: 'line',
+          options: {
+            responsive: true
+          },
+          data: {
+            labels: orderConfig.labels,
+            datasets: orderConfig.datasets
+          }
+        }
+      )
 
       this.pending = false
     })
@@ -121,17 +145,4 @@ export class AnalyticsPageComponent implements AfterViewInit, OnDestroy {
     this.tapTarget.open()
   }
 
-}
-
-function createChartConfig({ labels, datasets }) {
-  return {
-    type: 'line',
-    options: {
-      responsive: true
-    },
-    data: {
-      labels,
-      datasets
-    }
-  }
 }
