@@ -2,7 +2,7 @@ import { Component, OnInit, ElementRef, AfterViewInit, ViewChild, OnDestroy, Hos
 import { MaterialsService } from '../shared/services/materials.service';
 import { Material, MaterialList, FilterMaterial } from '../shared/interfaces';
 import { MaterialInstance, MaterialService, MaterialAutocomplete } from '../shared/classes/material.service';
-import { FormGroup, Validators, FormBuilder } from '@angular/forms';
+import { UntypedFormGroup, Validators, UntypedFormBuilder } from '@angular/forms';
 import { Subscription } from 'rxjs'
 
 @Component({
@@ -28,7 +28,7 @@ export class MaterialsPageComponent implements OnInit, AfterViewInit, OnDestroy 
   height: number
   isNew = true
 
-  form: FormGroup = this._formBuilder.group({
+  form: UntypedFormGroup = this._formBuilder.group({
     vid: [null, Validators.required],
     classSteel: ['', Validators.required],
     groupSteel: '',
@@ -62,7 +62,7 @@ export class MaterialsPageComponent implements OnInit, AfterViewInit, OnDestroy 
   data: {}
 
   constructor(private materialsService: MaterialsService,
-    private _formBuilder: FormBuilder) { }
+    private _formBuilder: UntypedFormBuilder) { }
 
   ngOnInit() {
     this.loading = true

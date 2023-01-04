@@ -1,6 +1,6 @@
 import { formatDate } from '@angular/common';
 import { AfterViewInit, Component, ElementRef, OnDestroy, OnInit, ViewChild } from '@angular/core';
-import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { UntypedFormControl, UntypedFormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Params, Router } from '@angular/router';
 import { of } from 'rxjs';
 import { switchMap } from 'rxjs/operators';
@@ -26,8 +26,8 @@ export class FuseCardComponent implements OnInit, AfterViewInit, OnDestroy {
   start: MaterialDatepicker
   dropdown: MaterialInstance
 
-  form: FormGroup
-  formKanava: FormGroup
+  form: UntypedFormGroup
+  formKanava: UntypedFormGroup
   isNew = true //ввод новой плавки
   fuse: Fuse
   fusepl: string = ''
@@ -41,14 +41,14 @@ export class FuseCardComponent implements OnInit, AfterViewInit, OnDestroy {
   }
 
   ngOnInit(): void {
-    this.form = new FormGroup({
-      fuse: new FormControl(null, Validators.required),
-      fuseDate: new FormControl(Date, Validators.required),
-      fuseCard: new FormControl(null),
-      alloy: new FormControl(null, Validators.required)
+    this.form = new UntypedFormGroup({
+      fuse: new UntypedFormControl(null, Validators.required),
+      fuseDate: new UntypedFormControl(Date, Validators.required),
+      fuseCard: new UntypedFormControl(null),
+      alloy: new UntypedFormControl(null, Validators.required)
     })
 
-    this.formKanava = new FormGroup({})
+    this.formKanava = new UntypedFormGroup({})
 
     this.form.disable()
     this.formKanava.disable()

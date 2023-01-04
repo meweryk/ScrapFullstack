@@ -2,7 +2,7 @@ import { Component, OnInit, Input, ViewChild, ElementRef, AfterViewInit, OnDestr
 import { PositionsService } from 'src/app/shared/services/positions.service';
 import { Position } from 'src/app/shared/interfaces';
 import { MaterialService, MaterialInstance, MaterialAutocomplete } from 'src/app/shared/classes/material.service';
-import { FormGroup, FormControl, Validators } from '@angular/forms';
+import { UntypedFormGroup, UntypedFormControl, Validators } from '@angular/forms';
 import { AuthService } from 'src/app/shared/services/auth.service';
 import { Subscription } from 'rxjs';
 import { MaterialsService } from 'src/app/shared/services/materials.service';
@@ -37,7 +37,7 @@ export class PositionsFormComponent implements OnInit, AfterViewInit, OnDestroy 
   image: File
   imagePreview = ''
 
-  form: FormGroup
+  form: UntypedFormGroup
   height: number
   constructor(private positionsService: PositionsService,
     private auth: AuthService,
@@ -49,13 +49,13 @@ export class PositionsFormComponent implements OnInit, AfterViewInit, OnDestroy 
     this.height = 0.5 * window.innerHeight
     this.shop = this.auth.getShop()
 
-    this.form = new FormGroup({
-      name: new FormControl(null, [Validators.required, Validators.maxLength(30)]),
-      cost: new FormControl(null, [Validators.required, Validators.min(1)]),
-      stock: new FormControl(null, [Validators.required, Validators.min(0)]),
-      rank: new FormControl(null, Validators.required),
-      exposition: new FormControl(null, Validators.maxLength(400)),
-      imageSrc: new FormControl(null)
+    this.form = new UntypedFormGroup({
+      name: new UntypedFormControl(null, [Validators.required, Validators.maxLength(30)]),
+      cost: new UntypedFormControl(null, [Validators.required, Validators.min(1)]),
+      stock: new UntypedFormControl(null, [Validators.required, Validators.min(0)]),
+      rank: new UntypedFormControl(null, Validators.required),
+      exposition: new UntypedFormControl(null, Validators.maxLength(400)),
+      imageSrc: new UntypedFormControl(null)
     })
     this.loading = true
     this.positionsService.fetch(this.categoryId).subscribe(positions => {

@@ -1,5 +1,5 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
-import { FormGroup, FormControl, Validators } from '@angular/forms';
+import { UntypedFormGroup, UntypedFormControl, Validators } from '@angular/forms';
 import { AuthService } from '../shared/services/auth.service';
 import { Router } from '@angular/router';
 import { Subscription } from 'rxjs';
@@ -13,7 +13,7 @@ import { Meta, Title } from '@angular/platform-browser';
 })
 export class RegisterPageComponent implements OnInit, OnDestroy {
 
-  form: FormGroup
+  form: UntypedFormGroup
   aSub: Subscription
   loader = false
 
@@ -30,12 +30,12 @@ export class RegisterPageComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
     this.loader = false
-    this.form = new FormGroup({
-      email: new FormControl(null, [Validators.required, Validators.email]),
-      password: new FormControl(null, [Validators.required, Validators.minLength(6)]),
-      nicname: new FormControl(null, [Validators.required]),
-      shop: new FormControl(null, [Validators.required]),
-      phone: new FormControl(null, [Validators.pattern('^[0-9]+(?!.)')])
+    this.form = new UntypedFormGroup({
+      email: new UntypedFormControl(null, [Validators.required, Validators.email]),
+      password: new UntypedFormControl(null, [Validators.required, Validators.minLength(6)]),
+      nicname: new UntypedFormControl(null, [Validators.required]),
+      shop: new UntypedFormControl(null, [Validators.required]),
+      phone: new UntypedFormControl(null, [Validators.pattern('^[0-9]+(?!.)')])
     })
   }
 

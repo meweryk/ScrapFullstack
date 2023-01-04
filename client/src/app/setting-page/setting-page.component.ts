@@ -1,5 +1,5 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { UntypedFormControl, UntypedFormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { Observable, Subscription } from 'rxjs';
 import { MaterialService } from '../shared/classes/material.service';
@@ -14,7 +14,7 @@ import { DialogService } from './dialog.service'
   styleUrls: ['./setting-page.component.css']
 })
 export class SettingPageComponent implements OnInit, OnDestroy {
-  form: FormGroup
+  form: UntypedFormGroup
   sSub: Subscription
   loader = false
   open = false
@@ -34,12 +34,12 @@ export class SettingPageComponent implements OnInit, OnDestroy {
   ngOnInit(): void {
     this.loader = false
 
-    this.form = new FormGroup({
-      email: new FormControl(null, [Validators.required, Validators.email]),
-      password: new FormControl(null, [Validators.required, Validators.minLength(6)]),
-      nicname: new FormControl(null, [Validators.required]),
-      shop: new FormControl(null, [Validators.required]),
-      phone: new FormControl(null, [Validators.pattern('^[0-9]+(?!.)')])
+    this.form = new UntypedFormGroup({
+      email: new UntypedFormControl(null, [Validators.required, Validators.email]),
+      password: new UntypedFormControl(null, [Validators.required, Validators.minLength(6)]),
+      nicname: new UntypedFormControl(null, [Validators.required]),
+      shop: new UntypedFormControl(null, [Validators.required]),
+      phone: new UntypedFormControl(null, [Validators.pattern('^[0-9]+(?!.)')])
     })
 
     this.fatch()
