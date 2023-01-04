@@ -124,7 +124,7 @@ module.exports.update = async function (req, res) {
   if (anyuser.length > 0) {
     // Этот email уже занят, нужно отправить ошибку
     res.status(409).json({
-      message: 'Такой email уже занят. Попробуйте другой.'
+      message: 'Email занят, попробуйте другой.'
     })
   } else {
     updated.email = req.body.email

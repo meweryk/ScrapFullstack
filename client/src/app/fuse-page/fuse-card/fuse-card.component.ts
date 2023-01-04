@@ -17,14 +17,17 @@ export class FuseCardComponent implements OnInit, AfterViewInit, OnDestroy {
 
   @ViewChild('input') innputRef: ElementRef
   @ViewChild('modalId') modalIdRef: ElementRef
+  @ViewChild('modalKanava') modalKanavaRef: ElementRef
   @ViewChild('start') startRef: ElementRef
   @ViewChild('dropdown') dropdownRef: ElementRef
 
   modalId: MaterialInstance
+  modalKanava: MaterialInstance
   start: MaterialDatepicker
   dropdown: MaterialInstance
 
   form: FormGroup
+  formKanava: FormGroup
   isNew = true //ввод новой плавки
   fuse: Fuse
   fusepl: string = ''
@@ -45,7 +48,10 @@ export class FuseCardComponent implements OnInit, AfterViewInit, OnDestroy {
       alloy: new FormControl(null, Validators.required)
     })
 
+    this.formKanava = new FormGroup({})
+
     this.form.disable()
+    this.formKanava.disable()
 
     this.route.params
       .pipe(
@@ -66,13 +72,13 @@ export class FuseCardComponent implements OnInit, AfterViewInit, OnDestroy {
             this.fusepl = fuse.fuse
             this.fuseD = formatDate(this.fuse.fuseDate, 'dd.MM.yyyy', 'en')
           }
-        },
-        error => MaterialService.toast(error.error.message)
+        }
       )
   }
 
   ngAfterViewInit() {
     this.modalId = MaterialService.initModal(this.modalIdRef)
+    this.modalKanava = MaterialService.initModal(this.modalKanavaRef)
     this.start = MaterialService.initDatepicker(this.startRef, this.validate.bind(this))
     this.dropdown = MaterialService.initDropdown(this.dropdownRef, false, true)
     if (this.isNew) {
@@ -90,6 +96,7 @@ export class FuseCardComponent implements OnInit, AfterViewInit, OnDestroy {
 
   ngOnDestroy() {
     this.modalId.destroy()
+    this.modalKanava.destroy()
     this.start.destroy()
     this.dropdown.destroy()
   }
@@ -121,16 +128,27 @@ export class FuseCardComponent implements OnInit, AfterViewInit, OnDestroy {
     MaterialService.updateTextInputs()
   }
 
+  onAddKanava() {
+    this.modalKanava.open()
+  }
+
   changeSetting() {
     this.open = true
     this.form.enable()
   }
+
+  changeKanava() { }
+  mathKanava() { }
 
   onCancel() {
     this.modalId.close()
     if (this.isNew) {
       this.dropdown.open()
     }
+  }
+
+  onCancelKanava() {
+    this.modalKanava.close()
   }
 
   onSubmit() {

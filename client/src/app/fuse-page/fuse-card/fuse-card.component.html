@@ -1,4 +1,4 @@
-<div class="page-title" style="padding: 0;">
+<div class="page-title">
   <h5>
     <a routerLink="/fuse">Выплавка</a>
     <i class="tiny material-icons">keyboard_arrow_right</i>
@@ -12,6 +12,7 @@
   </span>
 </div>
 
+<!--Выпадающее меню плавки-->
 <div class="row" style="margin-bottom: 5px">
   <a #dropdown class="dropdown-trigger" data-target="dropdownFuse" style="color: #333333">
     <i class="small material-icons center">list</i>
@@ -20,7 +21,7 @@
     <li><a (click)="onAddFuseId()"><i class="tiny material-icons right">keyboard_arrow_right</i>Идентификатор плавки</a>
     </li>
     <li class="divider" tabindex="-1"></li>
-    <li><a class="active" href="#test2"><i class="tiny material-icons right">keyboard_arrow_right</i>Расчёт массы
+    <li><a (click)="onAddKanava()"><i class="tiny material-icons right">keyboard_arrow_right</i>Расчёт массы
         шихты</a></li>
     <li class="divider" tabindex="-1"></li>
     <li><a href="#test3"><i class="tiny material-icons right">keyboard_arrow_right</i>Шихтовые материалы</a></li>
@@ -30,8 +31,10 @@
 </div>
 
 <div class="row" *ngIf="fuse">
+
+  <!--Карточка идентификатора плавки-->
   <div class="col s12 m6">
-    <div class="card grey lighten-2 z-depth-3">
+    <div class="card indigo lighten-4 z-depth-3">
       <div class="card-content grey-text text-darken-3">
         <span class="card-title">Идентификатор Павки</span>
         <ul>
@@ -43,9 +46,27 @@
       </div>
     </div>
   </div>
+
+  <!--Карточка канавы плавки-->
+  <div class="col s12 m6">
+    <div class="card indigo lighten-4 z-depth-3">
+      <div class="card-content grey-text text-darken-3">
+        <span class="card-title">Расчёт массы шихты</span>
+        <ul>
+          <li><b class="smallText">Годное</b> масса годного 52,0т</li>
+          <li class="divider" tabindex="-1"></li>
+          <li><b class="smallText">Изложницы</b> развес 3,5т 6шт</li>
+          <li class="divider" tabindex="-1"></li>
+          <li><b class="smallText">Отходы, кг/тонну годного</b> 30 недоливок (0т)</li>
+          <li class="divider" tabindex="-1"><br></li>
+          <li><b class="smallText">Резюме</b> лорен ипсум</li>
+        </ul>
+      </div>
+    </div>
+  </div>
 </div>
 
-
+<!--Форма идентификатора плавки-->
 <div class="col s12">
   <form class="col s12 m6" [formGroup]="form" (ngSubmit)="onSubmit()">
     <div class="modal card-position" #modalId>
@@ -99,6 +120,70 @@
         <button type="button" (click)="onCancel()"
           class="modal-action waves-effect waves-black btn-flat">Отмена</button>
         <button type="submit" [disabled]="form.invalid || form.disabled"
+          class="waves-effect waves-light btn-small right">
+          <span><i class="material-icons">save</i></span>
+        </button>
+      </div>
+    </div>
+  </form>
+</div>
+
+<!--Форма рассчёта количества шихты на выплавку-->
+<div class="col s12" id="kanav">
+  <form class="col s12 m6" [formGroup]="formKanava" name="kanava" id="add_kanava" action="scrap.js" autocomplete="on"
+    onsubmit="teor()">
+    <div class="modal card-position" #modalKanava>
+      <div class="modal-content">
+        <h4 class="mb1">Расчёт массы шихты</h4>
+        <div class="add">
+          <b>Годное:</b><br>
+          <input name="god" type="number" step="any" min="0.1" max="100" placeholder="вес" value="" style="width: 7em"
+            required autofocus>масса годного, т<br>
+          <hr>
+        </div>
+        <div class="add"><b>Изложницы</b></div>
+        <div class="izl">
+          <div>Развес <input name="iz1" type="number" step="any" min="0" max="15" placeholder="вес" value="3.5">т</div>
+          <div><input name="izk1" type="number" min="0" max="20" placeholder="шт." value="">шт</div>
+          <div>Развес <input name="iz2" type="number" step="any" min="0" max="15" placeholder="вес" value="4.3">т</div>
+          <div><input name="izk2" type="number" min="0" max="20" placeholder="шт." value="">шт</div>
+          <div>Развес <input name="iz3" type="number" step="any" min="0" max="15" placeholder="вес" value="6.2">т</div>
+          <div><input name="izk3" type="number" min="0" max="20" placeholder="шт." value="">шт</div>
+        </div>
+        <div class="add">
+          <b><span id="kanava"></span></b><br>
+          <hr>
+        </div>
+        <div class="add"><b> Отходы, кг/т годного: </b></div>
+        <div class="add"><input name="nedol" type="number" step="any" min="0" max="100" placeholder="Масса, кг"
+            value="30">НЕДОЛИВОК<b id="nedol"></b></div>
+        <div class="add"><input name="litn" type="number" onechange="total()" step="any" min="0" max="50"
+            placeholder="Масса, кг" value="16">ЛИТНИКИ<b id="litn"></b></div>
+        <div class="add"><input name="scrap_r" type="number" step="any" min="0" max="50" placeholder="Масса, кг"
+            value="3">СКРАП разливки
+          <b id="scrap_r"></b>
+        </div>
+        <div class="add"><input name="scrap_sh" type="number" step="any" min="0" max="100" placeholder="Масса, кг"
+            value="14">СКРАП из шлака<b id="scrap_sh"></b></div>
+        <div class="add"><input name="ugar" type="number" step="1" min="0" max="500" placeholder="Масса, кг"
+            value="100">УГАР<b id="ugar"></b></div>
+        <div class="add">
+          <b><span id="resume"></span></b>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <div class="chami">
+          <div class="cham"><input type="reset" name="res" class="sub" value="Очистить" /></div>
+          <div class="cham"><input type="submit" name="subm" class="sub" value="Рассчёт" /></div>
+        </div>
+        <button class="waves-effect waves-light btn-flat" type="reset"><i class="material-icons">replay</i></button>
+        <button class="modal-action waves-effect waves-black btn-flat" type="button"
+          (click)="mathKanava()">Рассчёт</button>
+        <button class="waves-effect waves-light btn btn-small" [disabled]="open" (click)="changeKanava()"><i
+            class="material-icons">edit</i></button>
+        <button type="button" (click)="onCancelKanava()"
+          class="modal-action waves-effect waves-black btn-flat">Отмена</button>
+        <button type="submit" [disabled]="formKanava.invalid || formKanava.disabled"
           class="waves-effect waves-light btn-small right">
           <span><i class="material-icons">save</i></span>
         </button>
