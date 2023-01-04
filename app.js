@@ -22,6 +22,8 @@ mongoose.connect(keys.mongoURI, {})
   .then(() => console.log('MongoDB connected.'))
   .catch(error => console.log(error))
 
+mongoose.set('strictQuery', false)
+
 app.use(compression())
 
 app.use(passport.initialize())
