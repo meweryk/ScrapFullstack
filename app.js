@@ -18,11 +18,13 @@ const coeffRoutes = require('./routes/coeff')
 const keys = require('./config/keys')
 const app = express()
 
+mongoose.set('strictQuery', false)
+
 mongoose.connect(keys.mongoURI, {})
   .then(() => console.log('MongoDB connected.'))
   .catch(error => console.log(error))
 
-mongoose.set('strictQuery', false)
+
 
 app.use(compression())
 

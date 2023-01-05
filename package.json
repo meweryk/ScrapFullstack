@@ -4,7 +4,6 @@
   "description": "fullstack app with angular and express",
   "private": true,
   "main": "index.js",
-  "lockfileVersion": 2,
   "engines": {
     "node": "16.13.0",
     "npm": "8.1.0"
@@ -15,7 +14,7 @@
     "client-install": "npm install --prefix client",
     "client": "npm run start --prefix client",
     "dev": "concurrently \"npm run server\" \"npm run client\"",
-    "heroku-postbuild": "NPM_CONFIG_PRODUCTION=`--omit=dev` npm run client-install && npm run build --prefix client"
+    "heroku-postbuild": "NPM_CONFIG_PRODUCTION=true npm run client-install && npm run build --prefix client"
   },
   "keywords": [
     "express",
