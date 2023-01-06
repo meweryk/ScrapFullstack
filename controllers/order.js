@@ -102,6 +102,7 @@ module.exports.update = async function (req, res) {
 
   if (req.body.waybill) {
     updated.waybill = req.body.waybill
+    updated.train = req.body.train
   }
 
   if (req.body.order) {

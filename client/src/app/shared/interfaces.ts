@@ -90,6 +90,7 @@ export interface Order {
   got?: Date
   deliveryId?: string
   waybill?: string
+  train?: string
 }
 
 export interface OrderPosition {

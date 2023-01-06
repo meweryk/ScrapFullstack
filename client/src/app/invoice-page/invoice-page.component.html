@@ -13,7 +13,8 @@
           <input formControlName="waybill" id="waybill" type="text" maxlength="15"
             [ngClass]="{'invalid': form.get('waybill').invalid && form.get('waybill').touched}">
           <label for="waybill">Накладная №</label>
-          <span *ngIf="form.controls.waybill.invalid && (form.controls.waybill.touched || form.controls.waybill.dirty)"
+          <span
+            *ngIf="form.controls['waybill'].invalid && (form.controls['waybill'].touched || form.controls['waybill'].dirty)"
             class="helper-text red-text">Заполните позицию.
           </span>
         </div>
@@ -24,7 +25,8 @@
           <input formControlName="shop" id="shop" type="text" maxlength="15"
             [ngClass]="{'invalid': form.get('shop').invalid && form.get('shop').touched}">
           <label for="shop">Отправитель</label>
-          <span *ngIf="form.controls.shop.invalid && form.controls.shop.touched" class="helper-text red-text">Заполните
+          <span *ngIf="form.controls['shop'].invalid && form.controls['shop'].touched"
+            class="helper-text red-text">Заполните
             позицию.
           </span>
         </div>
@@ -33,7 +35,7 @@
           <input formControlName="shopBuyer" id="shopBuyer" type="text" maxlength="15"
             [ngClass]="{'invalid': form.get('shopBuyer').invalid && form.get('shopBuyer').touched}">
           <label for="shopBuyer">Получатель</label>
-          <span *ngIf="form.controls.shopBuyer.invalid && form.controls.shopBuyer.touched"
+          <span *ngIf="form.controls['shopBuyer'].invalid && form.controls['shopBuyer'].touched"
             class="helper-text red-text">Заполните позицию.
           </span>
         </div>
@@ -42,7 +44,7 @@
           <input formControlName="train" id="train" type="text" maxlength="15"
             [ngClass]="{'invalid': form.get('train').invalid && form.get('train').touched}">
           <label for="train">Транспорт</label>
-          <span *ngIf="form.controls.train.invalid && form.controls.train.touched"
+          <span *ngIf="form.controls['train'].invalid && form.controls['train'].touched"
             class="helper-text red-text">Заполните позицию.
           </span>
         </div>

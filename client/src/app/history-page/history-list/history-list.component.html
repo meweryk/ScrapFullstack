@@ -87,6 +87,9 @@
       <li class="valign-wrapper pb5" *ngIf="selectedOrder.waybill">
         <span class="bold">накладная:</span>&nbsp;&#8470;{{selectedOrder.waybill}}
       </li>
+      <li class="valign-wrapper pb5" *ngIf="selectedOrder.train">
+        <span class="bold">транспорт:</span>&nbsp;&#8470;{{selectedOrder.train}}
+      </li>
       <li class="valign-wrapper pb5" *ngIf="selectedOrder.got">
         <span class="bold">Получен:</span>&nbsp;{{selectedOrder.got | date:' dd.MM.yy - HH:mm'}}
       </li>

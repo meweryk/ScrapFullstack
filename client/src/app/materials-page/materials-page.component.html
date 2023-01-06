@@ -113,7 +113,7 @@
             type="text" maxlength="40"
             [ngClass]="{'invalid': form.get('classSteel').invalid && form.get('classSteel').touched}">
           <label for="mat-classSteel">Класс</label>
-          <span *ngIf="form.controls.classSteel.invalid && form.controls.classSteel.touched"
+          <span *ngIf="form.controls['classSteel'].invalid && form.controls['classSteel'].touched"
             class="helper-text red-text">Позиция не должна быть пустой.
           </span>
         </div>

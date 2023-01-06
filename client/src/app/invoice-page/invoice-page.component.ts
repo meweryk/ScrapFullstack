@@ -7,8 +7,6 @@ import { AuthService } from '../shared/services/auth.service';
 import { DeliveriesServise } from '../shared/services/deliveries.service';
 import { InvoiceServise } from './invoice.service';
 import { OrdersServise } from '../shared/services/orders.service';
-import { from } from 'rxjs';
-import { filter } from 'rxjs/operators';
 
 @Component({
   selector: 'app-invoice-page',
@@ -128,7 +126,7 @@ export class InvoicePageComponent implements OnInit, OnChanges, OnDestroy {
       newDelivery => {
         MaterialService.toast(`Поставка по накладной №${newDelivery.waybill} создана`)
         if (this.deliveryOrder._id) {
-          this.update(newDelivery._id, newDelivery.waybill, newDelivery.order)
+          this.update(newDelivery._id, newDelivery.waybill, newDelivery.order, newDelivery.train)
         }
         this.invoice.clear()
       },
@@ -145,7 +143,7 @@ export class InvoicePageComponent implements OnInit, OnChanges, OnDestroy {
     )
   }
 
-  private update(deliveryId: string, waybill: string, order: number) {
+  private update(deliveryId: string, waybill: string, order: number, train: string) {
     if (this.deliveryOrder.order != order) {
       this.deliveryOrder.order = order
       this.newOrder = order
@@ -154,6 +152,7 @@ export class InvoicePageComponent implements OnInit, OnChanges, OnDestroy {
       _id: this.deliveryOrder._id,
       deliveryId: deliveryId,
       waybill: waybill,
+      train: train,
       order: this.newOrder,
       view: this.deliveryOrder.view,
       send: 'f',
@@ -162,6 +161,7 @@ export class InvoicePageComponent implements OnInit, OnChanges, OnDestroy {
     this.ordersService.update(objectFlag).subscribe((order: Order) => {
       this.deliveryOrder.deliveryId = order.deliveryId
       this.deliveryOrder.waybill = order.waybill
+      this.deliveryOrder.train = order.train
       this.deliveryOrder.order = order.order
       this.deliveryOrder.send = order.send
       MaterialService.toast(`Заказ ${order.order} отправлен поставщиком ${this.shop}`)

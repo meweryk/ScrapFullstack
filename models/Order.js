@@ -84,6 +84,9 @@ const orderSchema = new Schema({
   },
   waybill: {
     type: String
+  },
+  train: {
+    type: String
   }
 })
 
